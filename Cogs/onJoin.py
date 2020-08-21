@@ -78,6 +78,7 @@ class OnJoinCog(commands.Cog, name="on join"):
             try:
                 os.mkdir(folderPath)
             except:
+                os.mkdir("captchaFolder")
                 shutil.rmtree(folderPath)
                 os.mkdir(folderPath)
             image.save(f"{folderPath}/captcha{ID}.png")
