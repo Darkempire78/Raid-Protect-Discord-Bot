@@ -1,13 +1,11 @@
-![](https://img.shields.io/github/repo-size/Darkempire78/mee6-bypasser)
+![](https://img.shields.io/github/repo-size/Darkempire78/Raid-Protect-Discord-Bot)
 
-# Mee6 Bypasser Discord Bot (free premium level-role)
+# Raid Protect Discord Bot
 
-Mee6 Bypasser is a Discord Bot that allows you to use premium mee6 level role rewards. This bot use the Mee6's level system.
+Raid Protect is a discord wich allow to protect your discord server efficiently.
 
-Add new roles            |  Display all roles / Help command
-:-------------------------:|:-------------------------:
-![](https://github.com/Darkempire78/mee6-bypasser/blob/master/Capture1.PNG)  |  ![](https://github.com/Darkempire78/mee6-bypasser/blob/master/Capture2.PNG)
-
+## Captcha
+![](https://github.com/Darkempire78/mee6-bypasser/blob/master/Capture1.PNG)
 
 ## Installation
 
@@ -22,20 +20,25 @@ Finally, host the bot and invite it to your own server.
 
 ## Features
 
-This Discord Bot bypasses a premium feature of the Bot Mee6. You can use it for free.
-You can select roles, that are given to users that reach a certain Mee6-Level.
+This Discord Bot protect your Discord server with many functions.
 
-* Give and remove roles to users that reach a certain Mee6-Level.
-* Display the list of role rewards
-* Remove previous role rewards. 
+* Captcha firewall
+* Minimum account age required
+* Anti spam
+* Logs
+
+## Logs
+
+![](https://github.com/Darkempire78/mee6-bypasser/blob/master/Capture2.PNG)
 
 ## Commands
 
 ```
-?add <Level number> <Role ID> : Add a role reward.
-?remove <Level number> : Remove a role reward.
-?rolerewards : Display the list of role rewards.
-?removepreviousrewards <true/false> : Change remove-previous-rewards setting.
+?setup <on/off> : Set up the captcha protection.
+?settings : Display the list of settings.
+?giveroleaftercaptcha <role ID/off> : Give a role after that the user passed the captcha.
+?minaccountage <number (hours)> : set a minimum age to join the server (24 hours by default).
+?antiSpam <true/false> : Enable or disable the spam protection.
 
 ?help : display help.
 ```
@@ -49,4 +52,4 @@ Please make sure to update tests as appropriate.
 
 ## License
 
-This project is under [GPLv3](https://github.com/Darkempire78/mee6-bypasser/blob/master/LICENSE).
+This project is under [GPLv3](https://github.com/Darkempire78/Raid-Protect-Discord-Bot/blob/master/LICENSE).
