@@ -78,8 +78,10 @@ class OnJoinCog(commands.Cog, name="on join"):
             try:
                 os.mkdir(folderPath)
             except:
-                os.mkdir("captchaFolder")
-                shutil.rmtree(folderPath)
+                if os.path.isdir('captchaFolder') == False:
+                    os.mkdir("captchaFolder")
+                if os.path.isdir(folderPath) == True:
+                    shutil.rmtree(folderPath)
                 os.mkdir(folderPath)
             image.save(f"{folderPath}/captcha{ID}.png")
 
@@ -117,12 +119,17 @@ class OnJoinCog(commands.Cog, name="on join"):
 
             # Save
             image.save(f"{folderPath}/output/{captchaName}_2.png")
-            
+
             # Send captcha
             channelToSendCaptcha = self.bot.get_channel(data["captchaChannel"])
-            captchaFile = discord.File(f"{folderPath}/output/{captchaName}_2.png")
 
+            captchaFile = discord.File(f"{folderPath}/output/{captchaName}_2.png")
             captchaEmbed = await channelToSendCaptcha.send(f"**YOU MUST PASS THE CAPTCHA TO ENTER IN THE SERVER :**\nPlease {member.mention}, enter the captcha to get access to the whole serveur (only 6 uppercase letters).", file= captchaFile)
+            # Remove captcha folder
+            try:
+                shutil.rmtree(folderPath)
+            except:
+                pass
 
             # Check if it is the right user
             def check(message):
@@ -147,11 +154,6 @@ class OnJoinCog(commands.Cog, name="on join"):
                     try:
                         getrole = get(member.guild.roles, id = data["temporaryRole"])
                         await member.remove_roles(getrole)
-                    except:
-                        pass
-                    # Remove captcha folder
-                    try:
-                        shutil.rmtree(folderPath)
                     except:
                         pass
                     time.sleep(3)
