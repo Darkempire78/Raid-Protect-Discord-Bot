@@ -5,7 +5,7 @@
 Raid Protect is a discord wich allow to protect your discord server efficiently.
 
 ## Captcha
-![](https://github.com/Darkempire78/mee6-bypasser/blob/master/Capture1.PNG)
+![](https://github.com/Darkempire78/Raid-Protect-Discord-Bot/blob/master/Capture1.PNG)
 
 ## Installation
 
@@ -29,7 +29,7 @@ This Discord Bot protect your Discord server with many functions.
 
 ## Logs
 
-![](https://github.com/Darkempire78/mee6-bypasser/blob/master/Capture2.PNG)
+![](https://github.com/Darkempire78/Raid-Protect-Discord-Bot/blob/master/Capture2.PNG)
 
 ## Commands
 
