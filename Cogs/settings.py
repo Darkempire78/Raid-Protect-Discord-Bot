@@ -25,6 +25,7 @@ class SettingsCog(commands.Cog, name="settings command"):
             temporaryRole = data["temporaryRole"]
             roleGivenAfterCaptcha = data["roleGivenAfterCaptcha"]
             minAccountAge = data["minAccountDate"]
+            antispam = data["antiSpam"]
 
             minAccountAge = int(minAccountAge/3600)
 
@@ -35,6 +36,7 @@ class SettingsCog(commands.Cog, name="settings command"):
         embed.add_field(name= f"**CAPTCHA PROTECTION** - ``({self.bot.command_prefix}setup <on/off>)``", value= f"Captcha enabled : {captcha}\nCaptcha channel : <#{captchaChannel}>\nBot logs : <#{logChannel}>\nTemporary role : <@&{temporaryRole}>", inline=False)
         embed.add_field(name= f"**ROLE GIVEN AFTER CAPTCHA** - ``({self.bot.command_prefix}giveroleaftercaptcha <role ID/off>)``", value= f"Role given after captcha : {roleGivenAfterCaptcha}", inline=False)
         embed.add_field(name= f"**MINIMUM ACCOUNT AGE** - ``({self.bot.command_prefix}minaccountage <number (hours)>)``", value= f"Minimum account age : {minAccountAge} hours", inline=False)
+        embed.add_field(name= f"**ANTI SPAM** - ``({self.bot.command_prefix}antispam <true/false>)``", value= f"Anti spam enabled : {antispam}", inline=False)
         embed.set_footer(text="Bot Created by Darkempire#8245")
         return await ctx.channel.send(embed=embed)
 
