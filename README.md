@@ -2,7 +2,7 @@
 
 # Raid Protect Discord Bot
 
-Raid Protect is a discord wich allow to protect your discord server efficiently.
+Raid Protect is a Discord bot wich allow to protect your discord server efficiently.
 
 ## Captcha
 ![](https://github.com/Darkempire78/Raid-Protect-Discord-Bot/blob/master/Capture1.PNG)
