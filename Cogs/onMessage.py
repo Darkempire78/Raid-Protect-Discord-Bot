@@ -26,6 +26,7 @@ class OnMessageCog(commands.Cog, name="on message"):
         with open("configuration.json", "r") as config:
             data = json.load(config) 
             antiSpam = data["antiSpam"] 
+            allowSpam = data["allowSpam"]
             logChannel = self.bot.get_channel(data["logChannel"])
 
         if antiSpam == True:
@@ -34,6 +35,9 @@ class OnMessageCog(commands.Cog, name="on message"):
 
             if message.author.guild_permissions.administrator:
                 return 
+
+            if message.channel.id in allowSpam:
+                return
 
             if len(list(filter(lambda m: check(m), self.bot.cached_messages))) >= 8 and len(list(filter(lambda m: check(m), self.bot.cached_messages))) < 12:
                 await message.channel.send(f"{message.author.mention} Stop spam please!")

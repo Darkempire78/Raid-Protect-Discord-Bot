@@ -1,6 +1,7 @@
 {
     "token": "",
     "antiSpam": true,
+    "allowSpam": [],
     "captcha": false,
     "captchaChannel": 0,
     "logChannel": 0,

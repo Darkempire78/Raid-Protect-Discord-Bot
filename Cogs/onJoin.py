@@ -12,6 +12,7 @@ import time
 from discord.ext import commands
 from discord.utils import get
 
+from datetime import datetime
 from random import choice
 from PIL import ImageFont, ImageDraw, Image
 
@@ -143,7 +144,7 @@ class OnJoinCog(commands.Cog, name="on join"):
                 password = "".join(password)
                 if msg.content == password:
                     embed = discord.Embed(description=f"{member.mention} passed the captcha.", color=0x2fa737) # Green
-                    captchaPassed = await channelToSendCaptcha.send(embed=embed)
+                    await channelToSendCaptcha.send(embed = embed, delete_after = 5)
                     # Give and remove roles
                     try:
                         getrole = get(member.guild.roles, id = data["roleGivenAfterCaptcha"])
@@ -159,7 +160,6 @@ class OnJoinCog(commands.Cog, name="on join"):
                     time.sleep(3)
                     await captchaEmbed.delete()
                     await msg.delete()
-                    await captchaPassed.delete()
                     # Logs
                     embed = discord.Embed(title = f"**{member} passed the captcha.**", description = f"**__User informations :__**\n\n**Name :** {member}\n**Id :** {member.id}", color = 0x2fa737)
                     embed.set_footer(text= f"at {member.joined_at}")
@@ -167,14 +167,13 @@ class OnJoinCog(commands.Cog, name="on join"):
 
                 else:
                     embed = discord.Embed(description=f"{member.mention} failed the captcha.", color=0xca1616) # Red
-                    captchaFailed = await channelToSendCaptcha.send(embed=embed)
+                    await channelToSendCaptcha.send(embed = embed, delete_after = 5)
                     embed = discord.Embed(title = f"**YOU HAVE BEEN KICKED FROM {member.guild.name}**", description = f"Reason : You failed the captcha.", color = 0xff0000)
                     await member.send(embed = embed)
                     await member.kick() # Kick the user
                     time.sleep(3)
                     await captchaEmbed.delete()
                     await msg.delete()
-                    await captchaFailed.delete()
                     # Logs
                     embed = discord.Embed(title = f"**{member} has been kicked.**", description = f"**Reason :** He failed the captcha.\n\n**__User informations :__**\n\n**Name :** {member}\n**Id :** {member.id}", color = 0xff0000)
                     embed.set_footer(text= f"at {member.joined_at}")
@@ -182,16 +181,18 @@ class OnJoinCog(commands.Cog, name="on join"):
 
             except (asyncio.TimeoutError):
                 embed = discord.Embed(title = f"**TIME IS OUT**", description = f"{member.mention} has exceeded the response time (120s).", color = 0xff0000)
-                timeOut = await channelToSendCaptcha.send(embed = embed)
-                embed = discord.Embed(title = f"**YOU HAVE BEEN KICKED FROM {member.guild.name}**", description = f"Reason : You exceeded the captcha response time (120s).", color = 0xff0000)
-                await member.send(embed = embed)
-                await member.kick() # Kick the user
+                await channelToSendCaptcha.send(embed = embed, delete_after = 5)
+                try:
+                    embed = discord.Embed(title = f"**YOU HAVE BEEN KICKED FROM {member.guild.name}**", description = f"Reason : You exceeded the captcha response time (120s).", color = 0xff0000)
+                    await member.send(embed = embed)
+                    await member.kick() # Kick the user
+                except:
+                    pass
                 time.sleep(3)
                 await captchaEmbed.delete()
-                await timeOut.delete()
                 # Logs
                 embed = discord.Embed(title = f"**{member} has been kicked.**", description = f"**Reason :** He exceeded the captcha response time (120s).\n\n**__User informations :__**\n\n**Name :** {member}\n**Id :** {member.id}", color = 0xff0000)
-                embed.set_footer(text= f"at {member.joined_at}")
+                embed.set_footer(text= member.joined_at.strftime("%A, %B %d %Y at %H:%M:%S %p"))
                 await logChannel.send(embed = embed)
 
 # ------------------------ BOT ------------------------ #  
