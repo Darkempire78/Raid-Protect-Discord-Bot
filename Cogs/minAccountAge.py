@@ -28,7 +28,7 @@ class MinAccountAgeCog(commands.Cog, name="change min account age command"):
                 data = json.load(config)
                 # Add modifications
                 data["minAccountDate"] = accountAge
-                data = json.dumps(data, indent=4, ensure_ascii=False)
+                newdata = json.dumps(data, indent=4, ensure_ascii=False)
                 
             with open("configuration.json", "w") as config:
                 config.write(newdata)
