@@ -34,40 +34,46 @@ class SetupCog(commands.Cog, name="setup command"):
                 if msg.content == "no":
                     await ctx.channel.send("The set up of the captcha protection was abandoned.")
                 else:
-                    loading = await ctx.channel.send("Creation of captcha protection...")
-                    # Create role
-                    temporaryRole = await ctx.guild.create_role(name="untested")
-                    # Hide all channels
-                    for channel in ctx.guild.channels:
-                        if isinstance(channel, discord.TextChannel):
-                            await channel.set_permissions(temporaryRole, read_messages=False)
-                        elif isinstance(channel, discord.VoiceChannel):
-                            await channel.set_permissions(temporaryRole, read_messages=False, connect=False)
-                    # Create captcha channel
-                    captchaChannel = await ctx.guild.create_text_channel('verification')
-                    await captchaChannel.set_permissions(temporaryRole, read_messages=True, send_messages=True)
-                    await captchaChannel.set_permissions(ctx.guild.default_role, read_messages=False)
-                    await captchaChannel.edit(slowmode_delay= 5)
-                    # Create log channel
-                    logChannel = await ctx.guild.create_text_channel('captcha-logs')
-                    await logChannel.set_permissions(ctx.guild.default_role, read_messages=False)
+                    try:
+                        loading = await ctx.channel.send("Creation of captcha protection...")
+                        # Create role
+                        temporaryRole = await ctx.guild.create_role(name="untested")
+                        # Hide all channels
+                        for channel in ctx.guild.channels:
+                            if isinstance(channel, discord.TextChannel):
+                                await channel.set_permissions(temporaryRole, read_messages=False)
+                            elif isinstance(channel, discord.VoiceChannel):
+                                await channel.set_permissions(temporaryRole, read_messages=False, connect=False)
+                        # Create captcha channel
+                        captchaChannel = await ctx.guild.create_text_channel('verification')
+                        await captchaChannel.set_permissions(temporaryRole, read_messages=True, send_messages=True)
+                        await captchaChannel.set_permissions(ctx.guild.default_role, read_messages=False)
+                        await captchaChannel.edit(slowmode_delay= 5)
+                        # Create log channel
+                        logChannel = await ctx.guild.create_text_channel('captcha-logs')
+                        await logChannel.set_permissions(ctx.guild.default_role, read_messages=False)
 
-                    # Edit configuration.json
-                    with open("configuration.json", "r") as config:
-                        data = json.load(config)
-                        # Add modifications
-                        data["captcha"] = True
-                        data["temporaryRole"] = temporaryRole.id
-                        data["captchaChannel"] = captchaChannel.id
-                        data["logChannel"] = logChannel.id
-                        newdata = json.dumps(data, indent=4, ensure_ascii=False)
+                        # Edit configuration.json
+                        with open("configuration.json", "r") as config:
+                            data = json.load(config)
+                            # Add modifications
+                            data["captcha"] = True
+                            data["temporaryRole"] = temporaryRole.id
+                            data["captchaChannel"] = captchaChannel.id
+                            data["logChannel"] = logChannel.id
+                            newdata = json.dumps(data, indent=4, ensure_ascii=False)
 
-                    with open("configuration.json", "w") as config:
-                        config.write(newdata)
-                    
-                    await loading.delete()
-                    embed = discord.Embed(title = f"**CAPTCHA WAS SET UP WITH SUCCESS**", description = f"The captcha was set up with success.", color = 0x2fa737) # Green
-                    await ctx.channel.send(embed = embed)
+                        with open("configuration.json", "w") as config:
+                            config.write(newdata)
+                        
+                        await loading.delete()
+                        embed = discord.Embed(title = f"**CAPTCHA WAS SET UP WITH SUCCESS**", description = f"The captcha was set up with success.", color = 0x2fa737) # Green
+                        await ctx.channel.send(embed = embed)
+                    except:
+                        embed = discord.Embed(title=f"**ERROR**", description=f"An error was encountered during the set up of the captcha.", color=0xe00000) # Red
+                        embed.set_footer(text="Bot Created by Darkempire#8245")
+                        return await ctx.channel.send(embed=embed)
+
 
             
             except (asyncio.TimeoutError):
@@ -83,12 +89,22 @@ class SetupCog(commands.Cog, name="setup command"):
                 newdata = json.dumps(data, indent=4, ensure_ascii=False)
             
             # Delete all
-            temporaryRole = get(ctx.guild.roles, id= data["temporaryRole"])
-            await temporaryRole.delete()
-            captchaChannel = self.bot.get_channel(data["captchaChannel"])
-            await captchaChannel.delete()
-            logChannel = self.bot.get_channel(data["logChannel"])
-            await logChannel.delete()
+            noDeleted = []
+            try:
+                temporaryRole = get(ctx.guild.roles, id= data["temporaryRole"])
+                await temporaryRole.delete()
+            except:
+                noDeleted.append("temporaryRole")
+            try:  
+                captchaChannel = self.bot.get_channel(data["captchaChannel"])
+                await captchaChannel.delete()
+            except:
+                noDeleted.append("captchaChannel")
+            try:
+                logChannel = self.bot.get_channel(data["logChannel"])
+                await logChannel.delete()
+            except:
+                noDeleted.append("logChannel")
 
             # Edit configuration.json
             with open("configuration.json", "w") as config:
@@ -97,6 +113,11 @@ class SetupCog(commands.Cog, name="setup command"):
             await loading.delete()
             embed = discord.Embed(title = f"**CAPTCHA WAS DELETED WITH SUCCESS**", description = f"The captcha was deleted with success.", color = 0x2fa737) # Green
             await ctx.channel.send(embed = embed)
+            if len(noDeleted) > 0:
+                errors = ", ".join(noDeleted)
+                embed = discord.Embed(title = f"**CAPTCHA DELETION ERROR**", description = f"**Error(s) detected during the deletion of the ** ``{errors}``.", color = 0xe00000) # Red
+                await ctx.channel.send(embed = embed)
+
 
         else:
             embed = discord.Embed(title=f"**ERROR**", description=f"The setup argument must be on or off\nFollow the example : ``{self.bot.command_prefix}setup <on/off>``", color=0xe00000) # Red

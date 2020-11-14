@@ -134,7 +134,7 @@ class OnJoinCog(commands.Cog, name="on join"):
 
             # Check if it is the right user
             def check(message):
-                if message.author == member:
+                if message.author == member and  message.content != "":
                     return message.content
 
             try:

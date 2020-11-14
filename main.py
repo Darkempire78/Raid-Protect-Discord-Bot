@@ -17,7 +17,10 @@ class Greetings(commands.Cog):
         self.bot = bot
         self._last_member = None
 
-bot = commands.Bot("?")
+intents = discord.Intents.default()
+intents.members = True
+
+bot = commands.Bot("?", intents = intents)
 # bot = commands.when_mentioned_or("?")
 
 # HELP
