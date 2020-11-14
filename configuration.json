@@ -2,10 +2,10 @@
     "token": "NzI5NjI1NDY0NTY1NTMwNjc2.XwLqqg.Lh5IZEDKcYmSkw21ErB9uJ7YR0c",
     "antiSpam": true,
     "allowSpam": [],
-    "captcha": true,
-    "captchaChannel": 777141490287771659,
-    "logChannel": 777141493180923904,
-    "temporaryRole": 777141480065728562,
+    "captcha": false,
+    "captchaChannel": 1,
+    "logChannel": 1,
+    "temporaryRole": 1,
     "roleGivenAfterCaptcha": false,
     "minAccountDate": 86400
 }
