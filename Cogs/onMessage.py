@@ -38,7 +38,7 @@ class OnMessageCog(commands.Cog, name="on message"):
 
             if message.channel.id in allowSpam:
                 return
-            print("message nb", len(list(filter(lambda m: check(m), self.bot.cached_messages))))
+                
             if len(list(filter(lambda m: check(m), self.bot.cached_messages))) >= 8 and len(list(filter(lambda m: check(m), self.bot.cached_messages))) < 12:
                 await message.channel.send(f"{message.author.mention} Stop spam please!")
             elif len(list(filter(lambda m: check(m), self.bot.cached_messages))) >= 12:
