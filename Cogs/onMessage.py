@@ -49,50 +49,49 @@ class OnMessageCog(commands.Cog, name="on message"):
         if message.author.bot:
             return
 
-        if message.content == "":
-            if message.channel.nsfw != True:
-                if len(message.attachments) == 0:
-                    return
-                else:
-                    # Nudity check 
-                    # Use : https://github.com/hhatto/nude.py
-                    # Other option : https://github.com/notAI-tech/NudeNet (untested)
-                    for i in message.attachments:
-                        # Check if the attachment is an image
-                        if i.filename.endswith((".png", ".jpg", ".jpeg")):
+        if message.content == "" and len(message.attachments) == 0:
+            return
+
+        # Nudity check     
+        if (message.channel.nsfw != True) and (len(message.attachments) > 0):
+            # Use : https://github.com/hhatto/nude.py
+            # Other option : https://github.com/notAI-tech/NudeNet (untested)
+            for i in message.attachments:
+                # Check if the attachment is an image
+                if i.filename.endswith((".png", ".jpg", ".jpeg")):
+                    
+                    # Data
+                    with open("configuration.json", "r") as config:
+                        data = json.load(config) 
+                        antiNudity = data["antiNudity"]
+
+                    if antiNudity == True:  
+                        try:
+                            logChannel = self.bot.get_channel(data["logChannel"])
+
+                            # Convert the image to io
+                            response = requests.get(i.url)
+                            image_bytes = BytesIO(response.content)
+                            # Check the image
+                            n = Nude2(image_bytes)
+                            n.parse()
                             
-                            # Data
-                            with open("configuration.json", "r") as config:
-                                data = json.load(config) 
-                                antiNudity = data["antiNudity"]
+                            if n.result == True:
+                                # Logs
+                                i.filename = f"SPOILER_{i.filename}"
+                                spoiler = await i.to_file()
+                                embed = discord.Embed(title = f"**{message.author} has sent a nudity image.**", description = f"In {message.channel.mention}.\n\n**__User informations :__**\n\n**Name :** {message.author}\n**Id :** {message.author.id}\n\n**The image :**", color = 0xff0000)
+                                await logChannel.send(file=spoiler, embed=embed)
 
-                            if antiNudity == True:  
-                                try:
-                                    logChannel = self.bot.get_channel(data["logChannel"])
-
-                                    # Convert the image to io
-                                    response = requests.get(i.url)
-                                    image_bytes = BytesIO(response.content)
-                                    # Check the image
-                                    n = Nude2(image_bytes)
-                                    n.parse()
-                                    
-                                    if n.result == True:
-                                        # Logs
-                                        i.filename = f"SPOILER_{i.filename}"
-                                        spoiler = await i.to_file()
-                                        embed = discord.Embed(title = f"**{message.author} has sent a nudity image.**", description = f"In {message.channel.mention}.\n\n**__User informations :__**\n\n**Name :** {message.author}\n**Id :** {message.author.id}\n\n**The image :**", color = 0xff0000)
-                                        await logChannel.send(file=spoiler, embed=embed)
-
-                                        # embed = discord.Embed(title = f"**{message.author} has sent a nudity image.**", description = f"In {message.channel.mention}.\n\n**__User informations :__**\n\n**Name :** {message.author}\n**Id :** {message.author.id}\n\n**The image :**", color = 0xff0000)
-                                        # embed.set_image(url=i.url)
-                                        # await logChannel.send(embed = embed)
-                                        
-                                        # Delete
-                                        await message.delete()
-                                        await message.channel.send(f"{message.author.mention} do not send nudity image !")
-                                except:
-                                    print("Nudity check : error")
+                                # embed = discord.Embed(title = f"**{message.author} has sent a nudity image.**", description = f"In {message.channel.mention}.\n\n**__User informations :__**\n\n**Name :** {message.author}\n**Id :** {message.author.id}\n\n**The image :**", color = 0xff0000)
+                                # embed.set_image(url=i.url)
+                                # await logChannel.send(embed = embed)
+                                
+                                # Delete
+                                await message.delete()
+                                await message.channel.send(f"{message.author.mention} do not send nudity image !")
+                        except:
+                            print("Nudity check : error")
         # Data
         with open("configuration.json", "r") as config:
             data = json.load(config) 
