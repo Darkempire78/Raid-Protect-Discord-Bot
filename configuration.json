@@ -1,5 +1,6 @@
 {
     "token": "",
+    "antiNudity": true,
     "antiSpam": true,
     "allowSpam": [],
     "captcha": false,
