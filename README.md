@@ -26,6 +26,7 @@ This Discord Bot protect your Discord server with many functions.
 * Captcha firewall
 * Minimum account age required
 * Anti nudity image
+* Anti profanity
 * Anti spam
 * Logs
 
@@ -40,7 +41,8 @@ This Discord Bot protect your Discord server with many functions.
 ?settings : Display the list of settings.
 ?giveroleaftercaptcha <role ID/off> : Give a role after that the user passed the captcha.
 ?minaccountage <number (hours)> : set a minimum age to join the server (24 hours by default).
-?antinusity <true/false> : Enable or disable the nudity image protection.
+?antinudity <true/false> : Enable or disable the nudity image protection.
+?antiprofanity <true/false> : Enable or disable the profanity protection.
 ?antispam <true/false> : Enable or disable the spam protection.
 ?allowspam <#channel> (remove) :** Enable or disable the spam protection in a specific channel.
 
