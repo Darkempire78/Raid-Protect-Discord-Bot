@@ -12,6 +12,8 @@ from nude import Nude
 from PIL import Image
 from io import BytesIO, IOBase
 
+from profanity_check import predict, predict_prob
+
 
 class Nude2(Nude):
     """Repare the module error"""
@@ -95,14 +97,28 @@ class OnMessageCog(commands.Cog, name="on message"):
         # Data
         with open("configuration.json", "r") as config:
             data = json.load(config) 
+            antiProfanity =  data["antiProfanity"]
             antiSpam = data["antiSpam"] 
             allowSpam = data["allowSpam"]
             logChannel = self.bot.get_channel(data["logChannel"])
 
         # Anti profanity
-        # from profanity_check import predict, predict_prob
-        # test = predict_prob(message.content)
-        # print(test)
+        if antiProfanity == True:
+            try:
+                words = []
+                words.append(message.content)
+                profanity = predict(words) # profanity = predict_prob(message.content)
+                if profanity[0] == 1:
+                    # Delete
+                    await message.delete()
+                    await message.channel.send(f"{message.author.mention} do not send profanity !")
+                    # Logs
+                    if len(message.content) > 1600:
+                        message.content = message.content + "..."
+                    embed = discord.Embed(title = f"**{message.author} has sent a message with profanity.**", description = f"In {message.channel.mention}.\n\n**__User informations :__**\n\n**Name :** {message.author}\n**Id :** {message.author.id}\n\n**The message :**\n\n{message.content}", color = 0xff0000)
+                    await logChannel.send(embed=embed)
+            except:
+                print("Anti profanity : check error")
 
         # Anti spam
         if antiSpam == True:

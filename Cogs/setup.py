@@ -36,6 +36,11 @@ class SetupCog(commands.Cog, name="setup command"):
                 else:
                     try:
                         loading = await ctx.channel.send("Creation of captcha protection...")
+
+                        # Data
+                        with open("configuration.json", "r") as config:
+                            data = json.load(config)
+
                         # Create role
                         temporaryRole = await ctx.guild.create_role(name="untested")
                         # Hide all channels
@@ -50,18 +55,17 @@ class SetupCog(commands.Cog, name="setup command"):
                         await captchaChannel.set_permissions(ctx.guild.default_role, read_messages=False)
                         await captchaChannel.edit(slowmode_delay= 5)
                         # Create log channel
-                        logChannel = await ctx.guild.create_text_channel(f"{self.bot.user.name}-logs")
-                        await logChannel.set_permissions(ctx.guild.default_role, read_messages=False)
-
-                        # Edit configuration.json
-                        with open("configuration.json", "r") as config:
-                            data = json.load(config)
-                            # Add modifications
-                            data["captcha"] = True
-                            data["temporaryRole"] = temporaryRole.id
-                            data["captchaChannel"] = captchaChannel.id
+                        if data["logChannel"] == False:
+                            logChannel = await ctx.guild.create_text_channel(f"{self.bot.user.name}-logs")
+                            await logChannel.set_permissions(ctx.guild.default_role, read_messages=False)
                             data["logChannel"] = logChannel.id
-                            newdata = json.dumps(data, indent=4, ensure_ascii=False)
+                        
+                        # Edit configuration.json
+                        # Add modifications
+                        data["captcha"] = True
+                        data["temporaryRole"] = temporaryRole.id
+                        data["captchaChannel"] = captchaChannel.id
+                        newdata = json.dumps(data, indent=4, ensure_ascii=False)
 
                         with open("configuration.json", "w") as config:
                             config.write(newdata)
@@ -74,7 +78,6 @@ class SetupCog(commands.Cog, name="setup command"):
                         embed.set_footer(text="Bot Created by Darkempire#8245")
                         return await ctx.channel.send(embed=embed)
 
-
             
             except (asyncio.TimeoutError):
                 embed = discord.Embed(title = f"**TIME IS OUT**", description = f"{ctx.author.mention} has exceeded the response time (30s).", color = 0xff0000)
@@ -86,7 +89,6 @@ class SetupCog(commands.Cog, name="setup command"):
                 data = json.load(config)
                 # Add modifications
                 data["captcha"] = False
-                newdata = json.dumps(data, indent=4, ensure_ascii=False)
             
             # Delete all
             noDeleted = []
@@ -100,12 +102,10 @@ class SetupCog(commands.Cog, name="setup command"):
                 await captchaChannel.delete()
             except:
                 noDeleted.append("captchaChannel")
-            try:
-                logChannel = self.bot.get_channel(data["logChannel"])
-                await logChannel.delete()
-            except:
-                noDeleted.append("logChannel")
 
+            # Add modifications
+            data["captchaChannel"] = False
+            newdata = json.dumps(data, indent=4, ensure_ascii=False)
             # Edit configuration.json
             with open("configuration.json", "w") as config:
                 config.write(newdata)
