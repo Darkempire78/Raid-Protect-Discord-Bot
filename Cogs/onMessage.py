@@ -14,29 +14,6 @@ from io import BytesIO, IOBase
 
 from profanity_check import predict, predict_prob
 
-
-class Nude2(Nude):
-    """Repare the module error"""
-    def __init__(self, path_or_io):
-        self.image = Image.open(path_or_io)
-        bands = self.image.getbands()
-        # convert greyscale to rgb
-        if len(bands) == 1:
-            new_img = Image.new("RGB", self.image.size)
-            new_img.paste(self.image)
-            f = self.image.filename
-            self.image = new_img
-            self.image.filename = f
-        self.skin_map = []
-        self.skin_regions = []
-        self.detected_regions = []
-        self.merge_regions = []
-        self.last_from, self.last_to = -1, -1
-        self.result = None
-        self.message = None
-        self.width, self.height = self.image.size
-        self.total_pixels = self.width * self.height
-
 # ------------------------ COGS ------------------------ #  
 class OnMessageCog(commands.Cog, name="on message"):
     def __init__(self, bot):
@@ -75,7 +52,7 @@ class OnMessageCog(commands.Cog, name="on message"):
                             response = requests.get(i.url)
                             image_bytes = BytesIO(response.content)
                             # Check the image
-                            n = Nude2(image_bytes)
+                            n = Nude(image_bytes)
                             n.parse()
                             
                             if n.result == True:
