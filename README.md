@@ -46,6 +46,8 @@ This Discord Bot protect your Discord server with many functions.
 ?antispam <true/false> : Enable or disable the spam protection.
 ?allowspam <#channel> (remove) :** Enable or disable the spam protection in a specific channel.
 
+?userinfos <@user/ID> : Get user infomations.
+
 ?help : display help.
 ```
 

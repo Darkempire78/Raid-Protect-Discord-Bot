@@ -84,7 +84,7 @@ class OnMessageCog(commands.Cog, name="on message"):
             try:
                 words = []
                 words.append(message.content)
-                profanity = predict(words) # profanity = predict_prob(message.content)
+                profanity = predict(words) # profanity2 = predict_prob(words)
                 if profanity[0] == 1:
                     # Delete
                     await message.delete()
