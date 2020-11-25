@@ -32,11 +32,11 @@ class EventsCog(commands.Cog, name="EventsCog"):
             else:
                 await ctx.send(f'This command has a cooldown, be sure to wait for {error.retry_after:.2f} second(s)')
         elif isinstance(error, MissingPermissions):
-            await ctx.send(error)
+            await ctx.send(error.text)
         elif isinstance(error, CheckFailure):
-            await ctx.send(error)
+            await ctx.send(error.original.text)
         else:
-            await ctx.send(error)
+            await ctx.send(error.original.text)
 
 # ------------------------ BOT ------------------------ #  
 
