@@ -44,7 +44,8 @@ This Discord Bot protect your Discord server with many functions.
 ?antinudity <true/false> : Enable or disable the nudity image protection.
 ?antiprofanity <true/false> : Enable or disable the profanity protection.
 ?antispam <true/false> : Enable or disable the spam protection.
-?allowspam <#channel> (remove) :** Enable or disable the spam protection in a specific channel.
+?allowspam <#channel> (remove) : Enable or disable the spam protection in a specific channel.
+?lock | unlock <#channel> : Lock/Unlock a specific channel.
 
 ?userinfos <@user/ID> : Get user infomations.
 
