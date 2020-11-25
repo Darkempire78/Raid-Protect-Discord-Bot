@@ -7,7 +7,7 @@ import datetime
 
 from datetime import datetime
 from discord.ext import commands
-from discord.ext.commands import MissingPermissions
+from discord.ext.commands import MissingPermissions, CheckFailure
 
 # ------------------------ COGS ------------------------ #  
 
@@ -31,10 +31,12 @@ class EventsCog(commands.Cog, name="EventsCog"):
                 await ctx.send('This command has a cooldown, be sure to wait for '+ str(minute)+" minute(s)")
             else:
                 await ctx.send(f'This command has a cooldown, be sure to wait for {error.retry_after:.2f} second(s)')
-        if isinstance(error, MissingPermissions):
+        elif isinstance(error, MissingPermissions):
+            await ctx.send(error)
+        elif isinstance(error, CheckFailure):
             await ctx.send(error)
         else:
-            print(error)
+            await ctx.send(error)
 
 # ------------------------ BOT ------------------------ #  
 

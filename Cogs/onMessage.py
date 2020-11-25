@@ -14,6 +14,8 @@ from io import BytesIO, IOBase
 
 from profanity_check import predict, predict_prob
 
+from Tools.logMessage import sendLogMessage
+
 # ------------------------ COGS ------------------------ #  
 class OnMessageCog(commands.Cog, name="on message"):
     def __init__(self, bot):
@@ -24,8 +26,8 @@ class OnMessageCog(commands.Cog, name="on message"):
     @commands.Cog.listener()
     async def on_message(self, message):
 
-        # Anti spam
-        if message.author.bot:
+        # If bot or Administrator
+        if message.author.bot or message.author.guild_permissions.administrator == True:
             return
 
         if message.content == "" and len(message.attachments) == 0:
@@ -45,57 +47,51 @@ class OnMessageCog(commands.Cog, name="on message"):
                         antiNudity = data["antiNudity"]
 
                     if antiNudity == True:  
-                        try:
-                            logChannel = self.bot.get_channel(data["logChannel"])
+                        logChannel = data["logChannel"]
 
-                            # Convert the image to io
-                            response = requests.get(i.url)
-                            image_bytes = BytesIO(response.content)
-                            # Check the image
-                            n = Nude(image_bytes)
-                            n.parse()
+                        # Convert the image to io
+                        response = requests.get(i.url)
+                        image_bytes = BytesIO(response.content)
+                        # Check the image
+                        n = Nude(image_bytes)
+                        n.parse()
+                        
+                        if n.result == True:
+                            # Logs
+                            i.filename = f"SPOILER_{i.filename}"
+                            spoiler = await i.to_file()
+                            embed = discord.Embed(title = f"**{message.author} has sent a nudity image.**", description = f"In {message.channel.mention}.\n\n**__User informations :__**\n\n**Name :** {message.author}\n**Id :** {message.author.id}\n\n**The image :**", color = 0xff0000)
+                            await sendLogMessage(self, event=message, channel=logChannel, embed=embed, messageFile=spoiler)
+
+                            # embed = discord.Embed(title = f"**{message.author} has sent a nudity image.**", description = f"In {message.channel.mention}.\n\n**__User informations :__**\n\n**Name :** {message.author}\n**Id :** {message.author.id}\n\n**The image :**", color = 0xff0000)
+                            # embed.set_image(url=i.url)
+                            # await logChannel.send(embed = embed)
                             
-                            if n.result == True:
-                                # Logs
-                                i.filename = f"SPOILER_{i.filename}"
-                                spoiler = await i.to_file()
-                                embed = discord.Embed(title = f"**{message.author} has sent a nudity image.**", description = f"In {message.channel.mention}.\n\n**__User informations :__**\n\n**Name :** {message.author}\n**Id :** {message.author.id}\n\n**The image :**", color = 0xff0000)
-                                await logChannel.send(file=spoiler, embed=embed)
-
-                                # embed = discord.Embed(title = f"**{message.author} has sent a nudity image.**", description = f"In {message.channel.mention}.\n\n**__User informations :__**\n\n**Name :** {message.author}\n**Id :** {message.author.id}\n\n**The image :**", color = 0xff0000)
-                                # embed.set_image(url=i.url)
-                                # await logChannel.send(embed = embed)
-                                
-                                # Delete
-                                await message.delete()
-                                await message.channel.send(f"{message.author.mention} do not send nudity image !")
-                        except:
-                            print("Nudity check : error")
+                            # Delete
+                            await message.delete()
+                            await message.channel.send(f"{message.author.mention} do not send nudity image !")
+        
         # Data
         with open("configuration.json", "r") as config:
             data = json.load(config) 
             antiProfanity =  data["antiProfanity"]
             antiSpam = data["antiSpam"] 
             allowSpam = data["allowSpam"]
-            logChannel = self.bot.get_channel(data["logChannel"])
+            logChannel = data["logChannel"]
 
         # Anti profanity
         if antiProfanity == True:
-            try:
-                words = []
-                words.append(message.content)
-                profanity = predict(words) # profanity2 = predict_prob(words)
-                if profanity[0] == 1:
-                    # Delete
-                    await message.delete()
-                    await message.channel.send(f"{message.author.mention} do not send profanity !")
-                    # Logs
-                    if len(message.content) > 1600:
-                        message.content = message.content + "..."
-                    embed = discord.Embed(title = f"**{message.author} has sent a message with profanity.**", description = f"In {message.channel.mention}.\n\n**__User informations :__**\n\n**Name :** {message.author}\n**Id :** {message.author.id}\n\n**The message :**\n\n{message.content}", color = 0xff0000)
-                    await logChannel.send(embed=embed)
-            except:
-                print("Anti profanity : check error")
+            words = []
+            words.append(message.content)
+            profanity = predict(words) # profanity2 = predict_prob(words)
+            if profanity[0] == 1:
+                await message.delete() # Delete
+                await message.channel.send(f"{message.author.mention} Do not insult!")
+                # Logs
+                if len(message.content) > 1600:
+                    message.content = message.content + "..."
+                embed = discord.Embed(title = f"**{message.author} has sent a message with profanity.**", description = f"In {message.channel.mention}.\n\n**__User informations :__**\n\n**Name :** {message.author}\n**Id :** {message.author.id}\n\n**The message :**\n\n{message.content}", color = 0xff0000)
+                await sendLogMessage(self, event=message, channel=logChannel, embed=embed)
 
         # Anti spam
         if antiSpam == True:
@@ -130,11 +126,8 @@ class OnMessageCog(commands.Cog, name="on message"):
                 url = 'https://hastebin.com'
                 hastbin = requests.post(f'{url}/documents', data=logs).json()
                 hastbinUrl = url + "/" + hastbin['key']
-                try:
-                    embed = discord.Embed(title = f"**{message.author} has been kicked.**", description = f"**Reason :** He spammed in {message.channel.mention}.\n\n**__User informations :__**\n\n**Name :** {message.author}\n**Id :** {message.author.id}\n\n**Logs :** {hastbinUrl}", color = 0xff0000)
-                    await logChannel.send(embed = embed)
-                except:
-                    pass
+                embed = discord.Embed(title = f"**{message.author} has been kicked.**", description = f"**Reason :** He spammed in {message.channel.mention}.\n\n**__User informations :__**\n\n**Name :** {message.author}\n**Id :** {message.author.id}\n\n**Logs :** {hastbinUrl}", color = 0xff0000)
+                await sendLogMessage(self, event=message, channel=logChannel, embed=embed)
 
 # ------------------------ BOT ------------------------ #  
 

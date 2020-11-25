@@ -34,7 +34,7 @@ initial_extensions = os.listdir(path)
 try:
     initial_extensions.remove("__pycache__")
 except:
-    pass
+    print("__pycache__ was not removed")
 print(initial_extensions)
 initial_extensions3 = []
 for initial_extensions2 in initial_extensions:
@@ -55,6 +55,9 @@ async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name =f"{bot.command_prefix}help"))
     print(discord.__version__)
 
+# @bot.event
+# async def on_error(self, event, *args, **kwargs):
+#     pass
 
 # ------------------------ RUN ------------------------ # 
 with open("configuration.json", "r") as config:

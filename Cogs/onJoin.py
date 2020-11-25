@@ -16,6 +16,8 @@ from datetime import datetime
 from random import choice
 from PIL import ImageFont, ImageDraw, Image
 
+from Tools.logMessage import sendLogMessage
+
 # ------------------------ COGS ------------------------ #  
 
 class OnJoinCog(commands.Cog, name="on join"):
@@ -33,7 +35,7 @@ class OnJoinCog(commands.Cog, name="on join"):
         # Read configuration.json
         with open("configuration.json", "r") as config:
             data = json.load(config)
-            logChannel = self.bot.get_channel(data["logChannel"])
+            logChannel = data["logChannel"]
             captchaChannel = self.bot.get_channel(data["captchaChannel"])
 
         memberTime = f"{member.joined_at.year}-{member.joined_at.month}-{member.joined_at.day} {member.joined_at.hour}:{member.joined_at.minute}:{member.joined_at.second}"
@@ -48,7 +50,7 @@ class OnJoinCog(commands.Cog, name="on join"):
             # Logs
             embed = discord.Embed(title = f"**{member} has been kicked.**", description = f"**Reason :** His account is more young that the server limit ({minAccountDate} hours)\nAccount creation : {member.created_at}\n\n**__User informations :__**\n\n**Name :** {member}\n**Id :** {member.id}", color = 0xff0000)
             embed.set_footer(text= f"at {member.joined_at}")
-            await logChannel.send(embed = embed)
+            await sendLogMessage(self, event=member, channel=logChannel, embed=embed)
 
         if data["captcha"] == True:
             
@@ -57,7 +59,7 @@ class OnJoinCog(commands.Cog, name="on join"):
                 getrole = get(member.guild.roles, id = data["temporaryRole"])
                 await member.add_roles(getrole)
             except:
-                pass
+                print("Give temporary role failed")
             
             # Create captcha
             image = np.zeros(shape= (100, 350, 3), dtype= np.uint8)
@@ -131,7 +133,7 @@ class OnJoinCog(commands.Cog, name="on join"):
             try:
                 shutil.rmtree(folderPath)
             except:
-                pass
+                print("Delete captcha file failed")
 
             # Check if it is the right user
             def check(message):
@@ -153,19 +155,19 @@ class OnJoinCog(commands.Cog, name="on join"):
                         if getrole != False:
                             await member.add_roles(getrole)
                     except:
-                        pass
+                        print("Give and remove roles failed")
                     try:
                         getrole = get(member.guild.roles, id = data["temporaryRole"])
                         await member.remove_roles(getrole)
                     except:
-                        pass
+                        print("No temp role found (onJoin)")
                     time.sleep(3)
                     await captchaEmbed.delete()
                     await msg.delete()
                     # Logs
                     embed = discord.Embed(title = f"**{member} passed the captcha.**", description = f"**__User informations :__**\n\n**Name :** {member}\n**Id :** {member.id}", color = 0x2fa737)
                     embed.set_footer(text= f"at {memberTime}")
-                    await logChannel.send(embed = embed)
+                    await sendLogMessage(self, event=member, channel=logChannel, embed=embed)
 
                 else:
                     link = await captchaChannel.create_invite() # Create an invite
@@ -180,7 +182,7 @@ class OnJoinCog(commands.Cog, name="on join"):
                     # Logs
                     embed = discord.Embed(title = f"**{member} has been kicked.**", description = f"**Reason :** He failed the captcha.\n\n**__User informations :__**\n\n**Name :** {member}\n**Id :** {member.id}", color = 0xff0000)
                     embed.set_footer(text= f"at {memberTime}")
-                    await logChannel.send(embed = embed)
+                    await sendLogMessage(self, event=member, channel=logChannel, embed=embed)
 
             except (asyncio.TimeoutError):
                 link = await captchaChannel.create_invite() # Create an invite
@@ -191,13 +193,13 @@ class OnJoinCog(commands.Cog, name="on join"):
                     await member.send(embed = embed)
                     await member.kick() # Kick the user
                 except:
-                    pass
+                    print("Log failed (onJoin)")
                 time.sleep(3)
                 await captchaEmbed.delete()
                 # Logs
                 embed = discord.Embed(title = f"**{member} has been kicked.**", description = f"**Reason :** He exceeded the captcha response time (120s).\n\n**__User informations :__**\n\n**Name :** {member}\n**Id :** {member.id}", color = 0xff0000)
                 embed.set_footer(text= f"at {memberTime}")
-                await logChannel.send(embed = embed)
+                await sendLogMessage(self, event=member, channel=logChannel, embed=embed)
 
 # ------------------------ BOT ------------------------ #  
 
