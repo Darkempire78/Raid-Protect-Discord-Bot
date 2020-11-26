@@ -20,7 +20,7 @@ class LockCog(commands.Cog, name="lock command"):
         channel = re.findall(r'\d+', channel) # Get only numbers from channel
         channel = self.bot.get_channel(int(channel[0]))
 
-        if channel != None:
+        if channel is None:
             await channel.edit(name=f"🔒-{channel.name}")
             await channel.set_permissions(ctx.guild.default_role, send_messages=False)
             embed = discord.Embed(title = f"#{channel.name} locked with success!", description = f"", color = 0x2fa737) # Green

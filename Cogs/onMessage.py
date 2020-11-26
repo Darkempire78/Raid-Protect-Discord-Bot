@@ -27,7 +27,7 @@ class OnMessageCog(commands.Cog, name="on message"):
     async def on_message(self, message):
 
         # If bot or Administrator
-        if message.author.bot or message.author.guild_permissions.administrator == True:
+        if message.author.bot or message.author.guild_permissions.administrator is True:
             return
 
         if message.content == "" and len(message.attachments) == 0:
@@ -46,7 +46,7 @@ class OnMessageCog(commands.Cog, name="on message"):
                         data = json.load(config) 
                         antiNudity = data["antiNudity"]
 
-                    if antiNudity == True:  
+                    if antiNudity is True:  
                         logChannel = data["logChannel"]
 
                         # Convert the image to io
@@ -56,7 +56,7 @@ class OnMessageCog(commands.Cog, name="on message"):
                         n = Nude(image_bytes)
                         n.parse()
                         
-                        if n.result == True:
+                        if n.result is True:
                             # Logs
                             i.filename = f"SPOILER_{i.filename}"
                             spoiler = await i.to_file()
@@ -80,7 +80,7 @@ class OnMessageCog(commands.Cog, name="on message"):
             logChannel = data["logChannel"]
 
         # Anti profanity
-        if antiProfanity == True:
+        if antiProfanity is True:
             words = []
             words.append(message.content)
             profanity = predict(words) # profanity2 = predict_prob(words)
@@ -94,7 +94,7 @@ class OnMessageCog(commands.Cog, name="on message"):
                 await sendLogMessage(self, event=message, channel=logChannel, embed=embed)
 
         # Anti spam
-        if antiSpam == True:
+        if antiSpam is True:
             def check (message):
                 return (message.author == message.author and (datetime.utcnow() - message.created_at).seconds < 15)
 

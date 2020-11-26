@@ -43,11 +43,8 @@ class LogsCog(commands.Cog, name="change setting from logs command"):
                 data = json.load(config)
 
             # Delete
-            try:
-                logChannel = self.bot.get_channel(data["logChannel"])
-                await logChannel.delete()
-            except:
-                pass
+            logChannel = self.bot.get_channel(data["logChannel"])
+            await logChannel.delete()
 
             # Add modifications
             data["logChannel"] = False

@@ -41,7 +41,7 @@ class OnJoinCog(commands.Cog, name="on join"):
         memberTime = f"{member.joined_at.year}-{member.joined_at.month}-{member.joined_at.day} {member.joined_at.hour}:{member.joined_at.minute}:{member.joined_at.second}"
 
         # Check the user account creation date (1 day by default)
-        if data["minAccountDate"] != False:
+        if data["minAccountDate"] is False:
             userAccountDate = member.created_at.timestamp()
             if userAccountDate < data["minAccountDate"]:
                 minAccountDate = data["minAccountDate"] / 3600
@@ -53,7 +53,7 @@ class OnJoinCog(commands.Cog, name="on join"):
                 embed.set_footer(text= f"at {member.joined_at}")
                 await sendLogMessage(self, event=member, channel=logChannel, embed=embed)
 
-        if data["captcha"] == True:
+        if data["captcha"] is True:
             
             # Give temporary role
             try:
@@ -85,9 +85,9 @@ class OnJoinCog(commands.Cog, name="on join"):
             try:
                 os.mkdir(folderPath)
             except:
-                if os.path.isdir('captchaFolder') == False:
+                if os.path.isdir('captchaFolder') is False:
                     os.mkdir("captchaFolder")
-                if os.path.isdir(folderPath) == True:
+                if os.path.isdir(folderPath) is True:
                     shutil.rmtree(folderPath)
                 os.mkdir(folderPath)
             image.save(f"{folderPath}/captcha{ID}.png")

@@ -23,10 +23,7 @@ class OnRemoveCog(commands.Cog, name="on remove"):
         # Remove user captcha folder
         ID = member.id
         folderPath = f"captchaFolder/captcha_{ID}"
-        try:
-            shutil.rmtree(folderPath)
-        except:
-            pass
+        shutil.rmtree(folderPath) # Remove file
 
 # ------------------------ BOT ------------------------ #  
 
