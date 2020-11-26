@@ -34,7 +34,8 @@ class GiveRoleAfterCaptchaCog(commands.Cog, name="giveRoleAfterCaptcha command")
             embed = discord.Embed(title = f"**SUCCESS**", description = f"<@&{roleId}> will be given after that the captcha be passed.", color = 0x2fa737) # Green
             await ctx.channel.send(embed = embed)
         
-        except:
+        except Exception as error:
+            print(f"giveroleaftercaptcha error : {error}")
             roleId = roleId.lower()
             if roleId == "off":
                 with open("configuration.json", "r") as config:

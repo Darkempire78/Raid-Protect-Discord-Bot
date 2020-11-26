@@ -29,4 +29,3 @@ class OnRemoveCog(commands.Cog, name="on remove"):
 
 def setup(bot):
     bot.add_cog(OnRemoveCog(bot))
-

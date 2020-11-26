@@ -56,11 +56,8 @@ class OnJoinCog(commands.Cog, name="on join"):
         if data["captcha"] is True:
             
             # Give temporary role
-            try:
-                getrole = get(member.guild.roles, id = data["temporaryRole"])
-                await member.add_roles(getrole)
-            except:
-                print("Give temporary role failed")
+            getrole = get(member.guild.roles, id = data["temporaryRole"])
+            await member.add_roles(getrole)
             
             # Create captcha
             image = np.zeros(shape= (100, 350, 3), dtype= np.uint8)
@@ -133,8 +130,8 @@ class OnJoinCog(commands.Cog, name="on join"):
             # Remove captcha folder
             try:
                 shutil.rmtree(folderPath)
-            except:
-                print("Delete captcha file failed")
+            except Exception as error:
+                print(f"Delete captcha file failed {error}")
 
             # Check if it is the right user
             def check(message):
@@ -155,13 +152,13 @@ class OnJoinCog(commands.Cog, name="on join"):
                         getrole = get(member.guild.roles, id = data["roleGivenAfterCaptcha"])
                         if getrole is not False:
                             await member.add_roles(getrole)
-                    except:
-                        print("Give and remove roles failed")
+                    except Exception as error:
+                        print(f"Give and remove roles failed : {error}")
                     try:
                         getrole = get(member.guild.roles, id = data["temporaryRole"])
                         await member.remove_roles(getrole)
-                    except:
-                        print("No temp role found (onJoin)")
+                    except Exception as error:
+                        print(f"No temp role found (onJoin) : {error}")
                     time.sleep(3)
                     await captchaEmbed.delete()
                     await msg.delete()
@@ -193,8 +190,8 @@ class OnJoinCog(commands.Cog, name="on join"):
                     embed = discord.Embed(title = f"**YOU HAVE BEEN KICKED FROM {member.guild.name}**", description = f"Reason : You exceeded the captcha response time (120s).\nServer link : <{link}>", color = 0xff0000)
                     await member.send(embed = embed)
                     await member.kick() # Kick the user
-                except:
-                    print("Log failed (onJoin)")
+                except Exception as error:
+                    print(f"Log failed (onJoin) : {error}")
                 time.sleep(3)
                 await captchaEmbed.delete()
                 # Logs

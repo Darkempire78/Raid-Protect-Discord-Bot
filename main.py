@@ -33,8 +33,8 @@ path = path.replace('main.py', 'Cogs')
 initial_extensions = os.listdir(path)
 try:
     initial_extensions.remove("__pycache__")
-except:
-    print("__pycache__ was not removed")
+except Exception as error:
+    print(error)
 print(initial_extensions)
 initial_extensions3 = []
 for initial_extensions2 in initial_extensions:
@@ -51,7 +51,7 @@ if __name__ == '__main__':
 
 @bot.event
 async def on_ready():
-    print('We have logged in as {0.user}'.format(bot))
+    print(f'We have logged in as {bot.user}')
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name =f"{bot.command_prefix}help"))
     print(discord.__version__)
 

@@ -39,7 +39,7 @@ class HelpCog(commands.Cog, name="help command"):
                 embed.set_thumbnail(url=f'{self.bot.user.avatar_url}')
                 embed.add_field(name=f"**NAME :**", value=f"{commandName2.name}", inline=False)
                 aliases = ""
-                if len(i.aliases) > 0:
+                if len(commandName2.aliases) > 0:
                     for aliase in commandName2.aliases:
                         aliases = aliase
                 else:

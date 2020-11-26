@@ -48,7 +48,7 @@ class AllowSpamCog(commands.Cog, name="allow spam command"):
                 await ctx.channel.send(embed = embed)
 
             except:
-                embed = discord.Embed(title=f"**ERROR**", description=f"The channel where you want to allow to spam must be a number\nFollow the example : ``{self.bot.command_prefix}allowspam <#channel>``", color=0xe00000) # Red
+                embed = discord.Embed(title=f"**ERROR**", description=f"The channel where you want to allow to spam must be a channel\nFollow the example : ``{self.bot.command_prefix}allowspam <#channel>``", color=0xe00000) # Red
                 embed.set_footer(text="Bot Created by Darkempire#8245")
                 return await ctx.channel.send(embed=embed)
         else:
@@ -75,7 +75,7 @@ class AllowSpamCog(commands.Cog, name="allow spam command"):
                 await ctx.channel.send(embed = embed)
 
             except:
-                embed = discord.Embed(title=f"**ERROR**", description=f"The channel where you want to disable the spam must be a number\nFollow the example : ``{self.bot.command_prefix}allowspam <#channel> remove``", color=0xe00000) # Red
+                embed = discord.Embed(title=f"**ERROR**", description=f"The channel where you want to disable the spam must be a channel\nFollow the example : ``{self.bot.command_prefix}allowspam <#channel> remove``", color=0xe00000) # Red
                 embed.set_footer(text="Bot Created by Darkempire#8245")
                 return await ctx.channel.send(embed=embed)
 

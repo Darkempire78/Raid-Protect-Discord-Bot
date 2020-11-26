@@ -76,8 +76,8 @@ class SetupCog(commands.Cog, name="setup command"):
                         await loading.delete()
                         embed = discord.Embed(title = f"**CAPTCHA WAS SET UP WITH SUCCESS**", description = f"The captcha was set up with success.", color = 0x2fa737) # Green
                         await ctx.channel.send(embed = embed)
-                    except:
-                        embed = discord.Embed(title=f"**ERROR**", description=f"An error was encountered during the set up of the captcha.", color=0xe00000) # Red
+                    except Exception as error:
+                        embed = discord.Embed(title=f"**ERROR**", description=f"An error was encountered during the set up of the captcha.\n\n**ERROR :** {error}", color=0xe00000) # Red
                         embed.set_footer(text="Bot Created by Darkempire#8245")
                         return await ctx.channel.send(embed=embed)
 
