@@ -6,7 +6,8 @@ from discord.utils import get
 
 async def sendLogMessage(self, event, channel, embed, messageFile=None):
     """Send the message in the log channel"""
-    if channel == False:
+    
+    if channel is False:
         # Logs are disbaled
         return 
     else:
@@ -14,7 +15,7 @@ async def sendLogMessage(self, event, channel, embed, messageFile=None):
             # It is a channel id
             channel = self.bot.get_channel(channel)
 
-        if channel == None:
+        if channel is None:
             # Channel is deleted
             try:
                 channel = await event.guild.create_text_channel(f"{self.bot.user.name}-logs")

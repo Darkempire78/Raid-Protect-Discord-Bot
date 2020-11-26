@@ -58,7 +58,7 @@ class SetupCog(commands.Cog, name="setup command"):
                         await captchaChannel.set_permissions(ctx.guild.default_role, read_messages=False)
                         await captchaChannel.edit(slowmode_delay= 5)
                         # Create log channel
-                        if data["logChannel"] == False:
+                        if data["logChannel"] is False:
                             logChannel = await ctx.guild.create_text_channel(f"{self.bot.user.name}-logs")
                             await logChannel.set_permissions(ctx.guild.default_role, read_messages=False)
                             data["logChannel"] = logChannel.id

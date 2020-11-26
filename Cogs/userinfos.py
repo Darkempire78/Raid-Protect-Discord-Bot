@@ -23,7 +23,7 @@ class UserInfosCog(commands.Cog, name="user infos command"):
         member = re.findall(r'\d+', member) # Get only numbers from member
         member = self.bot.get_user(int(member[0]))
 
-        if member != None:
+        if member is not None:
             embed = discord.Embed(title=f"__**{member.name} informations :**__", description="[**GitHub**](https://github.com/Darkempire78/Raid-Protect-Discord-Bot)", color=randint(0, 0xffffff))
             embed.set_thumbnail(url=f'{member.avatar_url}')
             embed.add_field(name="**Member ID :**", value=f"{member.id}", inline=True)

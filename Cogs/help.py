@@ -18,7 +18,7 @@ class HelpCog(commands.Cog, name="help command"):
         commandName2 = None
         stop = False
 
-        if commandName != None:
+        if commandName is not None:
             for i in self.bot.commands:
                 if i.name == commandName.lower():
                     commandName2 = i
@@ -29,10 +29,10 @@ class HelpCog(commands.Cog, name="help command"):
                             commandName2 = i
                             stop = True
                             break
-                if stop == True:
+                if stop is True:
                     break 
 
-            if commandName2 == None:
+            if commandName2 is None:
                 await ctx.channel.send("No command found!")   
             else:
                 embed = discord.Embed(title=f"**{commandName2.name.upper()} COMMAND :**", description="[**GitHub**](https://github.com/Darkempire78/Raid-Protect-Discord-Bot)", color=0xdeaa0c)
@@ -46,7 +46,7 @@ class HelpCog(commands.Cog, name="help command"):
                     commandName2.aliases = None
                     aliases = None
                 embed.add_field(name=f"**ALIASES :**", value=f"{aliases}", inline=False)
-                if commandName2.usage == None:
+                if commandName2.usage is None:
                     commandName2.usage = ""
                 embed.add_field(name=f"**USAGE :**", value=f"{self.bot.command_prefix}{commandName2.name} {commandName2.usage}", inline=False)
                 embed.add_field(name=f"**DESCRIPTION :**", value=f"{commandName2.description}", inline=False)

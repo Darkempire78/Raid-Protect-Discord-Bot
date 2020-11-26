@@ -153,7 +153,7 @@ class OnJoinCog(commands.Cog, name="on join"):
                     # Give and remove roles
                     try:
                         getrole = get(member.guild.roles, id = data["roleGivenAfterCaptcha"])
-                        if getrole != False:
+                        if getrole is not False:
                             await member.add_roles(getrole)
                     except:
                         print("Give and remove roles failed")

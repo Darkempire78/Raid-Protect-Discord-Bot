@@ -40,11 +40,11 @@ class SettingsCog(commands.Cog, name="settings command"):
                 for x in allowSpam:
                     allowSpam2 = f"{allowSpam2}<#{x}>, "
 
-            if roleGivenAfterCaptcha != False:
+            if roleGivenAfterCaptcha is not False:
                 roleGivenAfterCaptcha = f"<@&{roleGivenAfterCaptcha}>"
-            if captchaChannel != False:
+            if captchaChannel is not False:
                 captchaChannel = f"<#{captchaChannel}>"
-            if logChannel != False:
+            if logChannel is not False:
                 logChannel = f"<#{logChannel}>"
             
         embed = discord.Embed(title=f"**SERVER SETTINGS**", description=f"[**GitHub**](https://github.com/Darkempire78/Raid-Protect-Discord-Bot)", color=0xdeaa0c)
