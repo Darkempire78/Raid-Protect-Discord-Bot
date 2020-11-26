@@ -14,7 +14,10 @@ class SetupCog(commands.Cog, name="setup command"):
 
 # ------------------------------------------------------ #  
 
-    @commands.command(name = 'setup')
+    @commands.command(name = 'setup',
+                        aliases=["captcha"],
+                        usage="<on/off>",
+                        description="Enable or disable the captcha system.")
     @has_permissions(administrator = True)
     async def setup (self, ctx, onOrOff):
 

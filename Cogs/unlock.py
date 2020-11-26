@@ -11,7 +11,9 @@ class UnlockCog(commands.Cog, name="unlock command"):
 
 # ------------------------------------------------------ #  
 
-    @commands.command(name = 'unlock')
+    @commands.command(name = 'unlock',
+                        usage="<#channel/ID>",
+                        description="Unlock the channel.")
     async def unlock (self, ctx, channel):
 
         # Get channel

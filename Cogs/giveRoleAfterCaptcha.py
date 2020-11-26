@@ -14,7 +14,10 @@ class GiveRoleAfterCaptchaCog(commands.Cog, name="giveRoleAfterCaptcha command")
 
 # ------------------------------------------------------ #  
 
-    @commands.command(name = 'giveroleaftercaptcha', aliases= ["grac", "giverole", "captcharole"])
+    @commands.command(name = 'giveroleaftercaptcha', 
+                        aliases= ["grac", "giverole", "captcharole"],
+                        usage="<ID/off>",
+                        description="Enable or disable the role given after the captcha.")
     @has_permissions(administrator = True)
     async def giveroleaftercaptcha (self, ctx, roleId):
 

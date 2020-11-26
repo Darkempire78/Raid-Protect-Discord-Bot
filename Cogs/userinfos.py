@@ -13,7 +13,10 @@ class UserInfosCog(commands.Cog, name="user infos command"):
 
 # ------------------------------------------------------ #  
 
-    @commands.command(name = 'userinfos', aliases=["ui", "userinfo", "info", "infos"])
+    @commands.command(name = 'userinfos', 
+                        aliases=["ui", "userinfo", "info", "infos"],
+                        usage="<@user/ID>",
+                        description="Displays data from user.")
     async def userinfos (self, ctx, member):
 
         # Get member

@@ -11,7 +11,9 @@ class LockCog(commands.Cog, name="lock command"):
 
 # ------------------------------------------------------ #  
 
-    @commands.command(name = 'lock')
+    @commands.command(name = 'lock',
+                        usage="<#channel/ID>",
+                        description="Lock the channel.")
     async def lock (self, ctx, channel):
 
         # Get channel

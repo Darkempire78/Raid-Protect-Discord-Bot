@@ -36,7 +36,7 @@ class EventsCog(commands.Cog, name="EventsCog"):
         elif isinstance(error, CheckFailure):
             await ctx.send(error.original.text)
         else:
-            await ctx.send(error.original.text)
+            await ctx.send(error)
 
 # ------------------------ BOT ------------------------ #  
 

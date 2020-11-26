@@ -41,16 +41,17 @@ class OnJoinCog(commands.Cog, name="on join"):
         memberTime = f"{member.joined_at.year}-{member.joined_at.month}-{member.joined_at.day} {member.joined_at.hour}:{member.joined_at.minute}:{member.joined_at.second}"
 
         # Check the user account creation date (1 day by default)
-        userAccountDate = member.created_at.timestamp()
-        if userAccountDate < data["minAccountDate"]:
-            minAccountDate = data["minAccountDate"] / 3600
-            embed = discord.Embed(title = f"**YOU HAVE BEEN KICKED FROM {member.guild.name}**", description = f"Reason : Your account is more young that the server limit ({minAccountDate} hours).", color = 0xff0000)
-            await member.send(embed = embed)
-            await member.kick() # Kick the user
-            # Logs
-            embed = discord.Embed(title = f"**{member} has been kicked.**", description = f"**Reason :** His account is more young that the server limit ({minAccountDate} hours)\nAccount creation : {member.created_at}\n\n**__User informations :__**\n\n**Name :** {member}\n**Id :** {member.id}", color = 0xff0000)
-            embed.set_footer(text= f"at {member.joined_at}")
-            await sendLogMessage(self, event=member, channel=logChannel, embed=embed)
+        if data["minAccountDate"] != False:
+            userAccountDate = member.created_at.timestamp()
+            if userAccountDate < data["minAccountDate"]:
+                minAccountDate = data["minAccountDate"] / 3600
+                embed = discord.Embed(title = f"**YOU HAVE BEEN KICKED FROM {member.guild.name}**", description = f"Reason : Your account is more young that the server limit ({minAccountDate} hours).", color = 0xff0000)
+                await member.send(embed = embed)
+                await member.kick() # Kick the user
+                # Logs
+                embed = discord.Embed(title = f"**{member} has been kicked.**", description = f"**Reason :** His account is more young that the server limit ({minAccountDate} hours)\nAccount creation : {member.created_at}\n\n**__User informations :__**\n\n**Name :** {member}\n**Id :** {member.id}", color = 0xff0000)
+                embed.set_footer(text= f"at {member.joined_at}")
+                await sendLogMessage(self, event=member, channel=logChannel, embed=embed)
 
         if data["captcha"] == True:
             

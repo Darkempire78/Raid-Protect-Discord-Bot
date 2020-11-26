@@ -14,7 +14,10 @@ class AntiProfanityCog(commands.Cog, name="change setting from anti nudity comma
 
 # ------------------------------------------------------ #  
 
-    @commands.command(name = 'antiprofanity', aliases= ["profanity"])
+    @commands.command(name = 'antiprofanity', 
+                        aliases= ["profanity"],
+                        usage="<true/false>",
+                        description="Enable or disable the anti profanity.")
     @has_permissions(administrator = True)
     async def antiprofanity (self, ctx, antiProfanity):
 

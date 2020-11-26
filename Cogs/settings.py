@@ -14,7 +14,8 @@ class SettingsCog(commands.Cog, name="settings command"):
 
 # ------------------------------------------------------ #  
 
-    @commands.command(name = 'settings')
+    @commands.command(name = 'settings',
+                        description="Display the settings.")
     async def settings (self, ctx):
 
         with open("configuration.json", "r") as config:

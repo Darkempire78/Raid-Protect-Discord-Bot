@@ -14,7 +14,10 @@ class AntiNudityCog(commands.Cog, name="change setting from anti nudity command"
 
 # ------------------------------------------------------ #  
 
-    @commands.command(name = 'antinudity', aliases= ["nudity", "porn"])
+    @commands.command(name = 'antinudity', 
+                        aliases= ["nudity", "porn"],
+                        usage="<true/false>",
+                        description="Enable or disable the nudity image protection.")
     @has_permissions(administrator = True)
     async def antinudity (self, ctx, antiNudity):
 

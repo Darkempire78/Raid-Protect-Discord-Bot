@@ -14,7 +14,10 @@ class LogsCog(commands.Cog, name="change setting from logs command"):
 
 # ------------------------------------------------------ #  
 
-    @commands.command(name = 'logs', aliases= ["log", "setlog", "setlogs", "logchannel"])
+    @commands.command(name = 'logs', 
+                        aliases= ["log", "setlog", "setlogs", "logchannel"],
+                        usage="<true/false>",
+                        description="Enable or disable the log system.")
     @has_permissions(administrator = True)
     async def logs (self, ctx, logChannel):
 

@@ -14,7 +14,9 @@ class AntiSpamCog(commands.Cog, name="change setting from anti spam command"):
 
 # ------------------------------------------------------ #  
 
-    @commands.command(name = 'antispam', aliases= ["spam"])
+    @commands.command(name = 'antispam', 
+                        usage="<true/false>",
+                        description="Enable or disable the spam protection.")
     @has_permissions(administrator = True)
     async def antispam (self, ctx, antiSpam):
 
