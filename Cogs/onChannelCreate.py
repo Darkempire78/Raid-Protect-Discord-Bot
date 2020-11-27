@@ -35,4 +35,3 @@ class OnChannelCreate(commands.Cog, name="on channel create"):
 
 def setup(bot):
     bot.add_cog(OnChannelCreate(bot))
-
