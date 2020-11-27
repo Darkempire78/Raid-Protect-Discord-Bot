@@ -19,6 +19,8 @@ class MinAccountAgeCog(commands.Cog, name="change min account age command"):
                         usage="<numberInSecond/false>",
                         description="Update or disable the minimal account age to join the server.")
     @has_permissions(administrator = True)
+    @commands.cooldown(1, 3, commands.BucketType.member)
+    @commands.guild_only()
     async def minaccountage (self, ctx, accountAge):
 
         accountAge = accountAge.lower()

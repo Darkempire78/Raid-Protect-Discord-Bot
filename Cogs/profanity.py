@@ -19,6 +19,8 @@ class AntiProfanityCog(commands.Cog, name="change setting from anti nudity comma
                         usage="<true/false>",
                         description="Enable or disable the anti profanity.")
     @has_permissions(administrator = True)
+    @commands.cooldown(1, 3, commands.BucketType.member)
+    @commands.guild_only()
     async def antiprofanity (self, ctx, antiProfanity):
 
         antiProfanity = antiProfanity.lower()

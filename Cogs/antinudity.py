@@ -19,6 +19,8 @@ class AntiNudityCog(commands.Cog, name="change setting from anti nudity command"
                         usage="<true/false>",
                         description="Enable or disable the nudity image protection.")
     @has_permissions(administrator = True)
+    @commands.cooldown(1, 3, commands.BucketType.member)
+    @commands.guild_only()
     async def antinudity (self, ctx, antiNudity):
 
         antiNudity = antiNudity.lower()

@@ -19,6 +19,8 @@ class SetupCog(commands.Cog, name="setup command"):
                         usage="<on/off>",
                         description="Enable or disable the captcha system.")
     @has_permissions(administrator = True)
+    @commands.cooldown(1, 3, commands.BucketType.member)
+    @commands.guild_only()
     async def setup (self, ctx, onOrOff):
 
         onOrOff = onOrOff.lower()

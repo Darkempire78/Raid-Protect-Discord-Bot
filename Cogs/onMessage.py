@@ -1,5 +1,8 @@
 import discord
 import json
+
+import aiohttp
+import asyncio
 import requests
 
 from discord.ext import commands
@@ -49,9 +52,14 @@ class OnMessageCog(commands.Cog, name="on message"):
                     if antiNudity is True:  
                         logChannel = data["logChannel"]
 
+                        # Get the image
+                        async with aiohttp.ClientSession() as session:
+                            async with session.get(i.url) as response:
+                                image_bytes = await response.read()
+                        
                         # Convert the image to io
-                        response = requests.get(i.url)
-                        image_bytes = BytesIO(response.content)
+                        image_bytes = BytesIO(image_bytes)
+                        
                         # Check the image
                         n = Nude(image_bytes)
                         n.parse()
@@ -112,20 +120,24 @@ class OnMessageCog(commands.Cog, name="on message"):
                 await message.author.kick() # Kick the user
                 await message.channel.send(f"{message.author.mention} was kicked for spamming !")
                 
-                # Logs
-                # Create a hastbin file
-                messageNumber = 0
+                # Logs -> Create a hastbin file
                 logTime = datetime.now().strftime("%m/%d/%Y at %H:%M:%S")
-                logs = f"[LOGS] {self.bot.user.name.upper()} - ANTI-SPAM \n\n{message.author} ({message.author.id}) spammed in #{message.channel} the {logTime}\n\n"
+                logs = f"[LOGS] {self.bot.user.name.upper()} - ANTI-SPAM \n\n{message.author} ({message.author.id}) spammed in \"{message.channel}\" the {logTime}\n\n"
+                messageNumber = 0
+
+                # Get user messages
+                user_cache_messages = [i for i in self.bot.cached_messages if i.author.id == message.author.id]
                 
-                for i in  self.bot.cached_messages:
-                    if i.author.id == message.author.id and i.content != "":
-                        messageNumber += 1
-                        logs = f"{logs}\n[{messageNumber}] {i.content}"
+                for i in user_cache_messages[-10:]:
+                    messageNumber += 1
+                    logs = f"{logs}\n[{messageNumber}] {i.content}"
 
                 url = 'https://hastebin.com'
-                hastbin = requests.post(f'{url}/documents', data=logs).json()
-                hastbinUrl = url + "/" + hastbin['key']
+                async with aiohttp.ClientSession() as session:
+                    async with session.post(f'{url}/documents', data=logs) as hastbin:
+                        hastbin = await hastbin.json()
+                        hastbinUrl = url + "/" + hastbin['key']
+                
                 embed = discord.Embed(title = f"**{message.author} has been kicked.**", description = f"**Reason :** He spammed in {message.channel.mention}.\n\n**__User informations :__**\n\n**Name :** {message.author}\n**Id :** {message.author.id}\n\n**Logs :** {hastbinUrl}", color = 0xff0000)
                 await sendLogMessage(self, event=message, channel=logChannel, embed=embed)
 

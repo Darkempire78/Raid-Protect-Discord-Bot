@@ -16,6 +16,8 @@ class SettingsCog(commands.Cog, name="settings command"):
 
     @commands.command(name = 'settings',
                         description="Display the settings.")
+    @commands.cooldown(1, 3, commands.BucketType.member)
+    @commands.guild_only()
     async def settings (self, ctx):
 
         with open("configuration.json", "r") as config:

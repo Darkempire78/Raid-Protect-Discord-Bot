@@ -8,7 +8,7 @@ async def sendLogMessage(self, event, channel, embed, messageFile=None):
     """Send the message in the log channel"""
     
     if channel is False:
-        # Logs are disbaled
+        # Logs are disabled
         return 
 
     if isinstance(channel, int):
@@ -35,5 +35,5 @@ async def sendLogMessage(self, event, channel, embed, messageFile=None):
         with open("configuration.json", "w") as config:
             config.write(newdata)
 
-        # Send the message
-        await channel.send(embed=embed, file=messageFile)
+    # Send the message
+    await channel.send(embed=embed, file=messageFile)

@@ -17,6 +17,7 @@ class UserInfosCog(commands.Cog, name="user infos command"):
                         aliases=["ui", "userinfo", "info", "infos"],
                         usage="<@user/ID>",
                         description="Displays data from user.")
+    @commands.cooldown(1, 3, commands.BucketType.member)
     async def userinfos (self, ctx, member):
 
         # Get member

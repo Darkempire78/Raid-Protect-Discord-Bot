@@ -18,6 +18,8 @@ class AntiSpamCog(commands.Cog, name="change setting from anti spam command"):
                         usage="<true/false>",
                         description="Enable or disable the spam protection.")
     @has_permissions(administrator = True)
+    @commands.cooldown(1, 3, commands.BucketType.member)
+    @commands.guild_only()
     async def antispam (self, ctx, antiSpam):
 
         antiSpam = antiSpam.lower()

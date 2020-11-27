@@ -14,6 +14,8 @@ class LockCog(commands.Cog, name="lock command"):
     @commands.command(name = 'lock',
                         usage="<#channel/ID>",
                         description="Lock the channel.")
+    @commands.cooldown(1, 3, commands.BucketType.member)
+    @commands.guild_only()
     async def lock (self, ctx, channel):
 
         # Get channel

@@ -19,6 +19,8 @@ class GiveRoleAfterCaptchaCog(commands.Cog, name="giveRoleAfterCaptcha command")
                         usage="<ID/off>",
                         description="Enable or disable the role given after the captcha.")
     @has_permissions(administrator = True)
+    @commands.cooldown(1, 3, commands.BucketType.member)
+    @commands.guild_only()
     async def giveroleaftercaptcha (self, ctx, roleId):
 
         try:

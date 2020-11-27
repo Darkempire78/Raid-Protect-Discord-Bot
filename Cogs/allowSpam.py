@@ -20,6 +20,8 @@ class AllowSpamCog(commands.Cog, name="allow spam command"):
                         usage="<#channel/ID> (remove)",
                         description="Enable or disable the spam protection in a specific channel.")
     @has_permissions(administrator = True)
+    @commands.cooldown(1, 3, commands.BucketType.member)
+    @commands.guild_only()
     async def allowspam (self, ctx, channel, remove="False"):
 
         channel = re.findall(r'\d+', channel) # Get only numbers from channel

@@ -19,6 +19,8 @@ class LogsCog(commands.Cog, name="change setting from logs command"):
                         usage="<true/false>",
                         description="Enable or disable the log system.")
     @has_permissions(administrator = True)
+    @commands.cooldown(1, 3, commands.BucketType.member)
+    @commands.guild_only()
     async def logs (self, ctx, logChannel):
 
         logChannel = logChannel.lower()
