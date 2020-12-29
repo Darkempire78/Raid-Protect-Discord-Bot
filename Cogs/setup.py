@@ -30,9 +30,8 @@ class SetupCog(commands.Cog, name="setup command"):
             await ctx.channel.send(embed = embed)
             # Ask if user are sure
             def check(message):
-                if message.author == ctx.author:
-                    if ((message.content == "yes") or (message.content == "no")):
-                        return message.content
+                if message.author == ctx.author and message.content in ["yes", "no"]:
+                    return message.content
 
             try:
                 msg = await self.bot.wait_for('message', timeout=30.0, check=check)

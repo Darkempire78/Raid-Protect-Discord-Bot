@@ -25,7 +25,7 @@ class AllowSpamCog(commands.Cog, name="allow spam command"):
     async def allowspam(self, ctx, channel, remove="False"):
 
         channel = re.findall(r'\d+', channel) # Get only numbers from channel
-        
+
         if remove == "False":
             try:
                 channel  = int(channel)
@@ -34,7 +34,7 @@ class AllowSpamCog(commands.Cog, name="allow spam command"):
                 # Edit configuration.json
                 with open("configuration.json", "r") as config:
                     data = json.load(config)
-                    
+
                 if spamChannel.id in data["allowSpam"]:
                     embed = discord.Embed(title=f"**ERROR**", description=f"The channel where you want to allow to spam is already ignored by anti spam.", color=0xe00000) # Red
                     embed.set_footer(text="Bot Created by Darkempire#8245")
@@ -61,8 +61,8 @@ class AllowSpamCog(commands.Cog, name="allow spam command"):
                 # Edit configuration.json
                 with open("configuration.json", "r") as config:
                     data = json.load(config)
-                    
-                if not spamChannel.id in data["allowSpam"]:
+
+                if spamChannel.id not in data["allowSpam"]:
                     embed = discord.Embed(title=f"**ERROR**", description=f"The channel where you want to disable the spam is already disabled.", color=0xe00000) # Red
                     embed.set_footer(text="Bot Created by Darkempire#8245")
                     return await ctx.channel.send(embed=embed)
