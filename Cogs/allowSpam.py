@@ -22,7 +22,7 @@ class AllowSpamCog(commands.Cog, name="allow spam command"):
     @has_permissions(administrator = True)
     @commands.cooldown(1, 3, commands.BucketType.member)
     @commands.guild_only()
-    async def allowspam (self, ctx, channel, remove="False"):
+    async def allowspam(self, ctx, channel, remove="False"):
 
         channel = re.findall(r'\d+', channel) # Get only numbers from channel
         

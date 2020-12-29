@@ -21,7 +21,7 @@ class LogsCog(commands.Cog, name="change setting from logs command"):
     @has_permissions(administrator = True)
     @commands.cooldown(1, 3, commands.BucketType.member)
     @commands.guild_only()
-    async def logs (self, ctx, logChannel):
+    async def logs(self, ctx, logChannel):
 
         logChannel = logChannel.lower()
 
@@ -36,9 +36,8 @@ class LogsCog(commands.Cog, name="change setting from logs command"):
                 # Add modifications
                 data["logChannel"] = logChannel.id
                 newdata = json.dumps(data, indent=4, ensure_ascii=False)
-                
+
             embed = discord.Embed(title = f"**LOG CHANNEL WAS ENABLED**", description = f"The log channel was enabled.", color = 0x2fa737) # Green
-            await ctx.channel.send(embed = embed)
         else:
             # Read configuration.json
             with open("configuration.json", "r") as config:
@@ -53,8 +52,9 @@ class LogsCog(commands.Cog, name="change setting from logs command"):
             newdata = json.dumps(data, indent=4, ensure_ascii=False)
 
             embed = discord.Embed(title = f"**LOG CHANNEL WAS DISABLED**", description = f"The log channel was disabled.", color = 0xe00000) # Red
-            await ctx.channel.send(embed = embed)
-            
+        
+        await ctx.channel.send(embed = embed)
+        
         with open("configuration.json", "w") as config:
             config.write(newdata)
 

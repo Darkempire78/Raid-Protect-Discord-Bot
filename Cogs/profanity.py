@@ -21,7 +21,7 @@ class AntiProfanityCog(commands.Cog, name="change setting from anti nudity comma
     @has_permissions(administrator = True)
     @commands.cooldown(1, 3, commands.BucketType.member)
     @commands.guild_only()
-    async def antiprofanity (self, ctx, antiProfanity):
+    async def antiprofanity(self, ctx, antiProfanity):
 
         antiProfanity = antiProfanity.lower()
 
@@ -32,9 +32,8 @@ class AntiProfanityCog(commands.Cog, name="change setting from anti nudity comma
                 # Add modifications
                 data["antiProfanity"] = True
                 newdata = json.dumps(data, indent=4, ensure_ascii=False)
-                
+
             embed = discord.Embed(title = f"**ANTI PROFANITY WAS ENABLED**", description = f"The anti profanity was enabled.", color = 0x2fa737) # Green
-            await ctx.channel.send(embed = embed)
         else:
             # Edit configuration.json
             with open("configuration.json", "r") as config:
@@ -42,10 +41,11 @@ class AntiProfanityCog(commands.Cog, name="change setting from anti nudity comma
                 # Add modifications
                 data["antiProfanity"] = False
                 newdata = json.dumps(data, indent=4, ensure_ascii=False)
-                
+
             embed = discord.Embed(title = f"**ANTI PROFANITY WAS DISABLED**", description = f"The anti profanity was disabled.", color = 0xe00000) # Red
-            await ctx.channel.send(embed = embed)
-            
+        
+        await ctx.channel.send(embed = embed)
+        
         with open("configuration.json", "w") as config:
             config.write(newdata)
 

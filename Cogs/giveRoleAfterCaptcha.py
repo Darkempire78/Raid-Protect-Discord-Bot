@@ -52,8 +52,6 @@ class GiveRoleAfterCaptchaCog(commands.Cog, name="giveRoleAfterCaptcha command")
                 await ctx.channel.send(embed = embed)
 
 
-
-
 # ------------------------ BOT ------------------------ #  
 
 def setup(bot):

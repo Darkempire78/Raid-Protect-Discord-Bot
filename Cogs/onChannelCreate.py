@@ -21,10 +21,7 @@ class OnChannelCreate(commands.Cog, name="on channel create"):
             data = json.load(config)
             temporaryRole = get(channel.guild.roles, id= data["temporaryRole"])
 
-        if temporaryRole == None:
-            pass
-
-        else:
+        if temporaryRole != None:
             for channel in channel.guild.channels:
                 if isinstance(channel, discord.TextChannel):
                     await channel.set_permissions(temporaryRole, read_messages=False)

@@ -21,7 +21,7 @@ class MinAccountAgeCog(commands.Cog, name="change min account age command"):
     @has_permissions(administrator = True)
     @commands.cooldown(1, 3, commands.BucketType.member)
     @commands.guild_only()
-    async def minaccountage (self, ctx, accountAge):
+    async def minaccountage(self, ctx, accountAge):
 
         accountAge = accountAge.lower()
 
@@ -31,7 +31,7 @@ class MinAccountAgeCog(commands.Cog, name="change min account age command"):
                 # Add modifications
                 data["minAccountDate"] = False
                 newdata = json.dumps(data, indent=4, ensure_ascii=False)
-                
+
             with open("configuration.json", "w") as config:
                 config.write(newdata)
 
@@ -41,7 +41,7 @@ class MinAccountAgeCog(commands.Cog, name="change min account age command"):
             try:
                 accountAge = int(accountAge)
                 # hour to second
-                accountAge = accountAge * 3600
+                accountAge *= 3600
 
                 # Edit configuration.json
                 with open("configuration.json", "r") as config:
@@ -49,10 +49,10 @@ class MinAccountAgeCog(commands.Cog, name="change min account age command"):
                     # Add modifications
                     data["minAccountDate"] = accountAge
                     newdata = json.dumps(data, indent=4, ensure_ascii=False)
-                    
+
                 with open("configuration.json", "w") as config:
                     config.write(newdata)
-                
+
                 embed = discord.Embed(title = f"**MINIMUM ACCOUNT AGE WAS UPDATED**", description = f"The minimal account age to join the server was updated.", color = 0x2fa737) # Green
                 await ctx.channel.send(embed = embed)
 
