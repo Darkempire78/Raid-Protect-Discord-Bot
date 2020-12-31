@@ -62,3 +62,11 @@ Please make sure to update tests as appropriate.
 ## License
 
 This project is under [GPLv3](https://github.com/Darkempire78/Raid-Protect-Discord-Bot/blob/master/LICENSE).
+
+
+# Advice :
+
+You should use [Discord Tools](https://marketplace.visualstudio.com/items?itemName=Darkempire78.discord-tools) to code your Discord bots on Visual Studio Code easier.
+Works for Python (Discord.py), Javascript (Discord.js) and Java (JDA). Generate template bot and code (snippets).
+- **Download :** https://marketplace.visualstudio.com/items?itemName=Darkempire78.discord-tools
+- **Repository :** https://github.com/Darkempire78/Discord-Tools
