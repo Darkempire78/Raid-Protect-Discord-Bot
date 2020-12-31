@@ -37,7 +37,7 @@ class OnMessageCog(commands.Cog, name="on message"):
 
         # Nudity check     
         if (message.channel.nsfw is not True) and (len(message.attachments) > 0):
-            # Use : https://github.com/hhatto/nude.py
+            # Used : https://github.com/hhatto/nude.py
             # Other option : https://github.com/notAI-tech/NudeNet (untested)
             for i in message.attachments:
                 # Check if the attachment is an image
