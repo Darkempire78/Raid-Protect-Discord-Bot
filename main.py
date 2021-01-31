@@ -1,16 +1,10 @@
 #!/usr/bin/env python3
 
 import discord
-import random 
-import asyncio
-import time
 import os
-import sys
 import json
 
-from datetime import datetime
 from discord.ext import commands
-from discord.ext import tasks
 
 class Greetings(commands.Cog):
     def __init__(self, bot):
@@ -27,27 +21,10 @@ bot = commands.Bot("?", intents = intents)
 bot.remove_command("help") # To create a personal help command 
 
 # Load cogs
-path = os.path.realpath(__file__)
-path = path.replace('\\', '/')
-path = path.replace('main.py', 'Cogs')
-initial_extensions = os.listdir(path)
-try:
-    initial_extensions.remove("__pycache__")
-except Exception as error:
-    print(error)
-print(initial_extensions)
-initial_extensions3 = []
-for initial_extensions2 in initial_extensions:
-    initial_extensions2 = "Cogs." + initial_extensions2
-    initial_extensions2 = initial_extensions2.replace(".py", "")
-    initial_extensions3.append(initial_extensions2)
-
 if __name__ == '__main__':
-    for extension in initial_extensions3:
-        try:
-            bot.load_extension(extension)
-        except Exception as e:
-            print(f'Failed to load extension {extension}.', file=sys.stderr)
+    for filename in os.listdir("Cogs"):
+        if filename.endswith(".py"):
+            bot.load_extension(f"Cogs.{filename[:-3]}")
 
 @bot.event
 async def on_ready():
@@ -55,9 +32,6 @@ async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name =f"{bot.command_prefix}help"))
     print(discord.__version__)
 
-# @bot.event
-# async def on_error(self, event, *args, **kwargs):
-#     pass
 
 # ------------------------ RUN ------------------------ # 
 with open("configuration.json", "r") as config:
