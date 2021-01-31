@@ -1,4 +1,6 @@
-[![CodeFactor](https://www.codefactor.io/repository/github/darkempire78/Raid-Protect-Discord-Bot/badge/master)](https://www.codefactor.io/repository/github/darkempire78/Raid-Protect-Discord-Bot/overview/master) ![](https://img.shields.io/github/repo-size/Darkempire78/Raid-Protect-Discord-Bot) [![Sourcery](https://img.shields.io/badge/Sourcery-enabled-brightgreen)](https://sourcery.ai)
+![](https://img.shields.io/codefactor/grade/github/Darkempire78/Raid-Protect-Discord-Bot?style=for-the-badge) 
+![](https://img.shields.io/github/repo-size/Darkempire78/Raid-Protect-Discord-Bot?style=for-the-badge) 
+![](https://img.shields.io/badge/SOURCERY-ENABLED-green?style=for-the-badge)
 
 # Raid Protect Discord Bot
 
