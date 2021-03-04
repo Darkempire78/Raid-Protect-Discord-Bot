@@ -67,7 +67,7 @@ class OnJoinCog(commands.Cog, name="on join"):
 
             # Add text
             draw = ImageDraw.Draw(image)
-            font = ImageFont.truetype(font= "arial", size= 60)
+            font = ImageFont.truetype(font= "Tools/arial.ttf", size= 60)
 
             text = ' '.join(random.choice(string.ascii_uppercase) for _ in range(6)) # + string.ascii_lowercase + string.digits
 
