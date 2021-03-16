@@ -2,6 +2,8 @@
 ![](https://img.shields.io/github/repo-size/Darkempire78/Raid-Protect-Discord-Bot?style=for-the-badge) 
 ![](https://img.shields.io/badge/SOURCERY-ENABLED-green?style=for-the-badge)
 
+[:jp: Japan Version](https://github.com/Alpaca131/Raid-Protect-Discord-Bot-JP_translated)
+
 # Raid Protect Discord Bot
 
 Raid Protect is a Discord bot wich allow to protect your discord server efficiently.
