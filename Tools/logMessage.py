@@ -4,12 +4,13 @@ import json
 from discord.ext import commands
 from discord.utils import get
 
+
 async def sendLogMessage(self, event, channel, embed, messageFile=None):
     """Send the message in the log channel"""
-    
+
     if channel is False:
         # Logs are disabled
-        return 
+        return
 
     if isinstance(channel, int):
         # It is a channel id
@@ -25,7 +26,7 @@ async def sendLogMessage(self, event, channel, embed, messageFile=None):
                 return await event.channel.send(f"**Log error :** I can not create a log channel ({error.text}).")
             return await event.channel.send(error.text)
 
-        # Get configuration.json data 
+        # Get configuration.json data
         with open("configuration.json", "r") as config:
             data = json.load(config)
             data["logChannel"] = channel.id

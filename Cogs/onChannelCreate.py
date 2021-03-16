@@ -7,19 +7,19 @@ from discord.ext import commands
 from discord.utils import get
 
 
-# ------------------------ COGS ------------------------ #  
+# ------------------------ COGS ------------------------ #
 
 class OnChannelCreate(commands.Cog, name="on channel create"):
     def __init__(self, bot):
         self.bot = bot
 
-# ------------------------------------------------------ #  
+# ------------------------------------------------------ #
 
     @commands.Cog.listener()
     async def on_guild_channel_create(self, channel):
         with open("configuration.json", "r") as config:
             data = json.load(config)
-            temporaryRole = get(channel.guild.roles, id= data["temporaryRole"])
+            temporaryRole = get(channel.guild.roles, id=data["temporaryRole"])
 
         if temporaryRole is not None:
             if isinstance(channel, discord.TextChannel):
@@ -27,7 +27,8 @@ class OnChannelCreate(commands.Cog, name="on channel create"):
             elif isinstance(channel, discord.VoiceChannel):
                 await channel.set_permissions(temporaryRole, read_messages=False, connect=False)
 
-# ------------------------ BOT ------------------------ #  
+# ------------------------ BOT ------------------------ #
+
 
 def setup(bot):
     bot.add_cog(OnChannelCreate(bot))
