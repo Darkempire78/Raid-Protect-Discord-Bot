@@ -12,6 +12,7 @@ class LockCog(commands.Cog, name="lock command"):
 
 # ------------------------------------------------------ #
 
+    # noinspection PyUnresolvedReferences
     @commands.command(name='lock',
                       usage="<#channel/ID>",
                       description="チャンネルをロックします")

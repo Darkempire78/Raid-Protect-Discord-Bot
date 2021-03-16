@@ -1,10 +1,9 @@
-import discord
-import asyncio
 import json
 
+import discord
 from discord.ext import commands
-from discord.utils import get
 from discord.ext.commands import has_permissions
+
 
 # ------------------------ COGS ------------------------ #
 
@@ -22,21 +21,21 @@ class LogsCog(commands.Cog, name="change setting from logs command"):
     @has_permissions(administrator=True)
     @commands.cooldown(1, 3, commands.BucketType.member)
     @commands.guild_only()
-    async def logs(self, ctx, logChannel):
+    async def logs(self, ctx, log_channel):
 
-        logChannel = logChannel.lower()
+        log_channel = log_channel.lower()
 
-        if logChannel == "true":
+        if log_channel == "true":
             # Create channel
-            logChannel = await ctx.guild.create_text_channel(f"{self.bot.user.name}-logs")
-            await logChannel.set_permissions(ctx.guild.default_role, read_messages=False)
+            log_channel = await ctx.guild.create_text_channel(f"{self.bot.user.name}-logs")
+            await log_channel.set_permissions(ctx.guild.default_role, read_messages=False)
 
             # Edit configuration.json
             with open("configuration.json", "r") as config:
                 data = json.load(config)
                 # Add modifications
-                data["logChannel"] = logChannel.id
-                newdata = json.dumps(data, indent=4, ensure_ascii=False)
+                data["logChannel"] = log_channel.id
+                new_data = json.dumps(data, indent=4, ensure_ascii=False)
 
             embed = discord.Embed(
                 title=f"**設定しました**", description=f"ログを出すチャンネルを設定しました。", color=0x2fa737)  # Green
@@ -46,12 +45,12 @@ class LogsCog(commands.Cog, name="change setting from logs command"):
                 data = json.load(config)
 
             # Delete
-            logChannel = self.bot.get_channel(data["logChannel"])
-            await logChannel.delete()
+            log_channel = self.bot.get_channel(data["logChannel"])
+            await log_channel.delete()
 
             # Add modifications
             data["logChannel"] = False
-            newdata = json.dumps(data, indent=4, ensure_ascii=False)
+            new_data = json.dumps(data, indent=4, ensure_ascii=False)
 
             embed = discord.Embed(
                 title=f"**解除しました**", description=f"ログを出すチャンネルの設定を解除しました", color=0xe00000)  # Red
@@ -59,7 +58,7 @@ class LogsCog(commands.Cog, name="change setting from logs command"):
         await ctx.channel.send(embed=embed)
 
         with open("configuration.json", "w") as config:
-            config.write(newdata)
+            config.write(new_data)
 
 # ------------------------ BOT ------------------------ #
 
