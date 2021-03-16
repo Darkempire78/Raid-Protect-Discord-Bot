@@ -18,13 +18,14 @@ from PIL import ImageFont, ImageDraw, Image
 
 from Tools.logMessage import sendLogMessage
 
-# ------------------------ COGS ------------------------ #  
+# ------------------------ COGS ------------------------ #
+
 
 class OnJoinCog(commands.Cog, name="on join"):
     def __init__(self, bot):
         self.bot = bot
 
-# ------------------------------------------------------ #  
+# ------------------------------------------------------ #
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
@@ -38,43 +39,49 @@ class OnJoinCog(commands.Cog, name="on join"):
             logChannel = data["logChannel"]
             captchaChannel = self.bot.get_channel(data["captchaChannel"])
 
-        memberTime = f"{member.joined_at.year}-{member.joined_at.month}-{member.joined_at.day} {member.joined_at.hour}:{member.joined_at.minute}:{member.joined_at.second}"
+        mja_at = self.bot.utc2jst(member.joined_at)
+        memberTime = f"{mja_at.year}-{mja_at.month}-{mja_at.day} {mja_at.hour}:{mja_at.minute}:{mja_at.second}"
 
         # Check the user account creation date (1 day by default)
         if data["minAccountDate"] is False:
             userAccountDate = member.created_at.timestamp()
             if userAccountDate < data["minAccountDate"]:
                 minAccountDate = data["minAccountDate"] / 3600
-                embed = discord.Embed(title = f"**YOU HAVE BEEN KICKED FROM {member.guild.name}**", description = f"Reason : Your account is more young that the server limit ({minAccountDate} hours).", color = 0xff0000)
-                await member.send(embed = embed)
-                await member.kick() # Kick the user
+                embed = discord.Embed(title=f"**あなたは {member.guild.name} からキックされました**",
+                                      description=f"**理由**: **あなたのアカウントは作成後{minAccountDate}時間しか経っていないため。**", color=0xff0000)
+                await member.send(embed=embed)
+                await member.kick()  # Kick the user
                 # Logs
-                embed = discord.Embed(title = f"**{member} has been kicked.**", description = f"**Reason :** His account is more young that the server limit ({minAccountDate} hours)\nAccount creation : {member.created_at}\n\n**__User informations :__**\n\n**Name :** {member}\n**Id :** {member.id}", color = 0xff0000)
-                embed.set_footer(text= f"at {member.joined_at}")
+                embed = discord.Embed(
+                    title=f"**{member} がキックされました**", description=f"**理由**: **当アカウントは作成後{minAccountDate}時間しか経過していないため**\nアカウント作成日時 : {self.bot.utc2jst(member.created_at)}\n\n**__ユーザー情報 :__**\n\n**名前 :** {member}\n**ID :** {member.id}", color=0xff0000)
+                embed.set_footer(
+                    text=f"at {self.bot.utc2jst(member.joined_at)}")
                 await sendLogMessage(self, event=member, channel=logChannel, embed=embed)
 
         if data["captcha"] is True:
-            
-            # Give temporary role
-            getrole = get(member.guild.roles, id = data["temporaryRole"])
-            await member.add_roles(getrole)
-            
-            # Create captcha
-            image = np.zeros(shape= (100, 350, 3), dtype= np.uint8)
 
-            # Create image 
-            image = Image.fromarray(image+255) # +255 : black to white
+            # Give temporary role
+            getrole = get(member.guild.roles, id=data["temporaryRole"])
+            await member.add_roles(getrole)
+
+            # Create captcha
+            image = np.zeros(shape=(100, 350, 3), dtype=np.uint8)
+
+            # Create image
+            image = Image.fromarray(image+255)  # +255 : black to white
 
             # Add text
             draw = ImageDraw.Draw(image)
-            font = ImageFont.truetype(font= "Tools/arial.ttf", size= 60)
+            font = ImageFont.truetype(font="Tools/arial.ttf", size=60)
 
-            text = ' '.join(random.choice(string.ascii_uppercase) for _ in range(6)) # + string.ascii_lowercase + string.digits
+            # + string.ascii_lowercase + string.digits
+            text = ' '.join(random.choice(string.ascii_uppercase)
+                            for _ in range(6))
 
             # Center the text
-            W, H = (350,100)
-            w, h = draw.textsize(text, font= font)
-            draw.text(((W-w)/2,(H-h)/2), text, font= font, fill= (90, 90, 90))
+            W, H = (350, 100)
+            w, h = draw.textsize(text, font=font)
+            draw.text(((W-w)/2, (H-h)/2), text, font=font, fill=(90, 90, 90))
 
             # Save
             ID = member.id
@@ -91,7 +98,8 @@ class OnJoinCog(commands.Cog, name="on join"):
 
             # Deform
             p = Augmentor.Pipeline(folderPath)
-            p.random_distortion(probability=1, grid_width=4, grid_height=4, magnitude=14)
+            p.random_distortion(probability=1, grid_width=4,
+                                grid_height=4, magnitude=14)
             p.process()
 
             # Search file in folder
@@ -101,7 +109,7 @@ class OnJoinCog(commands.Cog, name="on join"):
             captchaName = captchaName[0]
 
             image = Image.open(f"{folderPath}/output/{captchaName}")
-            
+
             # Add line
             width = random.randrange(6, 8)
             co1 = random.randrange(0, 75)
@@ -109,24 +117,25 @@ class OnJoinCog(commands.Cog, name="on join"):
             co2 = random.randrange(40, 65)
             co4 = random.randrange(40, 65)
             draw = ImageDraw.Draw(image)
-            draw.line([(co1, co2), (co3, co4)], width= width, fill= (90, 90, 90))
-            
-            # Add noise
-            noisePercentage = 0.25 # 25%
+            draw.line([(co1, co2), (co3, co4)], width=width, fill=(90, 90, 90))
 
-            pixels = image.load() # create the pixel map
-            for i in range(image.size[0]): # for every pixel:
+            # Add noise
+            noisePercentage = 0.25  # 25%
+
+            pixels = image.load()  # create the pixel map
+            for i in range(image.size[0]):  # for every pixel:
                 for j in range(image.size[1]):
-                    rdn = random.random() # Give a random %
+                    rdn = random.random()  # Give a random %
                     if rdn < noisePercentage:
-                        pixels[i,j] = (90, 90, 90)
+                        pixels[i, j] = (90, 90, 90)
 
             # Save
             image.save(f"{folderPath}/output/{captchaName}_2.png")
 
             # Send captcha
-            captchaFile = discord.File(f"{folderPath}/output/{captchaName}_2.png")
-            captchaEmbed = await captchaChannel.send(f"**YOU MUST PASS THE CAPTCHA TO ENTER IN THE SERVER :**\nPlease {member.mention}, enter the captcha to get access to the whole serveur (only 6 uppercase letters).", file= captchaFile)
+            captchaFile = discord.File(
+                f"{folderPath}/output/{captchaName}_2.png")
+            captchaEmbed = await captchaChannel.send(f"**サーバーに参加するためには認証してください :**\n{member.mention}, 認証コードを入力することでサーバーにアクセスできます。", file=captchaFile)
             # Remove captcha folder
             try:
                 shutil.rmtree(folderPath)
@@ -135,7 +144,7 @@ class OnJoinCog(commands.Cog, name="on join"):
 
             # Check if it is the right user
             def check(message):
-                if message.author == member and  message.content != "":
+                if message.author == member and message.content != "":
                     return message.content
 
             try:
@@ -145,17 +154,20 @@ class OnJoinCog(commands.Cog, name="on join"):
                 password = "".join(password)
                 if msg.content == password:
 
-                    embed = discord.Embed(description=f"{member.mention} passed the captcha.", color=0x2fa737) # Green
-                    await captchaChannel.send(embed = embed, delete_after = 5)
+                    embed = discord.Embed(
+                        description=f"{member.mention} 認証に成功しました", color=0x2fa737)  # Green
+                    await captchaChannel.send(embed=embed, delete_after=5)
                     # Give and remove roles
                     try:
-                        getrole = get(member.guild.roles, id = data["roleGivenAfterCaptcha"])
+                        getrole = get(member.guild.roles,
+                                      id=data["roleGivenAfterCaptcha"])
                         if getrole is not False:
                             await member.add_roles(getrole)
                     except Exception as error:
                         print(f"Give and remove roles failed : {error}")
                     try:
-                        getrole = get(member.guild.roles, id = data["temporaryRole"])
+                        getrole = get(member.guild.roles,
+                                      id=data["temporaryRole"])
                         await member.remove_roles(getrole)
                     except Exception as error:
                         print(f"No temp role found (onJoin) : {error}")
@@ -163,43 +175,51 @@ class OnJoinCog(commands.Cog, name="on join"):
                     await captchaEmbed.delete()
                     await msg.delete()
                     # Logs
-                    embed = discord.Embed(title = f"**{member} passed the captcha.**", description = f"**__User informations :__**\n\n**Name :** {member}\n**Id :** {member.id}", color = 0x2fa737)
-                    embed.set_footer(text= f"at {memberTime}")
+                    embed = discord.Embed(
+                        title=f"**{member} が認証に成功しました**", description=f"**__ユーザー情報 :__**\n\n**名前 :** {member}\n**ID :** {member.id}", color=0x2fa737)
+                    embed.set_footer(text=f"at {memberTime}")
                     await sendLogMessage(self, event=member, channel=logChannel, embed=embed)
 
                 else:
-                    link = await captchaChannel.create_invite() # Create an invite
-                    embed = discord.Embed(description=f"{member.mention} failed the captcha.", color=0xca1616) # Red
-                    await captchaChannel.send(embed = embed, delete_after = 5)
-                    embed = discord.Embed(title = f"**YOU HAVE BEEN KICKED FROM {member.guild.name}**", description = f"Reason : You failed the captcha.\nServer link : <{link}>", color = 0xff0000)
-                    await member.send(embed = embed)
-                    await member.kick() # Kick the user
+                    link = await captchaChannel.create_invite()  # Create an invite
+                    embed = discord.Embed(
+                        description=f"{member.mention} failed the captcha.", color=0xca1616)  # Red
+                    await captchaChannel.send(embed=embed, delete_after=5)
+                    embed = discord.Embed(title=f"**あなたは {member.guild.name} からキックされました**",
+                                          description=f"理由 : 認証に失敗しました\nサーバーリンク : <{link}>", color=0xff0000)
+                    await member.send(embed=embed)
+                    await member.kick()  # Kick the user
                     time.sleep(3)
                     await captchaEmbed.delete()
                     await msg.delete()
                     # Logs
-                    embed = discord.Embed(title = f"**{member} has been kicked.**", description = f"**Reason :** He failed the captcha.\n\n**__User informations :__**\n\n**Name :** {member}\n**Id :** {member.id}", color = 0xff0000)
-                    embed.set_footer(text= f"at {memberTime}")
+                    embed = discord.Embed(
+                        title=f"**{member} がキックされました**", description=f"**理由 :** 認証に失敗しました\n\n**__ユーザー情報 :__**\n\n**名前 :** {member}\n**ID :** {member.id}", color=0xff0000)
+                    embed.set_footer(text=f"at {memberTime}")
                     await sendLogMessage(self, event=member, channel=logChannel, embed=embed)
 
             except (asyncio.TimeoutError):
-                link = await captchaChannel.create_invite() # Create an invite
-                embed = discord.Embed(title = f"**TIME IS OUT**", description = f"{member.mention} has exceeded the response time (120s).", color = 0xff0000)
-                await captchaChannel.send(embed = embed, delete_after = 5)
+                link = await captchaChannel.create_invite()  # Create an invite
+                embed = discord.Embed(
+                    title=f"**時間切れです！**", description=f"{member.mention} 120秒以内に認証しませんでした", color=0xff0000)
+                await captchaChannel.send(embed=embed, delete_after=5)
                 try:
-                    embed = discord.Embed(title = f"**YOU HAVE BEEN KICKED FROM {member.guild.name}**", description = f"Reason : You exceeded the captcha response time (120s).\nServer link : <{link}>", color = 0xff0000)
-                    await member.send(embed = embed)
-                    await member.kick() # Kick the user
+                    embed = discord.Embed(title=f"**あなたは {member.guild.name} からキックされました**",
+                                          description=f"理由 : あなたは120秒以内に認証することができませんでした。\nサーバーリンク : <{link}>", color=0xff0000)
+                    await member.send(embed=embed)
+                    await member.kick()  # Kick the user
                 except Exception as error:
                     print(f"Log failed (onJoin) : {error}")
                 time.sleep(3)
                 await captchaEmbed.delete()
                 # Logs
-                embed = discord.Embed(title = f"**{member} has been kicked.**", description = f"**Reason :** He exceeded the captcha response time (120s).\n\n**__User informations :__**\n\n**Name :** {member}\n**Id :** {member.id}", color = 0xff0000)
-                embed.set_footer(text= f"at {memberTime}")
+                embed = discord.Embed(
+                    title=f"**{member} がキックされました**", description=f"**理由 :** 120秒以内に認証しませんでした。\n\n**__ユーザー情報 :__**\n\n**名前 :** {member}\n**ID :** {member.id}", color=0xff0000)
+                embed.set_footer(text=f"at {memberTime}")
                 await sendLogMessage(self, event=member, channel=logChannel, embed=embed)
 
-# ------------------------ BOT ------------------------ #  
+# ------------------------ BOT ------------------------ #
+
 
 def setup(bot):
     bot.add_cog(OnJoinCog(bot))
