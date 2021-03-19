@@ -34,6 +34,8 @@ This Discord Bot protect your Discord server with many functions.
 * Anti spam
 * Logs
 
+Restrictions do not affect members with ADMINISTRATOR permission !
+
 ## Logs
 
 ![](https://github.com/Darkempire78/Raid-Protect-Discord-Bot/blob/master/Capture2.PNG)
