@@ -17,16 +17,17 @@ class AllowSpamCog(commands.Cog, name="allow spam command"):
 
     @commands.command(name = 'allowspam', 
                         aliases= ["spam"],
-                        usage="<#channel/ID> (remove)",
+                        usage="<#channel/ID> (False)",
                         description="Enable or disable the spam protection in a specific channel.")
     @has_permissions(administrator = True)
     @commands.cooldown(1, 3, commands.BucketType.member)
     @commands.guild_only()
-    async def allowspam(self, ctx, channel, remove="False"):
+    async def allowspam(self, ctx, channel, remove=""):
 
-        channel = re.findall(r'\d+', channel) # Get only numbers from channel
+        channel = re.findall(r'\d+', channel)[0] # Get only numbers from channel
+        remove = remove.lower()
 
-        if remove == "False":
+        if remove != "false":
             try:
                 channel  = int(channel)
                 spamChannel = self.bot.get_channel(channel)
@@ -50,7 +51,7 @@ class AllowSpamCog(commands.Cog, name="allow spam command"):
                 await ctx.channel.send(embed = embed)
 
             except:
-                embed = discord.Embed(title=f"**ERROR**", description=f"The channel where you want to allow to spam must be a channel\nFollow the example : ``{self.bot.command_prefix}allowspam <#channel>``", color=0xe00000) # Red
+                embed = discord.Embed(title=f"**ERROR**", description=f"The channel where you want to allow to spam must be a text channel\nFollow the example : ``{self.bot.command_prefix}allowspam <#channel>``", color=0xe00000) # Red
                 embed.set_footer(text="Bot Created by Darkempire#8245")
                 return await ctx.channel.send(embed=embed)
         else:
