@@ -69,6 +69,8 @@ Please make sure to update tests as appropriate.
 
 This project is under [GPLv3](https://github.com/Darkempire78/Raid-Protect-Discord-Bot/blob/master/LICENSE).
 
+## Stargazers
+[![Stargazers over time](https://starchart.cc/Darkempire78/Raid-Protect-Discord-Bot.svg)](https://starchart.cc/Darkempire78/Raid-Protect-Discord-Bot)
 
 # Advice :
 
