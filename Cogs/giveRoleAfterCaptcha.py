@@ -4,7 +4,6 @@ import json
 
 from discord.ext import commands
 from discord.utils import get
-from discord.ext.commands import has_permissions
 
 # ------------------------ COGS ------------------------ #  
 
@@ -18,7 +17,7 @@ class GiveRoleAfterCaptchaCog(commands.Cog, name="giveRoleAfterCaptcha command")
                         aliases= ["grac", "giverole", "captcharole"],
                         usage="<ID/off>",
                         description="Enable or disable the role given after the captcha.")
-    @has_permissions(administrator = True)
+    @commands.has_permissions(administrator = True)
     @commands.cooldown(1, 3, commands.BucketType.member)
     @commands.guild_only()
     async def giveroleaftercaptcha (self, ctx, roleId):

@@ -5,7 +5,6 @@ import re
 
 from discord.ext import commands
 from discord.utils import get
-from discord.ext.commands import has_permissions
 
 # ------------------------ COGS ------------------------ #  
 
@@ -19,7 +18,7 @@ class AllowSpamCog(commands.Cog, name="allow spam command"):
                         aliases= ["spam"],
                         usage="<#channel/ID> (False)",
                         description="Enable or disable the spam protection in a specific channel.")
-    @has_permissions(administrator = True)
+    @commands.has_permissions(administrator = True)
     @commands.cooldown(1, 3, commands.BucketType.member)
     @commands.guild_only()
     async def allowspam(self, ctx, channel, remove=""):

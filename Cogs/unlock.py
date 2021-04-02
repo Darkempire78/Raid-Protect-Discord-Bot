@@ -14,6 +14,7 @@ class UnlockCog(commands.Cog, name="unlock command"):
     @commands.command(name = 'unlock',
                         usage="<#channel/ID>",
                         description="Unlock the channel.")
+    @commands.has_permissions(administrator = True)
     @commands.cooldown(1, 3, commands.BucketType.member)
     @commands.guild_only()
     async def unlock (self, ctx, channel):

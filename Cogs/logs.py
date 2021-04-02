@@ -4,7 +4,6 @@ import json
 
 from discord.ext import commands
 from discord.utils import get
-from discord.ext.commands import has_permissions
 
 # ------------------------ COGS ------------------------ #  
 
@@ -18,7 +17,7 @@ class LogsCog(commands.Cog, name="change setting from logs command"):
                         aliases= ["log", "setlog", "setlogs", "logchannel"],
                         usage="<true/false>",
                         description="Enable or disable the log system.")
-    @has_permissions(administrator = True)
+    @commands.has_permissions(administrator = True)
     @commands.cooldown(1, 3, commands.BucketType.member)
     @commands.guild_only()
     async def logs(self, ctx, logChannel):

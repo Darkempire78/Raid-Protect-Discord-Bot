@@ -4,7 +4,6 @@ import json
 
 from discord.ext import commands
 from discord.utils import get
-from discord.ext.commands import has_permissions
 
 # ------------------------ COGS ------------------------ #  
 
@@ -18,7 +17,7 @@ class MinAccountAgeCog(commands.Cog, name="change min account age command"):
                         aliases= ["minage", "agarequired", "age"],
                         usage="<numberInSecond/false>",
                         description="Update or disable the minimal account age to join the server.")
-    @has_permissions(administrator = True)
+    @commands.has_permissions(administrator = True)
     @commands.cooldown(1, 3, commands.BucketType.member)
     @commands.guild_only()
     async def minaccountage(self, ctx, accountAge):

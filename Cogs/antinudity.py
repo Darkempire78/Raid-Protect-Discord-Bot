@@ -4,7 +4,6 @@ import json
 
 from discord.ext import commands
 from discord.utils import get
-from discord.ext.commands import has_permissions
 
 # ------------------------ COGS ------------------------ #  
 
@@ -18,7 +17,7 @@ class AntiNudityCog(commands.Cog, name="change setting from anti nudity command"
                         aliases= ["nudity", "porn"],
                         usage="<true/false>",
                         description="Enable or disable the nudity image protection.")
-    @has_permissions(administrator = True)
+    @commands.has_permissions(administrator = True)
     @commands.cooldown(1, 3, commands.BucketType.member)
     @commands.guild_only()
     async def antinudity(self, ctx, antiNudity):

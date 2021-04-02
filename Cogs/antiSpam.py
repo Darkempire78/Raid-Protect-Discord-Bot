@@ -4,7 +4,6 @@ import json
 
 from discord.ext import commands
 from discord.utils import get
-from discord.ext.commands import has_permissions
 
 # ------------------------ COGS ------------------------ #  
 
@@ -17,7 +16,7 @@ class AntiSpamCog(commands.Cog, name="change setting from anti spam command"):
     @commands.command(name = 'antispam', 
                         usage="<true/false>",
                         description="Enable or disable the spam protection.")
-    @has_permissions(administrator = True)
+    @commands.has_permissions(administrator = True)
     @commands.cooldown(1, 3, commands.BucketType.member)
     @commands.guild_only()
     async def antispam(self, ctx, antiSpam):
