@@ -168,7 +168,7 @@ class OnJoinCog(commands.Cog, name="on join"):
                     await sendLogMessage(self, event=member, channel=logChannel, embed=embed)
 
                 else:
-                    link = await captchaChannel.create_invite() # Create an invite
+                    link = await captchaChannel.create_invite(max_age=172800) # Create an invite
                     embed = discord.Embed(description=f"{member.mention} failed the captcha.", color=0xca1616) # Red
                     await captchaChannel.send(embed = embed, delete_after = 5)
                     embed = discord.Embed(title = f"**YOU HAVE BEEN KICKED FROM {member.guild.name}**", description = f"Reason : You failed the captcha.\nServer link : <{link}>", color = 0xff0000)
@@ -183,7 +183,7 @@ class OnJoinCog(commands.Cog, name="on join"):
                     await sendLogMessage(self, event=member, channel=logChannel, embed=embed)
 
             except (asyncio.TimeoutError):
-                link = await captchaChannel.create_invite() # Create an invite
+                link = await captchaChannel.create_invite(max_age=172800) # Create an invite
                 embed = discord.Embed(title = f"**TIME IS OUT**", description = f"{member.mention} has exceeded the response time (120s).", color = 0xff0000)
                 await captchaChannel.send(embed = embed, delete_after = 5)
                 try:
