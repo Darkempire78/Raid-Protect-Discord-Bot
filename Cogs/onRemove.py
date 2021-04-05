@@ -1,9 +1,6 @@
-import discord
-import os
 import shutil
 
 from discord.ext import commands
-from discord.utils import get
 
 
 # ------------------------ COGS ------------------------ #  

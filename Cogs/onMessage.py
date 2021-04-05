@@ -2,17 +2,13 @@ import discord
 import json
 
 import aiohttp
-import asyncio
 
 from discord.ext import commands
-from discord.utils import get
 
 from datetime import datetime, timedelta
 
-import nude
 from nude import Nude
-from PIL import Image
-from io import BytesIO, IOBase
+from io import BytesIO
 
 from profanity_check import predict, predict_prob
 

@@ -1,6 +1,4 @@
 import discord
-import os
-import shutil
 import json
 
 from discord.ext import commands

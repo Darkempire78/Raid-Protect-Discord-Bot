@@ -1,10 +1,8 @@
 import discord
-import asyncio
 import json
 import re 
 
 from discord.ext import commands
-from discord.utils import get
 
 # ------------------------ COGS ------------------------ #  
 

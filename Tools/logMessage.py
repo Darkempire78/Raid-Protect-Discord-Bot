@@ -1,9 +1,6 @@
 import discord
 import json
 
-from discord.ext import commands
-from discord.utils import get
-
 async def sendLogMessage(self, event, channel, embed, messageFile=None):
     """Send the message in the log channel"""
     

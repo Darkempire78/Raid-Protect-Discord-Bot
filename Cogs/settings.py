@@ -1,10 +1,7 @@
 import discord
-import asyncio
 import json
 
 from discord.ext import commands
-from discord.utils import get
-from discord.ext.commands import has_permissions
 
 # ------------------------ COGS ------------------------ #  
 

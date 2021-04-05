@@ -1,11 +1,3 @@
-import discord
-import random 
-import asyncio
-import time
-import os
-import datetime
-
-from datetime import datetime
 from discord.ext import commands
 from discord.ext.commands import MissingPermissions, CheckFailure, CommandNotFound
 
