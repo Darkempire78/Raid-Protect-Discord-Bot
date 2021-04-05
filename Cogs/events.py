@@ -20,13 +20,13 @@ class EventsCog(commands.Cog, name="EventsCog"):
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.CommandOnCooldown):
-            jour = round(error.retry_after/86400)
-            heure = round(error.retry_after/3600)
+            day = round(error.retry_after/86400)
+            hour = round(error.retry_after/3600)
             minute = round(error.retry_after/60)
-            if jour > 0:
-                await ctx.send('This command has a cooldown, be sure to wait for '+str(jour)+ "day(s)")
-            elif heure > 0:
-                await ctx.send('This command has a cooldown, be sure to wait for '+str(heure)+ " hour(s)")
+            if day > 0:
+                await ctx.send('This command has a cooldown, be sure to wait for '+str(day)+ "day(s)")
+            elif hour > 0:
+                await ctx.send('This command has a cooldown, be sure to wait for '+str(hour)+ " hour(s)")
             elif minute > 0:
                 await ctx.send('This command has a cooldown, be sure to wait for '+ str(minute)+" minute(s)")
             else:
