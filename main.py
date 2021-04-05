@@ -29,9 +29,8 @@ if __name__ == '__main__':
 @bot.event
 async def on_ready():
     print(f'We have logged in as {bot.user}')
-    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name =f"{bot.command_prefix}help"))
     print(discord.__version__)
-
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name =f"{bot.command_prefix}help"))
 
 # ------------------------ RUN ------------------------ # 
 with open("configuration.json", "r") as config:
