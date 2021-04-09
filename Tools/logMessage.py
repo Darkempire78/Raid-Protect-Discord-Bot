@@ -19,7 +19,7 @@ async def sendLogMessage(self, event, channel, embed, messageFile=None):
             await channel.set_permissions(event.guild.default_role, read_messages=False)
         except Exception as error:
             if error.code == 50013:
-                return await event.channel.send(f"**Log error :** I can not create a log channel ({error.text}).")
+                return await event.channel.send(f"**Log error :** I cannot create a log channel ({error.text}).")
             return await event.channel.send(error.text)
 
         # Get configuration.json data 

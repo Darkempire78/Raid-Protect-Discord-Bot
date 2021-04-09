@@ -33,6 +33,7 @@ This Discord Bot protect your Discord server with many functions.
 * Anti profanity
 * Anti spam
 * Logs
+* basic moderation commands
 
 Restrictions do not affect members with ADMINISTRATOR permission !
 
@@ -54,6 +55,9 @@ Restrictions do not affect members with ADMINISTRATOR permission !
 ?lock | unlock <#channel> : Lock/Unlock a specific channel.
 
 ?userinfos <@user/ID> : Get user infomations.
+
+?ban <@user/ID> : Ban the user.
+?kick <@user/ID> : Kick the user.
 
 ?help : display help.
 ```
