@@ -71,6 +71,7 @@ Unstall you current version and download the v1.0.6 with `git+https://github.com
 ## Discord
 
 Join the Discord server !
+
 [![](https://i.imgur.com/UfyvtOL.png)](https://discord.gg/sPvJmY7mcV)
 
 ## Contributing
