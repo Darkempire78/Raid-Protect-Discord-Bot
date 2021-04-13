@@ -68,6 +68,11 @@ Restrictions do not affect members with ADMINISTRATOR permission !
 You have to download the last version of profanity_check.
 Unstall you current version and download the v1.0.6 with `git+https://github.com/dimitrismistriotis/profanity-check` 
 
+## Discord
+
+Join the Discord server !
+<img src="https://discordapp.com/api/guilds/831524351311609907/widget.png?style=banner1" alt="Discord Banner 1"/>
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
