@@ -71,7 +71,7 @@ Unstall you current version and download the v1.0.6 with `git+https://github.com
 ## Discord
 
 Join the Discord server !
-<img src="https://discordapp.com/api/guilds/831524351311609907/widget.png?style=banner1" alt="Discord Banner 1"/>
+[![](https://i.imgur.com/UfyvtOL.png)](https://discord.gg/sPvJmY7mcV)
 
 ## Contributing
 
