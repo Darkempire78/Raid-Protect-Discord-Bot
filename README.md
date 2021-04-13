@@ -62,6 +62,12 @@ Restrictions do not affect members with ADMINISTRATOR permission !
 ?help : display help.
 ```
 
+## Potential errors
+
+### ImportError: cannot import name 'joblib' form 'sklearn.externals'
+You have to download the last version of profanity_check.
+Unstall you current version and download the v1.0.6 with `git+https://github.com/dimitrismistriotis/profanity-check` 
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
