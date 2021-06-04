@@ -42,7 +42,7 @@ class ModerationCog(commands.Cog):
         else:
             await ctx.channel.send("Member not found!")
     
-    
+
     @commands.command(name = "ban",
                     usage="<@user/ID>",
                     description = "Ban a user.")
