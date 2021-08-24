@@ -58,6 +58,7 @@ Restrictions do not affect members with ADMINISTRATOR permission !
 
 ?ban <@user/ID> : Ban the user.
 ?kick <@user/ID> : Kick the user.
+
 ?changeprefix <newPrefix> : Change the bot's prefix for the guild.
 ?help : display help.
 ```
