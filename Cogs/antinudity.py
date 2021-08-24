@@ -23,14 +23,14 @@ class AntiNudityCog(commands.Cog, name="change setting from anti nudity command"
         antiNudity = antiNudity.lower()
 
         if antiNudity == "true":
-            data = getConfig()
+            data = getConfig(ctx.guild.id)
             # Add modifications
             data["antiNudity"] = True
             newdata = json.dumps(data, indent=4, ensure_ascii=False)
 
             embed = discord.Embed(title = f"**ANTI NUDITY WAS ENABLED**", description = f"The anti nudity was enabled.", color = 0x2fa737) # Green
         else:
-            data = getConfig()
+            data = getConfig(ctx.guild.id)
             # Add modifications
             data["antiNudity"] = False
             newdata = json.dumps(data, indent=4, ensure_ascii=False)
@@ -39,7 +39,7 @@ class AntiNudityCog(commands.Cog, name="change setting from anti nudity command"
         
         await ctx.channel.send(embed = embed)
         
-        updateConfig(newdata)
+        updateConfig(ctx.guild.id, newdata)
 
 # ------------------------ BOT ------------------------ #  
 

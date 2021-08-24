@@ -41,7 +41,7 @@ class SetupCog(commands.Cog, name="setup command"):
                         loading = await ctx.channel.send("Creation of captcha protection...")
 
                         # Data
-                        data = getConfig()
+                        data = getConfig(ctx.guild.id)
 
                         # Create role
                         temporaryRole = await ctx.guild.create_role(name="untested")
@@ -69,7 +69,7 @@ class SetupCog(commands.Cog, name="setup command"):
                         data["captchaChannel"] = captchaChannel.id
                         newdata = json.dumps(data, indent=4, ensure_ascii=False)
 
-                        updateConfig(newdata)
+                        updateConfig(ctx.guild.id, newdata)
                         
                         await loading.delete()
                         embed = discord.Embed(title = f"**CAPTCHA WAS SET UP WITH SUCCESS**", description = f"The captcha was set up with success.", color = 0x2fa737) # Green
@@ -86,7 +86,7 @@ class SetupCog(commands.Cog, name="setup command"):
 
         elif onOrOff == "off":
             loading = await ctx.channel.send("Deletion of captcha protection...")
-            data = getConfig()
+            data = getConfig(ctx.guild.id)
             data["captcha"] = False
             
             # Delete all
@@ -106,7 +106,7 @@ class SetupCog(commands.Cog, name="setup command"):
             data["captchaChannel"] = False
             newdata = json.dumps(data, indent=4, ensure_ascii=False)
             # Edit configuration.json
-            updateConfig(newdata)
+            updateConfig(ctx.guild.id, newdata)
             
             await loading.delete()
             embed = discord.Embed(title = f"**CAPTCHA WAS DELETED WITH SUCCESS**", description = f"The captcha was deleted with success.", color = 0x2fa737) # Green

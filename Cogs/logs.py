@@ -27,7 +27,7 @@ class LogsCog(commands.Cog, name="change setting from logs command"):
             logChannel = await ctx.guild.create_text_channel(f"{self.bot.user.name}-logs")
             await logChannel.set_permissions(ctx.guild.default_role, read_messages=False)
 
-            data = getConfig()
+            data = getConfig(ctx.guild.id)
             # Add modifications
             data["logChannel"] = logChannel.id
             newdata = json.dumps(data, indent=4, ensure_ascii=False)
@@ -35,7 +35,7 @@ class LogsCog(commands.Cog, name="change setting from logs command"):
             embed = discord.Embed(title = f"**LOG CHANNEL WAS ENABLED**", description = f"The log channel was enabled.", color = 0x2fa737) # Green
         else:
             # Read configuration.json
-            data = getConfig()
+            data = getConfig(ctx.guild.id)
 
             # Delete
             logChannel = self.bot.get_channel(data["logChannel"])
@@ -49,7 +49,7 @@ class LogsCog(commands.Cog, name="change setting from logs command"):
         
         await ctx.channel.send(embed = embed)
         
-        updateConfig(newdata)
+        updateConfig(ctx.guild.id, newdata)
 
 # ------------------------ BOT ------------------------ #  
 

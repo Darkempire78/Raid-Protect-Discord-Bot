@@ -29,7 +29,7 @@ class AllowSpamCog(commands.Cog, name="allow spam command"):
                 channel  = int(channel)
                 spamChannel = self.bot.get_channel(channel)
 
-                data = getConfig()
+                data = getConfig(ctx.guild.id)
 
                 if spamChannel.id in data["allowSpam"]:
                     embed = discord.Embed(title=f"**ERROR**", description=f"The channel where you want to allow to spam is already ignored by anti spam.", color=0xe00000) # Red
@@ -37,9 +37,8 @@ class AllowSpamCog(commands.Cog, name="allow spam command"):
                     return await ctx.channel.send(embed=embed)
 
                 data["allowSpam"].append(spamChannel.id)
-                newdata = json.dumps(data, indent=4, ensure_ascii=False)
 
-                updateConfig(newdata)
+                updateConfig(ctx.guild.id, data)
                 embed = discord.Embed(title = f"**SUCCESS**", description = f"The <#{spamChannel.id}> channel is ignored by the anti spam.", color = 0x2fa737) # Green
                 embed.set_footer(text="Bot Created by Darkempire#8245")
                 await ctx.channel.send(embed = embed)
@@ -53,7 +52,7 @@ class AllowSpamCog(commands.Cog, name="allow spam command"):
                 channel  = int(channel)
                 spamChannel = self.bot.get_channel(channel)
 
-                data = getConfig()
+                data = getConfig(ctx.guild.id)
 
                 if spamChannel.id not in data["allowSpam"]:
                     embed = discord.Embed(title=f"**ERROR**", description=f"The channel where you want to disable the spam is already disabled.", color=0xe00000) # Red
@@ -63,7 +62,7 @@ class AllowSpamCog(commands.Cog, name="allow spam command"):
                 data["allowSpam"].remove(spamChannel.id)
                 newdata = json.dumps(data, indent=4, ensure_ascii=False)
 
-                updateConfig(newdata)
+                updateConfig(ctx.guild.id, newdata)
                 embed = discord.Embed(title = f"**SUCCESS**", description = f"The <#{spamChannel.id}> channel is not ignored by the anti spam.", color = 0x2fa737) # Green
                 embed.set_footer(text="Bot Created by Darkempire#8245")
                 await ctx.channel.send(embed = embed)

@@ -1,7 +1,7 @@
 import discord
 import os
 import json
-from Tools.utils import getConfig
+from Tools.utils import getConfig, getGuildPrefix
 from discord.ext import commands
 
 class Greetings(commands.Cog):
@@ -12,9 +12,7 @@ class Greetings(commands.Cog):
 intents = discord.Intents.default()
 intents.members = True
 
-config = getConfig()
-
-bot = commands.Bot(config["prefix"], intents = intents)
+bot = commands.Bot(getGuildPrefix, intents = intents)
 
 # HELP
 bot.remove_command("help") # To create a personal help command 

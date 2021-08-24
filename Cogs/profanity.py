@@ -23,13 +23,13 @@ class AntiProfanityCog(commands.Cog, name="change setting from anti nudity comma
         antiProfanity = antiProfanity.lower()
 
         if antiProfanity == "true":
-            data = getConfig()
+            data = getConfig(ctx.guild.id)
             data["antiProfanity"] = True
             newdata = json.dumps(data, indent=4, ensure_ascii=False)
 
             embed = discord.Embed(title = f"**ANTI PROFANITY WAS ENABLED**", description = f"The anti profanity was enabled.", color = 0x2fa737) # Green
         else:
-            data = getConfig()
+            data = getConfig(ctx.guild.id)
             data["antiProfanity"] = False
             newdata = json.dumps(data, indent=4, ensure_ascii=False)
 
@@ -37,7 +37,7 @@ class AntiProfanityCog(commands.Cog, name="change setting from anti nudity comma
         
         await ctx.channel.send(embed = embed)
         
-        updateConfig(newdata)
+        updateConfig(ctx.guild.id, newdata)
 
 # ------------------------ BOT ------------------------ #  
 

@@ -35,7 +35,7 @@ class OnMessageCog(commands.Cog, name="on message"):
                 if i.filename.endswith((".png", ".jpg", ".jpeg")):
                     
                     # Data
-                    data = getConfig()
+                    data = getConfig(message.guild.id)
                     antiNudity = data["antiNudity"]
 
                     if antiNudity is True:  
@@ -69,7 +69,7 @@ class OnMessageCog(commands.Cog, name="on message"):
                             await message.channel.send(f"{message.author.mention} do not send nudity image !")
         
         # Data
-        data = getConfig()
+        data = getConfig(message.guild.id)
         antiProfanity =  data["antiProfanity"]
         antiSpam = data["antiSpam"] 
         allowSpam = data["allowSpam"]

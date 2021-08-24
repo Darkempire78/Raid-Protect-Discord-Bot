@@ -29,7 +29,7 @@ class OnJoinCog(commands.Cog, name="on join"):
             return
 
         # Read configuration.json
-        data = getConfig()
+        data = getConfig(ctx.guild.id)
         logChannel = data["logChannel"]
         captchaChannel = self.bot.get_channel(data["captchaChannel"])
 

@@ -22,14 +22,14 @@ class AntiSpamCog(commands.Cog, name="change setting from anti spam command"):
         antiSpam = antiSpam.lower()
 
         if antiSpam == "true":
-            data = getConfig()
+            data = getConfig(ctx.guild.id)
             # Add modifications
             data["antiSpam"] = True
             newdata = json.dumps(data, indent=4, ensure_ascii=False)
 
             embed = discord.Embed(title = f"**ANTI SPAM WAS ENABLED**", description = f"The anti spam was enabled.", color = 0x2fa737) # Green
         else:
-            config = getConfig()
+            config = getConfig(ctx.guild.id)
             data = json.load(config)
             # Add modifications
             data["antiSpam"] = False
@@ -39,7 +39,7 @@ class AntiSpamCog(commands.Cog, name="change setting from anti spam command"):
         
         await ctx.channel.send(embed = embed)
         
-        updateConfig(newdata)
+        updateConfig(ctx.guild.id, newdata)
 
 # ------------------------ BOT ------------------------ #  
 
