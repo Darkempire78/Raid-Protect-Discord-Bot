@@ -14,7 +14,7 @@ class OnRemoveCog(commands.Cog, name="on remove"):
     @commands.Cog.listener()
     async def on_member_remove(self, member):
 
-        if (member.bot):
+        if member.bot:
             return
         
         # Remove user captcha folder

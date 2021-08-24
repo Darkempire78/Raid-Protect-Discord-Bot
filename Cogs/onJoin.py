@@ -155,8 +155,14 @@ class OnJoinCog(commands.Cog, name="on join"):
                     except Exception as error:
                         print(f"No temp role found (onJoin) : {error}")
                     time.sleep(3)
-                    await captchaEmbed.delete()
-                    await msg.delete()
+                    try:
+                        await captchaEmbed.delete()
+                    except discord.errors.NotFound:
+                        pass
+                    try:
+                        await msg.delete()
+                    except discord.errors.NotFound:
+                        pass
                     # Logs
                     embed = discord.Embed(title = f"**{member} passed the captcha.**", description = f"**__User informations :__**\n\n**Name :** {member}\n**Id :** {member.id}", color = 0x2fa737)
                     embed.set_footer(text= f"at {memberTime}")
@@ -167,11 +173,23 @@ class OnJoinCog(commands.Cog, name="on join"):
                     embed = discord.Embed(description=f"{member.mention} failed the captcha.", color=0xca1616) # Red
                     await captchaChannel.send(embed = embed, delete_after = 5)
                     embed = discord.Embed(title = f"**YOU HAVE BEEN KICKED FROM {member.guild.name}**", description = f"Reason : You failed the captcha.\nServer link : <{link}>", color = 0xff0000)
-                    await member.send(embed = embed)
-                    await member.kick() # Kick the user
+
+                    try:
+                        await member.send(embed=embed)
+                    except discord.errors.Forbidden:
+                        # can't send dm to user
+                        pass
+                    await member.kick()
+
                     time.sleep(3)
-                    await captchaEmbed.delete()
-                    await msg.delete()
+                    try:
+                        await captchaEmbed.delete()
+                    except discord.errors.NotFound:
+                        pass
+                    try:
+                        await msg.delete()
+                    except discord.errors.NotFound:
+                        pass
                     # Logs
                     embed = discord.Embed(title = f"**{member} has been kicked.**", description = f"**Reason :** He failed the captcha.\n\n**__User informations :__**\n\n**Name :** {member}\n**Id :** {member.id}", color = 0xff0000)
                     embed.set_footer(text= f"at {memberTime}")
