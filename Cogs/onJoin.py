@@ -73,12 +73,12 @@ class OnJoinCog(commands.Cog, name="on join"):
 
             # Save
             ID = member.id
-            folderPath = f"captchaFolder/captcha_{ID}"
+            folderPath = f"captchaFolder/{member.guild.id}/captcha_{ID}"
             try:
                 os.mkdir(folderPath)
             except:
-                if os.path.isdir('captchaFolder') is False:
-                    os.mkdir("captchaFolder")
+                if os.path.isdir(f"captchaFolder/{member.guild.id}") is False:
+                    os.mkdir(f"captchaFolder/{member.guild.id}")
                 if os.path.isdir(folderPath) is True:
                     shutil.rmtree(folderPath)
                 os.mkdir(folderPath)
