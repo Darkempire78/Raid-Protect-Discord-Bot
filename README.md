@@ -15,11 +15,10 @@ Raid Protect is a Discord bot wich allow to protect your discord server efficien
 
 Install all dependencies:
 
-```bash
-pip install -r requirements.txt
-```
-Then put your Discord token that can be found in the Discord's developers portal inside `configuration.json`.
-This bot have to use the "server members intent", so you have to enable it in the Discord's developers portal.
+* `pip install -r requirements.txt`
+* Then put your Discord token that can be found in the Discord's developers portal inside `config.example.json`
+* Rename it to `config.json`
+* This bot have to use the "server members intent", so you have to enable it in the Discord's developers portal
 
 Finally, host the bot and invite it to your own server.
 
@@ -33,7 +32,8 @@ This Discord Bot protect your Discord server with many functions.
 * Anti profanity
 * Anti spam
 * Logs
-* basic moderation commands
+* Basic moderation commands
+* Multi guild support
 
 Restrictions do not affect members with ADMINISTRATOR permission !
 
@@ -58,7 +58,7 @@ Restrictions do not affect members with ADMINISTRATOR permission !
 
 ?ban <@user/ID> : Ban the user.
 ?kick <@user/ID> : Kick the user.
-
+?changeprefix <newPrefix> : Change the bot's prefix for the guild.
 ?help : display help.
 ```
 
