@@ -15,7 +15,7 @@ class OnChannelCreate(commands.Cog, name="on channel create"):
 
     @commands.Cog.listener()
     async def on_guild_channel_create(self, channel):
-        data = getConfig(ctx.guild.id)
+        data = getConfig(channel.guild.id)
         temporaryRole = get(channel.guild.roles, id= data["temporaryRole"])
 
         if temporaryRole is not None:

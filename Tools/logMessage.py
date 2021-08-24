@@ -28,7 +28,7 @@ async def sendLogMessage(self, event, channel, embed, messageFile=None):
 
         # Edit configuration.json
         
-        updateConfig(channel.guild.id, newdata)
+        updateConfig(channel.guild.id, data)
 
     # Send the message
     await channel.send(embed=embed, file=messageFile)
