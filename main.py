@@ -1,7 +1,7 @@
 import discord
 import os
 import json
-
+from Tools.utils import getConfig
 from discord.ext import commands
 
 class Greetings(commands.Cog):
@@ -12,8 +12,9 @@ class Greetings(commands.Cog):
 intents = discord.Intents.default()
 intents.members = True
 
-bot = commands.Bot("?", intents = intents)
-# bot = commands.when_mentioned_or("?")
+config = getConfig()
+
+bot = commands.Bot(config["prefix"], intents = intents)
 
 # HELP
 bot.remove_command("help") # To create a personal help command 
@@ -31,7 +32,7 @@ async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name =f"{bot.command_prefix}help"))
 
 # ------------------------ RUN ------------------------ # 
-with open("configuration.json", "r") as config:
+with open("config.json", "r") as config:
     data = json.load(config)
     token = data["token"]
 bot.run(token) 

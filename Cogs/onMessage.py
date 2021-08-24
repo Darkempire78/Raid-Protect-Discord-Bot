@@ -1,17 +1,12 @@
 import discord
 import json
-
 import aiohttp
-
 from discord.ext import commands
-
-from datetime import datetime, timedelta
-
+from datetime import datetime
 from nude import Nude
 from io import BytesIO
-
 from profanity_check import predict, predict_prob
-
+from Tools.utils import getConfig
 from Tools.logMessage import sendLogMessage
 
 # ------------------------ COGS ------------------------ #  
@@ -40,9 +35,8 @@ class OnMessageCog(commands.Cog, name="on message"):
                 if i.filename.endswith((".png", ".jpg", ".jpeg")):
                     
                     # Data
-                    with open("configuration.json", "r") as config:
-                        data = json.load(config) 
-                        antiNudity = data["antiNudity"]
+                    data = getConfig()
+                    antiNudity = data["antiNudity"]
 
                     if antiNudity is True:  
                         logChannel = data["logChannel"]
@@ -75,12 +69,11 @@ class OnMessageCog(commands.Cog, name="on message"):
                             await message.channel.send(f"{message.author.mention} do not send nudity image !")
         
         # Data
-        with open("configuration.json", "r") as config:
-            data = json.load(config) 
-            antiProfanity =  data["antiProfanity"]
-            antiSpam = data["antiSpam"] 
-            allowSpam = data["allowSpam"]
-            logChannel = data["logChannel"]
+        data = getConfig()
+        antiProfanity =  data["antiProfanity"]
+        antiSpam = data["antiSpam"] 
+        allowSpam = data["allowSpam"]
+        logChannel = data["logChannel"]
 
         # Anti profanity
         if antiProfanity is True:

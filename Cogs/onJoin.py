@@ -8,12 +8,10 @@ import os
 import shutil
 import asyncio
 import time
-
 from discord.ext import commands
 from discord.utils import get
-
 from PIL import ImageFont, ImageDraw, Image
-
+from Tools.utils import getConfig
 from Tools.logMessage import sendLogMessage
 
 # ------------------------ COGS ------------------------ #  
@@ -31,10 +29,9 @@ class OnJoinCog(commands.Cog, name="on join"):
             return
 
         # Read configuration.json
-        with open("configuration.json", "r") as config:
-            data = json.load(config)
-            logChannel = data["logChannel"]
-            captchaChannel = self.bot.get_channel(data["captchaChannel"])
+        data = getConfig()
+        logChannel = data["logChannel"]
+        captchaChannel = self.bot.get_channel(data["captchaChannel"])
 
         memberTime = f"{member.joined_at.year}-{member.joined_at.month}-{member.joined_at.day} {member.joined_at.hour}:{member.joined_at.minute}:{member.joined_at.second}"
 

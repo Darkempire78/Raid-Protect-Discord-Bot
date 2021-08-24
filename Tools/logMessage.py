@@ -1,5 +1,5 @@
-import discord
 import json
+from Tools.utils import getConfig, updateConfig
 
 async def sendLogMessage(self, event, channel, embed, messageFile=None):
     """Send the message in the log channel"""
@@ -23,14 +23,12 @@ async def sendLogMessage(self, event, channel, embed, messageFile=None):
             return await event.channel.send(error.text)
 
         # Get configuration.json data 
-        with open("configuration.json", "r") as config:
-            data = json.load(config)
-            data["logChannel"] = channel.id
+        data = getConfig()
+        data["logChannel"] = channel.id
 
         # Edit configuration.json
         newdata = json.dumps(data, indent=4, ensure_ascii=False)
-        with open("configuration.json", "w") as config:
-            config.write(newdata)
+        updateConfig(newdata)
 
     # Send the message
     await channel.send(embed=embed, file=messageFile)

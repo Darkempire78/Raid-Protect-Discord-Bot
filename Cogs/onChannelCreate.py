@@ -1,6 +1,6 @@
 import discord
 import json
-
+from Tools.utils import getConfig
 from discord.ext import commands
 from discord.utils import get
 
@@ -15,9 +15,8 @@ class OnChannelCreate(commands.Cog, name="on channel create"):
 
     @commands.Cog.listener()
     async def on_guild_channel_create(self, channel):
-        with open("configuration.json", "r") as config:
-            data = json.load(config)
-            temporaryRole = get(channel.guild.roles, id= data["temporaryRole"])
+        data = getConfig()
+        temporaryRole = get(channel.guild.roles, id= data["temporaryRole"])
 
         if temporaryRole is not None:
             if isinstance(channel, discord.TextChannel):

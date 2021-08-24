@@ -1,9 +1,9 @@
 import discord
 import asyncio
 import json
-
 from discord.ext import commands
 from discord.utils import get
+from Tools.utils import getConfig, updateConfig
 
 # ------------------------ COGS ------------------------ #  
 
@@ -41,8 +41,7 @@ class SetupCog(commands.Cog, name="setup command"):
                         loading = await ctx.channel.send("Creation of captcha protection...")
 
                         # Data
-                        with open("configuration.json", "r") as config:
-                            data = json.load(config)
+                        data = getConfig()
 
                         # Create role
                         temporaryRole = await ctx.guild.create_role(name="untested")
@@ -70,8 +69,7 @@ class SetupCog(commands.Cog, name="setup command"):
                         data["captchaChannel"] = captchaChannel.id
                         newdata = json.dumps(data, indent=4, ensure_ascii=False)
 
-                        with open("configuration.json", "w") as config:
-                            config.write(newdata)
+                        updateConfig(newdata)
                         
                         await loading.delete()
                         embed = discord.Embed(title = f"**CAPTCHA WAS SET UP WITH SUCCESS**", description = f"The captcha was set up with success.", color = 0x2fa737) # Green
@@ -88,10 +86,8 @@ class SetupCog(commands.Cog, name="setup command"):
 
         elif onOrOff == "off":
             loading = await ctx.channel.send("Deletion of captcha protection...")
-            with open("configuration.json", "r") as config:
-                data = json.load(config)
-                # Add modifications
-                data["captcha"] = False
+            data = getConfig()
+            data["captcha"] = False
             
             # Delete all
             noDeleted = []
@@ -110,8 +106,7 @@ class SetupCog(commands.Cog, name="setup command"):
             data["captchaChannel"] = False
             newdata = json.dumps(data, indent=4, ensure_ascii=False)
             # Edit configuration.json
-            with open("configuration.json", "w") as config:
-                config.write(newdata)
+            updateConfig(newdata)
             
             await loading.delete()
             embed = discord.Embed(title = f"**CAPTCHA WAS DELETED WITH SUCCESS**", description = f"The captcha was deleted with success.", color = 0x2fa737) # Green

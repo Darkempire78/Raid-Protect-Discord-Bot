@@ -1,7 +1,7 @@
 import discord
 import json
-
 from discord.ext import commands
+from Tools.utils import getConfig, updateConfig
 
 # ------------------------ COGS ------------------------ #  
 
@@ -23,28 +23,21 @@ class AntiProfanityCog(commands.Cog, name="change setting from anti nudity comma
         antiProfanity = antiProfanity.lower()
 
         if antiProfanity == "true":
-            # Edit configuration.json
-            with open("configuration.json", "r") as config:
-                data = json.load(config)
-                # Add modifications
-                data["antiProfanity"] = True
-                newdata = json.dumps(data, indent=4, ensure_ascii=False)
+            data = getConfig()
+            data["antiProfanity"] = True
+            newdata = json.dumps(data, indent=4, ensure_ascii=False)
 
             embed = discord.Embed(title = f"**ANTI PROFANITY WAS ENABLED**", description = f"The anti profanity was enabled.", color = 0x2fa737) # Green
         else:
-            # Edit configuration.json
-            with open("configuration.json", "r") as config:
-                data = json.load(config)
-                # Add modifications
-                data["antiProfanity"] = False
-                newdata = json.dumps(data, indent=4, ensure_ascii=False)
+            data = getConfig()
+            data["antiProfanity"] = False
+            newdata = json.dumps(data, indent=4, ensure_ascii=False)
 
             embed = discord.Embed(title = f"**ANTI PROFANITY WAS DISABLED**", description = f"The anti profanity was disabled.", color = 0xe00000) # Red
         
         await ctx.channel.send(embed = embed)
         
-        with open("configuration.json", "w") as config:
-            config.write(newdata)
+        updateConfig(newdata)
 
 # ------------------------ BOT ------------------------ #  
 

@@ -1,6 +1,6 @@
 import discord
 import json
-
+from Tools.utils import getConfig, updateConfig
 from discord.ext import commands
 
 # ------------------------ COGS ------------------------ #  
@@ -23,28 +23,23 @@ class AntiNudityCog(commands.Cog, name="change setting from anti nudity command"
         antiNudity = antiNudity.lower()
 
         if antiNudity == "true":
-            # Edit configuration.json
-            with open("configuration.json", "r") as config:
-                data = json.load(config)
-                # Add modifications
-                data["antiNudity"] = True
-                newdata = json.dumps(data, indent=4, ensure_ascii=False)
+            data = getConfig()
+            # Add modifications
+            data["antiNudity"] = True
+            newdata = json.dumps(data, indent=4, ensure_ascii=False)
 
             embed = discord.Embed(title = f"**ANTI NUDITY WAS ENABLED**", description = f"The anti nudity was enabled.", color = 0x2fa737) # Green
         else:
-            # Edit configuration.json
-            with open("configuration.json", "r") as config:
-                data = json.load(config)
-                # Add modifications
-                data["antiNudity"] = False
-                newdata = json.dumps(data, indent=4, ensure_ascii=False)
+            data = getConfig()
+            # Add modifications
+            data["antiNudity"] = False
+            newdata = json.dumps(data, indent=4, ensure_ascii=False)
 
             embed = discord.Embed(title = f"**ANTI NUDITY WAS DISABLED**", description = f"The anti nudity was disabled.", color = 0xe00000) # Red
         
         await ctx.channel.send(embed = embed)
         
-        with open("configuration.json", "w") as config:
-            config.write(newdata)
+        updateConfig(newdata)
 
 # ------------------------ BOT ------------------------ #  
 

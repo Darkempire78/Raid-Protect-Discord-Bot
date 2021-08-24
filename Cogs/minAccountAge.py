@@ -1,3 +1,4 @@
+from Tools.utils import getConfig, updateConfig
 import discord
 import json
 
@@ -23,14 +24,12 @@ class MinAccountAgeCog(commands.Cog, name="change min account age command"):
         accountAge = accountAge.lower()
 
         if accountAge == "false":
-            with open("configuration.json", "r") as config:
-                data = json.load(config)
-                # Add modifications
-                data["minAccountDate"] = False
-                newdata = json.dumps(data, indent=4, ensure_ascii=False)
+            data = getConfig()
+            # Add modifications
+            data["minAccountDate"] = False
+            newdata = json.dumps(data, indent=4, ensure_ascii=False)
 
-            with open("configuration.json", "w") as config:
-                config.write(newdata)
+            updateConfig(newdata)
 
             embed = discord.Embed(title = f"**MINIMUM ACCOUNT AGE WAS DISABLED**", description = f"The minimal account age to join the server was disabled.", color = 0x2fa737) # Green
             await ctx.channel.send(embed = embed)
@@ -41,14 +40,12 @@ class MinAccountAgeCog(commands.Cog, name="change min account age command"):
                 accountAge *= 3600
 
                 # Edit configuration.json
-                with open("configuration.json", "r") as config:
-                    data = json.load(config)
-                    # Add modifications
-                    data["minAccountDate"] = accountAge
-                    newdata = json.dumps(data, indent=4, ensure_ascii=False)
+                data = getConfig()
+                # Add modifications
+                data["minAccountDate"] = accountAge
+                newdata = json.dumps(data, indent=4, ensure_ascii=False)
 
-                with open("configuration.json", "w") as config:
-                    config.write(newdata)
+                updateConfig(newdata)
 
                 embed = discord.Embed(title = f"**MINIMUM ACCOUNT AGE WAS UPDATED**", description = f"The minimal account age to join the server was updated.", color = 0x2fa737) # Green
                 await ctx.channel.send(embed = embed)

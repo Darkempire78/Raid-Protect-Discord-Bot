@@ -1,7 +1,7 @@
 import discord
 import json
-
 from discord.ext import commands
+from Tools.utils import getConfig, updateConfig
 
 # ------------------------ COGS ------------------------ #  
 
@@ -27,18 +27,15 @@ class LogsCog(commands.Cog, name="change setting from logs command"):
             logChannel = await ctx.guild.create_text_channel(f"{self.bot.user.name}-logs")
             await logChannel.set_permissions(ctx.guild.default_role, read_messages=False)
 
-            # Edit configuration.json
-            with open("configuration.json", "r") as config:
-                data = json.load(config)
-                # Add modifications
-                data["logChannel"] = logChannel.id
-                newdata = json.dumps(data, indent=4, ensure_ascii=False)
+            data = getConfig()
+            # Add modifications
+            data["logChannel"] = logChannel.id
+            newdata = json.dumps(data, indent=4, ensure_ascii=False)
 
             embed = discord.Embed(title = f"**LOG CHANNEL WAS ENABLED**", description = f"The log channel was enabled.", color = 0x2fa737) # Green
         else:
             # Read configuration.json
-            with open("configuration.json", "r") as config:
-                data = json.load(config)
+            data = getConfig()
 
             # Delete
             logChannel = self.bot.get_channel(data["logChannel"])
@@ -52,8 +49,7 @@ class LogsCog(commands.Cog, name="change setting from logs command"):
         
         await ctx.channel.send(embed = embed)
         
-        with open("configuration.json", "w") as config:
-            config.write(newdata)
+        updateConfig(newdata)
 
 # ------------------------ BOT ------------------------ #  
 

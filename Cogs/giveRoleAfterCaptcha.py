@@ -1,6 +1,6 @@
 import discord
 import json
-
+from Tools.utils import getConfig, updateConfig
 from discord.ext import commands
 
 # ------------------------ COGS ------------------------ #  
@@ -22,13 +22,11 @@ class GiveRoleAfterCaptchaCog(commands.Cog, name="giveRoleAfterCaptcha command")
 
         try:
             roleId = int(roleId)
-            with open("configuration.json", "r") as config:
-                data = json.load(config)
-                data["roleGivenAfterCaptcha"] = roleId
-                newdata = json.dumps(data, indent=4, ensure_ascii=False)
+            data = getConfig()
+            data["roleGivenAfterCaptcha"] = roleId
+            newdata = json.dumps(data, indent=4, ensure_ascii=False)
 
-            with open("configuration.json", "w") as config:
-                config.write(newdata)
+            updateConfig(newdata)
             
             embed = discord.Embed(title = f"**SUCCESS**", description = f"<@&{roleId}> will be given after that the captcha be passed.", color = 0x2fa737) # Green
             await ctx.channel.send(embed = embed)
@@ -37,12 +35,10 @@ class GiveRoleAfterCaptchaCog(commands.Cog, name="giveRoleAfterCaptcha command")
             print(f"giveroleaftercaptcha error : {error}")
             roleId = roleId.lower()
             if roleId == "off":
-                with open("configuration.json", "r") as config:
-                    data = json.load(config)
-                    data["roleGivenAfterCaptcha"] = False
-                    newdata = json.dumps(data, indent=4, ensure_ascii=False)
-                with open("configuration.json", "w") as config:
-                    config.write(newdata)
+                data = getConfig()
+                data["roleGivenAfterCaptcha"] = False
+                newdata = json.dumps(data, indent=4, ensure_ascii=False)
+                updateConfig(newdata)
 
             else:
                 embed = discord.Embed(title = f"**ERROR**", description = f"The setup argument must be on or off\nFollow the example : ``{self.bot.command_prefix}giveroleaftercaptcha <role ID/off>``", color = 0xff0000)
