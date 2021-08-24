@@ -27,7 +27,7 @@ async def sendLogMessage(self, event, channel, embed, messageFile=None):
         data["logChannel"] = channel.id
 
         # Edit configuration.json
-        newdata = json.dumps(data, indent=4, ensure_ascii=False)
+        
         updateConfig(channel.guild.id, newdata)
 
     # Send the message

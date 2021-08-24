@@ -67,9 +67,9 @@ class SetupCog(commands.Cog, name="setup command"):
                         data["captcha"] = True
                         data["temporaryRole"] = temporaryRole.id
                         data["captchaChannel"] = captchaChannel.id
-                        newdata = json.dumps(data, indent=4, ensure_ascii=False)
+                        
 
-                        updateConfig(ctx.guild.id, newdata)
+                        updateConfig(ctx.guild.id, data)
                         
                         await loading.delete()
                         embed = discord.Embed(title = f"**CAPTCHA WAS SET UP WITH SUCCESS**", description = f"The captcha was set up with success.", color = 0x2fa737) # Green
@@ -104,9 +104,9 @@ class SetupCog(commands.Cog, name="setup command"):
 
             # Add modifications
             data["captchaChannel"] = False
-            newdata = json.dumps(data, indent=4, ensure_ascii=False)
+            
             # Edit configuration.json
-            updateConfig(ctx.guild.id, newdata)
+            updateConfig(ctx.guild.id, data)
             
             await loading.delete()
             embed = discord.Embed(title = f"**CAPTCHA WAS DELETED WITH SUCCESS**", description = f"The captcha was deleted with success.", color = 0x2fa737) # Green

@@ -30,7 +30,7 @@ class LogsCog(commands.Cog, name="change setting from logs command"):
             data = getConfig(ctx.guild.id)
             # Add modifications
             data["logChannel"] = logChannel.id
-            newdata = json.dumps(data, indent=4, ensure_ascii=False)
+            
 
             embed = discord.Embed(title = f"**LOG CHANNEL WAS ENABLED**", description = f"The log channel was enabled.", color = 0x2fa737) # Green
         else:
@@ -43,13 +43,13 @@ class LogsCog(commands.Cog, name="change setting from logs command"):
 
             # Add modifications
             data["logChannel"] = False
-            newdata = json.dumps(data, indent=4, ensure_ascii=False)
+            
 
             embed = discord.Embed(title = f"**LOG CHANNEL WAS DISABLED**", description = f"The log channel was disabled.", color = 0xe00000) # Red
         
         await ctx.channel.send(embed = embed)
         
-        updateConfig(ctx.guild.id, newdata)
+        updateConfig(ctx.guild.id, data)
 
 # ------------------------ BOT ------------------------ #  
 

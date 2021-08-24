@@ -1,7 +1,7 @@
 import discord
 import os
 import json
-from Tools.utils import getConfig, getGuildPrefix
+from Tools.utils import getGuildPrefix
 from discord.ext import commands
 
 class Greetings(commands.Cog):
@@ -27,7 +27,7 @@ if __name__ == '__main__':
 async def on_ready():
     print(f'We have logged in as {bot.user}')
     print(discord.__version__)
-    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name =f"{bot.command_prefix}help"))
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name =f"?help"))
 
 # ------------------------ RUN ------------------------ # 
 with open("config.json", "r") as config:

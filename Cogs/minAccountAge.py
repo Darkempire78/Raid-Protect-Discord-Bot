@@ -27,9 +27,9 @@ class MinAccountAgeCog(commands.Cog, name="change min account age command"):
             data = getConfig(ctx.guild.id)
             # Add modifications
             data["minAccountDate"] = False
-            newdata = json.dumps(data, indent=4, ensure_ascii=False)
+            
 
-            updateConfig(ctx.guild.id, newdata)
+            updateConfig(ctx.guild.id, data)
 
             embed = discord.Embed(title = f"**MINIMUM ACCOUNT AGE WAS DISABLED**", description = f"The minimal account age to join the server was disabled.", color = 0x2fa737) # Green
             await ctx.channel.send(embed = embed)
@@ -43,9 +43,9 @@ class MinAccountAgeCog(commands.Cog, name="change min account age command"):
                 data = getConfig(ctx.guild.id)
                 # Add modifications
                 data["minAccountDate"] = accountAge
-                newdata = json.dumps(data, indent=4, ensure_ascii=False)
+                
 
-                updateConfig(ctx.guild.id, newdata)
+                updateConfig(ctx.guild.id, data)
 
                 embed = discord.Embed(title = f"**MINIMUM ACCOUNT AGE WAS UPDATED**", description = f"The minimal account age to join the server was updated.", color = 0x2fa737) # Green
                 await ctx.channel.send(embed = embed)
