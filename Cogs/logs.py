@@ -32,7 +32,7 @@ class LogsCog(commands.Cog, name="change setting from logs command"):
             data["logChannel"] = logChannel.id
             
 
-            embed = discord.Embed(title = f"**LOG CHANNEL WAS ENABLED**", description = f"The log channel was enabled.", color = 0x2fa737) # Green
+            embed = discord.Embed(title = self.bot.translate.msg(ctx.guild.id, "logs", "LOG_CHANNEL_ENABLED"), description = self.bot.translate.msg(ctx.guild.id, "logs", "LOG_CHANNEL_ENABLED_DESCRIPTION"), color = 0x2fa737) # Green
         else:
             # Read configuration.json
             data = getConfig(ctx.guild.id)
@@ -45,7 +45,7 @@ class LogsCog(commands.Cog, name="change setting from logs command"):
             data["logChannel"] = False
             
 
-            embed = discord.Embed(title = f"**LOG CHANNEL WAS DISABLED**", description = f"The log channel was disabled.", color = 0xe00000) # Red
+            embed = discord.Embed(title = self.bot.translate.msg(ctx.guild.id, "logs", "LOG_CHANNEL_DISABLED"), description = self.bot.translate.msg(ctx.guild.id, "logs", "LOG_CHANNEL_DISABLED_DESCRIPTION"), color = 0xe00000) # Red
         
         await ctx.channel.send(embed = embed)
         

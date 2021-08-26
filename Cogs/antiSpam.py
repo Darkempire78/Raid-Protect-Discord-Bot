@@ -27,7 +27,7 @@ class AntiSpamCog(commands.Cog, name="change setting from anti spam command"):
             data["antiSpam"] = True
             
 
-            embed = discord.Embed(title = f"**ANTI SPAM WAS ENABLED**", description = f"The anti spam was enabled.", color = 0x2fa737) # Green
+            embed = discord.Embed(title = self.bot.translate.msg(ctx.guild.id, "antiSpam", "ANTI_SPAM_ENABLED"), description = self.bot.translate.msg(ctx.guild.id, "antiSpam", "ANTI_SPAM_ENABLED_DESCRIPTION"), color = 0x2fa737) # Green
         else:
             config = getConfig(ctx.guild.id)
             data = json.load(config)
@@ -35,7 +35,7 @@ class AntiSpamCog(commands.Cog, name="change setting from anti spam command"):
             data["antiSpam"] = False
             
 
-            embed = discord.Embed(title = f"**ANTI SPAM WAS DISABLED**", description = f"The anti spam was disabled.", color = 0xe00000) # Red
+            embed = discord.Embed(title = self.bot.translate.msg(ctx.guild.id, "antiSpam", "ANTI_SPAM_DISABLED"), description = self.bot.translate.msg(ctx.guild.id, "antiSpam", "ANTI_SPAM_DISABLED_DESCRIPTION"), color = 0xe00000) # Red
         
         await ctx.channel.send(embed = embed)
         

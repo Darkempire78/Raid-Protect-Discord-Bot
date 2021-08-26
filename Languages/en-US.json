@@ -5,6 +5,16 @@
         "ERROR": "**ERROR**"
     },
 
+    "events": {
+        "COMMAND_IN_COOLDOWN_DAY": "This command has a cooldown, be sure to wait for {0} day(s)",
+        "COMMAND_IN_COOLDOWN_HOUR": "This command has a cooldown, be sure to wait for {0} hour(s)",
+        "COMMAND_IN_COOLDOWN_MINUTE": "This command has a cooldown, be sure to wait for {0} minute(s)",
+        "COMMAND_IN_COOLDOWN_SECOND": "This command has a cooldown, be sure to wait for {0} second(s)",
+        "BOT_MISSING_PERMISSIONS": "{0} I need the `{1}` permission(s) to run this command.",
+        "MISSING_PERMISSIONS": "{0} You need the `{1}` permission(s) to run this command.",
+        "MISSING_REQUIRED_ARGUMENT": "{0} Required argument is missed!\nUse this model : `{1}{2} {3}`"
+    },
+
     "userinfos": {
         "USER_INFORMATIONS": "__**{0} informations :**__",
         "MEMBER_ID": "**Member ID :**",
@@ -35,6 +45,12 @@
         "ANTI_NUDITY_DISABLED": "**ANTI NUDITY WAS DISABLED**",
         "ANTI_NUDITY_DISABLED_DESCRIPTION": "The anti nudity was disabled."
     },
+    "antiSpam": {
+        "ANTI_SPAM_ENABLED": "**ANTI SPAM WAS ENABLED**",
+        "ANTI_SPAM_ENABLED_DESCRIPTION": "The anti spam was enabled.",
+        "ANTI_SPAM_DISABLED": "**ANTI SPAM WAS DISABLED**",
+        "ANTI_SPAM_DISABLED_DESCRIPTION": "The anti spam was disabled."
+    },
     "allowSpam": {
         "CHANNEL_ALREADY_IGNORED_BY_ANTI_SPAM": "The channel where you want to allow to spam is already ignored by anti spam.",
         "CHANNEL_IGNORED_BY_ANTI_SPAM": "The <#{0}> channel is ignored by the anti spam.",
@@ -42,5 +58,22 @@
         "ANTI_SPAM_ALREADY_DISABLED": "The channel where you want to disable the spam is already disabled.",
         "CHANNEL_NOT_IGNORED_BY_ANTI_SPAM": "The <#{0}> channel is not ignored by the anti spam.",
         "INVALID_CHANNEL_DISABLE": "The channel where you want to disable the spam must be a channel\nFollow the example : ``{0}allowspam <#channel> remove``"
+    },
+    "giveRoleAfterCaptcha": {
+        "ROLE_GIVEN_AFTER_CAPTCHA": "<@&{0}> will be given after that the captcha be passed.",
+        "INVALID_ARGUMENT": "The setup argument must be on or off\nFollow the example : ``{0}giveroleaftercaptcha <role ID/off>``"
+    },
+    "logs": {
+        "LOG_CHANNEL_ENABLED": "**LOG CHANNEL WAS ENABLED**",
+        "LOG_CHANNEL_ENABLED_DESCRIPTION": "The log channel was enabled.",
+        "LOG_CHANNEL_DISABLED": "**LOG CHANNEL WAS DISABLED**",
+        "LOG_CHANNEL_DISABLED_DESCRIPTION": "The log channel was disabled."
+    },
+    "minAccountAge": {
+        "MINIMUM_ACCOUNT_AGE_ENABLED": "**MINIMUM ACCOUNT AGE WAS ENABLED**",
+        "MINIMUM_ACCOUNT_AGE_ENABLED_DESCRIPTION": "The minimal account age to join the server was updated.",
+        "MINIMUM_ACCOUNT_AGE_DISABLED": "**MINIMUM ACCOUNT AGE WAS DISABLED**",
+        "MINIMUM_ACCOUNT_AGE_DISABLED_DESCRIPTION": "The minimal account age to join the server was disabled.",
+        "INVALID_ARGUMENT": "The minimum account age must be a number (default = 24 hours)\nFollow the example : ``{0}minaccountage <number (hours)>``"
     }
 }

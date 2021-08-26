@@ -1,4 +1,4 @@
-from Tools.utils import getConfig, updateConfig
+from Tools.utils import getConfig, updateConfig, getGuildPrefix
 import discord
 import json
 
@@ -31,7 +31,7 @@ class MinAccountAgeCog(commands.Cog, name="change min account age command"):
 
             updateConfig(ctx.guild.id, data)
 
-            embed = discord.Embed(title = f"**MINIMUM ACCOUNT AGE WAS DISABLED**", description = f"The minimal account age to join the server was disabled.", color = 0x2fa737) # Green
+            embed = discord.Embed(title = self.bot.translate.msg(ctx.guild.id, "minAccountAge", "MINIMUM_ACCOUNT_AGE_DISABLED"), description = self.bot.translate.msg(ctx.guild.id, "minAccountAge", "MINIMUM_ACCOUNT_AGE_DISABLED_DESCRIPTION"), color = 0x2fa737) # Green
             await ctx.channel.send(embed = embed)
         else:
             try:
@@ -47,12 +47,13 @@ class MinAccountAgeCog(commands.Cog, name="change min account age command"):
 
                 updateConfig(ctx.guild.id, data)
 
-                embed = discord.Embed(title = f"**MINIMUM ACCOUNT AGE WAS UPDATED**", description = f"The minimal account age to join the server was updated.", color = 0x2fa737) # Green
+                embed = discord.Embed(title = self.bot.translate.msg(ctx.guild.id, "minAccountAge", "MINIMUM_ACCOUNT_AGE_ENABLED"), description = self.bot.translate.msg(ctx.guild.id, "minAccountAge", "MINIMUM_ACCOUNT_AGE_ENABLED_DESCRIPTION"), color = 0x2fa737) # Green
                 await ctx.channel.send(embed = embed)
 
             except:
-                embed = discord.Embed(title=f"**ERROR**", description=f"The minimum account age must be a number (default = 24 hours)\nFollow the example : ``{self.bot.command_prefix}minaccountage <number (hours)>``", color=0xe00000) # Red
-                embed.set_footer(text="Bot Created by Darkempire#8245")
+                prefix = getGuildPrefix()
+                embed = discord.Embed(title=self.bot.translate.msg(ctx.guild.id, "global", "ERROR"), description=self.bot.translate.msg(ctx.guild.id, "minAccountAge", "INVALID_ARGUMENT").format(prefix), color=0xe00000) # Red
+                embed.set_footer(text=self.bot.translate.msg(ctx.guild.id, "global", "BOT_CREATOR"))
                 return await ctx.channel.send(embed=embed)
 
 # ------------------------ BOT ------------------------ #  

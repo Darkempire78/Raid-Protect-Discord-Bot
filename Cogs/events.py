@@ -1,5 +1,6 @@
 from discord.ext import commands
 from discord.ext.commands import MissingPermissions, CommandNotFound, BotMissingPermissions, MissingRequiredArgument
+from Tools.utils import getGuildPrefix
 
 # ------------------------ COGS ------------------------ #  
 
@@ -18,21 +19,22 @@ class EventsCog(commands.Cog, name="EventsCog"):
             hour = round(error.retry_after/3600)
             minute = round(error.retry_after/60)
             if day > 0:
-                await ctx.send('This command has a cooldown, be sure to wait for '+str(day)+ "day(s)")
+                await ctx.send(self.bot.translate.msg(ctx.guild.id, "events", "COMMAND_IN_COOLDOWN_DAY").format(day))
             elif hour > 0:
-                await ctx.send('This command has a cooldown, be sure to wait for '+str(hour)+ " hour(s)")
+                await ctx.send(self.bot.translate.msg(ctx.guild.id, "events", "COMMAND_IN_COOLDOWN_HOUR").format(hour))
             elif minute > 0:
-                await ctx.send('This command has a cooldown, be sure to wait for '+ str(minute)+" minute(s)")
+                await ctx.send(self.bot.translate.msg(ctx.guild.id, "events", "COMMAND_IN_COOLDOWN_MINUTE").format(minute))
             else:
-                await ctx.send(f'This command has a cooldown, be sure to wait for {error.retry_after:.2f} second(s)')
+                await ctx.send(self.bot.translate.msg(ctx.guild.id, "events", "COMMAND_IN_COOLDOWN_SECOND").format(round(error.retry_after)))
         elif isinstance(error, BotMissingPermissions):
             missing = ", ".join(error.missing_perms)
-            return await ctx.send(f"{ctx.author.mention} I need the `{missing}` permission(s) to run this command.")
+            return await ctx.send(self.bot.translate.msg(ctx.guild.id, "events", "BOT_MISSING_PERMISSIONS").format(ctx.author.mention, missing))
         elif isinstance(error, MissingPermissions):
             missing = ", ".join(error.missing_perms)
-            return await ctx.send(f"{ctx.author.mention} You need the `{missing}` permission(s) to run this command.")
+            return await ctx.send(self.bot.translate.msg(ctx.guild.id, "events", "MISSING_PERMISSIONS").format(ctx.author.mention, missing))
         elif isinstance(error, MissingRequiredArgument):
-            return await ctx.send(f"{ctx.author.mention} Required argument is missed!\nUse this model : `{self.bot.command_prefix}{ctx.command.name} {ctx.command.usage}`")
+            prefix = getGuildPrefix()
+            return await ctx.send(self.bot.translate.msg(ctx.guild.id, "events", "MISSING_REQUIRED_ARGUMENT").format(ctx.author.mention, prefix, ctx.command.name, ctx.command.usage))
         else:
             await ctx.send(error)
 

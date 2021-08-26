@@ -1,6 +1,6 @@
 import discord
 import json
-from Tools.utils import getConfig, updateConfig
+from Tools.utils import getConfig, updateConfig, getGuildPrefix
 from discord.ext import commands
 
 # ------------------------ COGS ------------------------ #  
@@ -28,7 +28,7 @@ class GiveRoleAfterCaptchaCog(commands.Cog, name="giveRoleAfterCaptcha command")
 
             updateConfig(ctx.guild.id, data)
             
-            embed = discord.Embed(title = f"**SUCCESS**", description = f"<@&{roleId}> will be given after that the captcha be passed.", color = 0x2fa737) # Green
+            embed = discord.Embed(title = self.bot.translate.msg(ctx.guild.id, "global", "SUCCESS"), description = self.bot.translate.msg(ctx.guild.id, "global", "ROLE_GIVEN_AFTER_CAPTCHA").format(roleId), color = 0x2fa737) # Green
             await ctx.channel.send(embed = embed)
         
         except Exception as error:
@@ -41,7 +41,8 @@ class GiveRoleAfterCaptchaCog(commands.Cog, name="giveRoleAfterCaptcha command")
                 updateConfig(ctx.guild.id, data)
 
             else:
-                embed = discord.Embed(title = f"**ERROR**", description = f"The setup argument must be on or off\nFollow the example : ``{self.bot.command_prefix}giveroleaftercaptcha <role ID/off>``", color = 0xff0000)
+                prefix = getGuildPrefix()
+                embed = discord.Embed(title = self.bot.translate.msg(ctx.guild.id, "global", "ERROR"), description = self.bot.translate.msg(ctx.guild.id, "global", "INVALID_ARGUMENT").format(prefix), color = 0xff0000)
                 await ctx.channel.send(embed = embed)
 
 
