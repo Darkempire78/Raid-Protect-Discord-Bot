@@ -16,7 +16,7 @@ Raid Protect is a Discord bot wich allow to protect your discord server efficien
 Install all dependencies:
 
 * `pip install -r requirements.txt`
-* Then put your Discord token that can be found in the Discord's developers portal inside `config.example.json`(don't do anything else)
+* Then put your Discord token that can be found in the Discord's developers portal inside `config.example.json` (do not change anything else)
 * Rename it to `config.json`
 * This bot have to use the "server members intent", so you have to enable it in the Discord's developers portal
 
