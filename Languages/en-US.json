@@ -1,0 +1,46 @@
+{
+    "global": {
+        "BOT_CREATOR": "Bot Created by Darkempire#8245",
+        "SUCCESS": "**SUCCESS**",
+        "ERROR": "**ERROR**"
+    },
+
+    "userinfos": {
+        "USER_INFORMATIONS": "__**{0} informations :**__",
+        "MEMBER_ID": "**Member ID :**",
+        "ACCOUNT_CREATION": "**Account creation :**",
+        "JOINED_AT": "**Joined at :**",
+        "MEMBER_NOT_FOUND": "Member not found!"
+    },
+    "lock": {
+        "LOCKED_WITH_SUCCESS": "#{0} locked with success!",
+        "CHANNEL_NOT_FOUND": "Channel not found!"
+    },
+    "unlock": {
+        "UNLOCKED_WITH_SUCCESS": "#{0} unlocked with success!",
+        "CHANNEL_NOT_FOUND": "Channel not found!"
+    },
+    "changeprefix": {
+        "NEW_PREFIX": "New prefix: `{0}`"
+    },
+    "profanity": {
+        "ANTI_PROFANITY_ENABLED": "**ANTI PROFANITY WAS ENABLED**",
+        "ANTI_PROFANITY_ENABLED_DESCRIPTION": "The anti profanity was enabled.",
+        "ANTI_PROFANITY_DISABLED": "**ANTI PROFANITY WAS DISABLED**",
+        "ANTI_PROFANITY_DISABLED_DESCRIPTION": "The anti profanity was disabled."
+    },
+    "antinudity": {
+        "ANTI_NUDITY_ENABLED": "**ANTI NUDITY WAS ENABLED**",
+        "ANTI_NUDITY_ENABLED_DESCRIPTION": "The anti nudity was enabled.",
+        "ANTI_NUDITY_DISABLED": "**ANTI NUDITY WAS DISABLED**",
+        "ANTI_NUDITY_DISABLED_DESCRIPTION": "The anti nudity was disabled."
+    },
+    "allowSpam": {
+        "CHANNEL_ALREADY_IGNORED_BY_ANTI_SPAM": "The channel where you want to allow to spam is already ignored by anti spam.",
+        "CHANNEL_IGNORED_BY_ANTI_SPAM": "The <#{0}> channel is ignored by the anti spam.",
+        "INVALID_CHANNEL_ENABLE": "The channel where you want to allow to spam must be a text channel\nFollow the example : ``{0}allowspam <#channel>``",
+        "ANTI_SPAM_ALREADY_DISABLED": "The channel where you want to disable the spam is already disabled.",
+        "CHANNEL_NOT_IGNORED_BY_ANTI_SPAM": "The <#{0}> channel is not ignored by the anti spam.",
+        "INVALID_CHANNEL_DISABLE": "The channel where you want to disable the spam must be a channel\nFollow the example : ``{0}allowspam <#channel> remove``"
+    }
+}

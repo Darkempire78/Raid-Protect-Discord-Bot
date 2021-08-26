@@ -28,14 +28,14 @@ class AntiNudityCog(commands.Cog, name="change setting from anti nudity command"
             data["antiNudity"] = True
             
 
-            embed = discord.Embed(title = f"**ANTI NUDITY WAS ENABLED**", description = f"The anti nudity was enabled.", color = 0x2fa737) # Green
+            embed = discord.Embed(title = self.bot.translate.msg(ctx.guild.id, "antinudity", "ANTI_NUDITY_ENABLED"), description = self.bot.translate.msg(ctx.guild.id, "antinudity", "ANTI_NUDITY_ENABLED_DESCRIPTION"), color = 0x2fa737) # Green
         else:
             data = getConfig(ctx.guild.id)
             # Add modifications
             data["antiNudity"] = False
             
 
-            embed = discord.Embed(title = f"**ANTI NUDITY WAS DISABLED**", description = f"The anti nudity was disabled.", color = 0xe00000) # Red
+            embed = discord.Embed(title = self.bot.translate.msg(ctx.guild.id, "antinudity", "ANTI_NUDITY_DISABLED"), description = self.bot.translate.msg(ctx.guild.id, "antinudity", "ANTI_NUDITY_DISABLED_DESCRIPTION"), color = 0xe00000) # Red
         
         await ctx.channel.send(embed = embed)
         

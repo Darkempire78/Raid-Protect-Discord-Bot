@@ -6,6 +6,7 @@ def getConfig(guildID):
     if str(guildID) not in data["guilds"]:
         defaultConfig = {
             "prefix": "?",
+            "language": "en-US",
             "antiProfanity": True,
             "antiNudity": True,
             "antiSpam": True,

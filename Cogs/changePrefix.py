@@ -24,7 +24,7 @@ class ChangePrefixCog(commands.Cog):
         data = getConfig(ctx.guild.id)
         data["prefix"] = prefix
 
-        await ctx.channel.send(f"New prefix: `{prefix}`")
+        await ctx.channel.send(self.bot.translate.msg(ctx.guild.id, "changeprefix", "NEW_PREFIX").format(prefix))
         
         updateConfig(ctx.guild.id, data)
 

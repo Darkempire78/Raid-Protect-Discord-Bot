@@ -1,13 +1,9 @@
 import discord
 import os
 import json
-from Tools.utils import getGuildPrefix
 from discord.ext import commands
-
-class Greetings(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
-        self._last_member = None
+from Tools.utils import getGuildPrefix
+from Tools.translate import Translate
 
 intents = discord.Intents.default()
 intents.members = True
@@ -16,6 +12,9 @@ bot = commands.Bot(getGuildPrefix, intents = intents)
 
 # HELP
 bot.remove_command("help") # To create a personal help command 
+
+# Translate
+bot.translate = Translate()
 
 # Load cogs
 if __name__ == '__main__':
