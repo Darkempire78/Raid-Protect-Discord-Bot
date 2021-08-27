@@ -12,16 +12,19 @@ class UnlockCog(commands.Cog, name="unlock command"):
 # ------------------------------------------------------ #  
 
     @commands.command(name = 'unlock',
-                        usage="<#channel/ID>",
+                        usage="(#channel/ID)",
                         description="Unlock the channel.")
     @commands.has_permissions(administrator = True)
     @commands.cooldown(1, 3, commands.BucketType.member)
     @commands.guild_only()
-    async def unlock (self, ctx, channel):
+    async def unlock (self, ctx, channel=None):
 
         # Get channel
-        channel = re.findall(r'\d+', channel) # Get only numbers from channel
-        channel = self.bot.get_channel(int(channel[0]))
+        if channel:
+            channel = re.findall(r'\d+', channel) # Get only numbers from channel
+            channel = self.bot.get_channel(int(channel[0]))
+        else:
+            channel = ctx.channel
 
         if channel:
             await channel.edit(name=channel.name.replace("🔒-", "", 1))

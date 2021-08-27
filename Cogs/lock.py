@@ -12,16 +12,19 @@ class LockCog(commands.Cog, name="lock command"):
 # ------------------------------------------------------ #  
 
     @commands.command(name = 'lock',
-                        usage="<#channel/ID>",
+                        usage="(#channel/ID)",
                         description="Lock the channel.")
     @commands.has_permissions(administrator = True)
     @commands.cooldown(1, 3, commands.BucketType.member)
     @commands.guild_only()
-    async def lock (self, ctx, channel):
+    async def lock (self, ctx, channel=None):
 
         # Get channel
-        channel = re.findall(r'\d+', channel) # Get only numbers from channel
-        channel = self.bot.get_channel(int(channel[0]))
+        if channel:
+            channel = re.findall(r'\d+', channel) # Get only numbers from channel
+            channel = self.bot.get_channel(int(channel[0]))
+        else:
+            channel = ctx.channel
 
         if channel:
             await channel.edit(name=f"🔒-{channel.name}")
