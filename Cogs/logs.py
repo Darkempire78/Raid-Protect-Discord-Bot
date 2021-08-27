@@ -25,7 +25,11 @@ class LogsCog(commands.Cog, name="change setting from logs command"):
         if logChannel == "true":
             # Create channel
             logChannel = await ctx.guild.create_text_channel(f"{self.bot.user.name}-logs")
-            await logChannel.set_permissions(ctx.guild.default_role, read_messages=False)
+
+            perms = ctx.channel.overwrites_for(ctx.guild.default_role)
+            perms.read_messages=False
+            await ctx.channel.set_permissions(ctx.guild.default_role, overwrite=perms)
+            
 
             data = getConfig(ctx.guild.id)
             # Add modifications

@@ -2,9 +2,9 @@
     "global": {
         "BOT_CREATOR": "Bot Created by Darkempire#8245",
         "SUCCESS": "**SUCCESS**",
-        "ERROR": "**ERROR**"
+        "ERROR": "**ERROR**",
+        "ERROR_OCCURED": "An error was occcured : `{0}`"
     },
-
     "events": {
         "COMMAND_IN_COOLDOWN_DAY": "This command has a cooldown, be sure to wait for {0} day(s)",
         "COMMAND_IN_COOLDOWN_HOUR": "This command has a cooldown, be sure to wait for {0} hour(s)",
@@ -14,7 +14,11 @@
         "MISSING_PERMISSIONS": "{0} You need the `{1}` permission(s) to run this command.",
         "MISSING_REQUIRED_ARGUMENT": "{0} Required argument is missed!\nUse this model : `{1}{2} {3}`"
     },
-
+    "onJoin": {
+        "YOU_HAVE_BEEN_KICKED": "**YOU HAVE BEEN KICKED FROM {0}**",
+        "MIN_ACCOUNT_AGE_KICK_REASON": "Reason : Your account is more young that the server limit ({0} hours)."
+    }
+    ,
     "userinfos": {
         "USER_INFORMATIONS": "__**{0} informations :**__",
         "MEMBER_ID": "**Member ID :**",
@@ -75,5 +79,16 @@
         "MINIMUM_ACCOUNT_AGE_DISABLED": "**MINIMUM ACCOUNT AGE WAS DISABLED**",
         "MINIMUM_ACCOUNT_AGE_DISABLED_DESCRIPTION": "The minimal account age to join the server was disabled.",
         "INVALID_ARGUMENT": "The minimum account age must be a number (default = 24 hours)\nFollow the example : ``{0}minaccountage <number (hours)>``"
+    },
+    "moderation": {
+        "YOU_HAVE_BEEN_KICKED": "**YOU HAVE BEEN KICKED FROM {0}**",
+        "KICK_REASON": "Reason : `{0}`",
+        "HAS_BEEN_KICKED_WHITH_REASON": "{0} has been kicked with the reason : `{1}` 🔨",
+        "HAS_BEEN_KICKED_WHITHOUT_REASON": "{0} has been kicked without reason 🔨",
+        "YOU_HAVE_BEEN_BANNED": "**YOU HAVE BEEN BANNED FROM {0}**",
+        "BAN_REASON": "Reason : `{0}`",
+        "HAS_BEEN_BANNED_WHITH_REASON": "{0} has been banned with the reason : `{1}` 🔨",
+        "HAS_BEEN_BANNED_WHITHOUT_REASON": "{0} has been banned without reason 🔨",
+        "MEMBER_NOT_FOUND": "Member not found!"
     }
 }

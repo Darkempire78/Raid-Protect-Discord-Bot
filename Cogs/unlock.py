@@ -25,7 +25,11 @@ class UnlockCog(commands.Cog, name="unlock command"):
 
         if channel:
             await channel.edit(name=channel.name.replace("🔒-", "", 1))
-            await channel.set_permissions(ctx.guild.default_role, send_messages=True)
+
+            perms = channel.overwrites_for(ctx.guild.default_role)
+            perms.read_messages=True
+            await channel.set_permissions(ctx.guild.default_role, overwrite=perms)
+
             embed = discord.Embed(title = self.bot.translate.msg(ctx.guild.id, "unlock", "UNLOCKED_WITH_SUCCESS").format(channel.name), description = f"", color = 0x2fa737) # Green
             await ctx.channel.send(embed = embed)
         else:

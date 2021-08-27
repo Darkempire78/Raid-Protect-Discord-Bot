@@ -26,21 +26,21 @@ class ModerationCog(commands.Cog):
         if memberToKick:
             try:
                 reason = " ".join(reason)
-                embed = discord.Embed(title = f"**YOU HAVE BEEN KICKED FROM {guild.name}**", description = f"Reason : `{reason}`", color = 0xff0000)
+                embed = discord.Embed(title = self.bot.translate.msg(ctx.guild.id, "moderation", "YOU_HAVE_BEEN_KICKED").format(guild.name), description = self.bot.translate.msg(ctx.guild.id, "moderation", "KICK_REASON").format(reason), color = 0xff0000)
                 await memberToKick.send(embed = embed)
                 
                 await memberToKick.kick()
                 
                 if reason:
-                    await ctx.channel.send(f"{memberToKick} has been kicked with the reason : `{reason}` 🔨")
+                    await ctx.channel.send(self.bot.translate.msg(ctx.guild.id, "moderation", "HAS_BEEN_KICKED_WHITH_REASON").format(memberToKick, reason))
                 else:
-                    await ctx.channel.send(f"{memberToKick} has been kicked without reason 🔨")
+                    await ctx.channel.send(self.bot.translate.msg(ctx.guild.id, "moderation", "HAS_BEEN_KICKED_WHITHOUT_REASON").format(memberToKick))
             
             except Exception as error:
-                return await ctx.channel.send(f"An error was occcured : `{error}`")
+                return await ctx.channel.send(self.bot.translate.msg(ctx.guild.id, "global", "ERROR_OCCURED").format(error))
 
         else:
-            await ctx.channel.send("Member not found!")
+            await ctx.channel.send(self.bot.translate.msg(ctx.guild.id, "moderation", "MEMBER_NOT_FOUND"))
     
 
     @commands.command(name = "ban",
@@ -59,21 +59,21 @@ class ModerationCog(commands.Cog):
         if memberToBan:
             try:
                 reason = " ".join(reason)
-                embed = discord.Embed(title = f"**YOU HAVE BEEN BANNED FROM {guild.name}**", description = f"Reason : `{reason}`", color = 0xff0000)
+                embed = discord.Embed(title = self.bot.translate.msg(ctx.guild.id, "moderation", "YOU_HAVE_BEEN_BANNED"), description = self.bot.translate.msg(ctx.guild.id, "moderation", "BAN_REASON").format(reason), color = 0xff0000)
                 await memberToBan.send(embed = embed)
                 
                 await memberToBan.ban()
 
                 if reason:
-                    await ctx.channel.send(f"{memberToBan} has been banned with the reason : `{reason}` 🔨")
+                    await ctx.channel.send(self.bot.translate.msg(ctx.guild.id, "moderation", "HAS_BEEN_BANNED_WHITH_REASON").format(memberToBan, reason))
                 else:
-                    await ctx.channel.send(f"{memberToBan} has been banned without reason 🔨")
+                    await ctx.channel.send(self.bot.translate.msg(ctx.guild.id, "moderation", "HAS_BEEN_BANNED_WHITHOUT_REASON").format(memberToBan))
             
             except Exception as error:
-                return await ctx.channel.send(f"An error was occcured : `{error}`")
+                return await ctx.channel.send(self.bot.translate.msg(ctx.guild.id, "global", "ERROR_OCCURED").format(error))
             
         else:
-            await ctx.channel.send("Member not found!")
+            await ctx.channel.send(self.bot.translate.msg(ctx.guild.id, "moderation", "MEMBER_NOT_FOUND"))
 
 
 def setup(bot:commands.Bot):

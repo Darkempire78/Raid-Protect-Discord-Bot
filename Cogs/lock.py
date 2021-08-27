@@ -25,7 +25,11 @@ class LockCog(commands.Cog, name="lock command"):
 
         if channel:
             await channel.edit(name=f"🔒-{channel.name}")
-            await channel.set_permissions(ctx.guild.default_role, send_messages=False)
+
+            perms = ctx.channel.overwrites_for(ctx.guild.default_role)
+            perms.send_messages=False
+            await ctx.channel.set_permissions(ctx.guild.default_role, overwrite=perms)
+            
             embed = discord.Embed(title = self.bot.translate.msg(ctx.guild.id, "lock", "LOCKED_WITH_SUCCESS").format(channel.name), description = f"", color = 0x2fa737) # Green
             await ctx.channel.send(embed = embed)
         else:

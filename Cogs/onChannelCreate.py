@@ -20,9 +20,17 @@ class OnChannelCreate(commands.Cog, name="on channel create"):
 
         if temporaryRole is not None:
             if isinstance(channel, discord.TextChannel):
-                await channel.set_permissions(temporaryRole, read_messages=False)
+
+                perms = channel.overwrites_for(temporaryRole)
+                perms.read_messages=False
+                await channel.set_permissions(temporaryRole, overwrite=perms)
+
             elif isinstance(channel, discord.VoiceChannel):
-                await channel.set_permissions(temporaryRole, read_messages=False, connect=False)
+
+                perms = channel.overwrites_for(temporaryRole)
+                perms.read_messages=False
+                perms.connect=False
+                await channel.set_permissions(temporaryRole, overwrite=perms)
 
 # ------------------------ BOT ------------------------ #  
 

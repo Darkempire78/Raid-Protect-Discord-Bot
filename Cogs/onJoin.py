@@ -1,5 +1,4 @@
 import discord
-import json
 import numpy as np
 import random
 import string
@@ -40,7 +39,7 @@ class OnJoinCog(commands.Cog, name="on join"):
             userAccountDate = member.created_at.timestamp()
             if userAccountDate < data["minAccountDate"]:
                 minAccountDate = data["minAccountDate"] / 3600
-                embed = discord.Embed(title = f"**YOU HAVE BEEN KICKED FROM {member.guild.name}**", description = f"Reason : Your account is more young that the server limit ({minAccountDate} hours).", color = 0xff0000)
+                embed = discord.Embed(title = self.bot.translate.msg(member.guild.id, "onJoin", "YOU_HAVE_BEEN_KICKED").format(member.guild.name), description = self.bot.translate.msg(member.guild.id, "onJoin", "MIN_ACCOUNT_AGE_KICK_REASON").format(minAccountDate), color = 0xff0000)
                 await member.send(embed = embed)
                 await member.kick() # Kick the user
                 # Logs

@@ -48,18 +48,39 @@ class SetupCog(commands.Cog, name="setup command"):
                         # Hide all channels
                         for channel in ctx.guild.channels:
                             if isinstance(channel, discord.TextChannel):
-                                await channel.set_permissions(temporaryRole, read_messages=False)
+
+                                perms = channel.overwrites_for(temporaryRole)
+                                perms.read_messages=False
+                                await channel.set_permissions(temporaryRole, overwrite=perms)
+                                
                             elif isinstance(channel, discord.VoiceChannel):
-                                await channel.set_permissions(temporaryRole, read_messages=False, connect=False)
+
+                                perms = channel.overwrites_for(temporaryRole)
+                                perms.read_messages=False
+                                perms.connect=False
+                                await channel.set_permissions(temporaryRole, overwrite=perms)
+
                         # Create captcha channel
                         captchaChannel = await ctx.guild.create_text_channel('verification')
-                        await captchaChannel.set_permissions(temporaryRole, read_messages=True, send_messages=True)
-                        await captchaChannel.set_permissions(ctx.guild.default_role, read_messages=False)
+
+                        perms = captchaChannel.overwrites_for(temporaryRole)
+                        perms.read_messages=True
+                        perms.send_messages=True
+                        await captchaChannel.set_permissions(temporaryRole, overwrite=perms)
+
+                        perms = captchaChannel.overwrites_for(ctx.guild.default_role)
+                        perms.read_messages=False
+                        await captchaChannel.set_permissions(ctx.guild.default_role, overwrite=perms)
+
                         await captchaChannel.edit(slowmode_delay= 5)
                         # Create log channel
                         if data["logChannel"] is False:
                             logChannel = await ctx.guild.create_text_channel(f"{self.bot.user.name}-logs")
-                            await logChannel.set_permissions(ctx.guild.default_role, read_messages=False)
+
+                            perms = logChannel.overwrites_for(ctx.guild.default_role)
+                            perms.read_messages=False
+                            await logChannel.set_permissions(ctx.guild.default_role, overwrite=perms)
+
                             data["logChannel"] = logChannel.id
                         
                         # Edit configuration.json

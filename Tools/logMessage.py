@@ -16,7 +16,11 @@ async def sendLogMessage(self, event, channel, embed, messageFile=None):
         # Channel is deleted
         try:
             channel = await event.guild.create_text_channel(f"{self.bot.user.name}-logs")
-            await channel.set_permissions(event.guild.default_role, read_messages=False)
+
+            perms = channel.overwrites_for(event.guild.default_role)
+            perms.read_messages=False
+            await channel.set_permissions(event.guild.default_role, overwrite=perms)
+
         except Exception as error:
             if error.code == 50013:
                 return await event.channel.send(f"**Log error :** I cannot create a log channel ({error.text}).")
