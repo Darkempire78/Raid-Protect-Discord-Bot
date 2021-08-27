@@ -43,7 +43,7 @@ class OnJoinCog(commands.Cog, name="on join"):
                 await member.send(embed = embed)
                 await member.kick() # Kick the user
                 # Logs
-                embed = discord.Embed(title = f"**{member} has been kicked.**", description = f"**Reason :** His account is more young that the server limit ({minAccountDate} hours)\nAccount creation : {member.created_at}\n\n**__User informations :__**\n\n**Name :** {member}\n**Id :** {member.id}", color = 0xff0000)
+                embed = discord.Embed(title = self.bot.translate.msg(member.guild.id, "onJoin", "HAS_BEEN_KICKED").format(member), description = self.bot.translate.msg(member.guild.id, "onJoin", "MIN_ACCOUNT_AGE_HAS_BEEN_KICKED_REASON").format(minAccountDate, member.created_at, member, member.id), color = 0xff0000)
                 embed.set_footer(text= f"at {member.joined_at}")
                 await sendLogMessage(self, event=member, channel=logChannel, embed=embed)
 
@@ -120,7 +120,7 @@ class OnJoinCog(commands.Cog, name="on join"):
 
             # Send captcha
             captchaFile = discord.File(f"{folderPath}/output/{captchaName}_2.png")
-            captchaEmbed = await captchaChannel.send(f"**YOU MUST PASS THE CAPTCHA TO ENTER IN THE SERVER :**\nPlease {member.mention}, enter the captcha to get access to the whole serveur (only 6 uppercase letters).", file= captchaFile)
+            captchaEmbed = await captchaChannel.send(self.bot.translate.msg(member.guild.id, "onJoin", "CAPTCHA_MESSAGE").format(member.mention), file= captchaFile)
             # Remove captcha folder
             try:
                 shutil.rmtree(folderPath)
@@ -139,7 +139,7 @@ class OnJoinCog(commands.Cog, name="on join"):
                 password = "".join(password)
                 if msg.content == password:
 
-                    embed = discord.Embed(description=f"{member.mention} passed the captcha.", color=0x2fa737) # Green
+                    embed = discord.Embed(description=self.bot.translate.msg(member.guild.id, "onJoin", "MEMBER_PASSED_THE_CAPTCHA").format(member.mention), color=0x2fa737) # Green
                     await captchaChannel.send(embed = embed, delete_after = 5)
                     # Give and remove roles
                     try:
@@ -163,15 +163,15 @@ class OnJoinCog(commands.Cog, name="on join"):
                     except discord.errors.NotFound:
                         pass
                     # Logs
-                    embed = discord.Embed(title = f"**{member} passed the captcha.**", description = f"**__User informations :__**\n\n**Name :** {member}\n**Id :** {member.id}", color = 0x2fa737)
-                    embed.set_footer(text= f"at {memberTime}")
+                    embed = discord.Embed(title = self.bot.translate.msg(member.guild.id, "onJoin", "MEMBER_PASSED_THE_CAPTCHA").format(member), description = self.bot.translate.msg(member.guild.id, "onJoin", "USER_INFORMATIONS").format(member, member.id), color = 0x2fa737)
+                    embed.set_footer(text= self.bot.translate.msg(member.guild.id, "onJoin", "DATE").format(memberTime))
                     await sendLogMessage(self, event=member, channel=logChannel, embed=embed)
 
                 else:
                     link = await captchaChannel.create_invite(max_age=172800) # Create an invite
-                    embed = discord.Embed(description=f"{member.mention} failed the captcha.", color=0xca1616) # Red
+                    embed = discord.Embed(description=self.bot.translate.msg(member.guild.id, "onJoin", "MEMBER_FAILED_THE_CAPTCHA").format(member.mention), color=0xca1616) # Red
                     await captchaChannel.send(embed = embed, delete_after = 5)
-                    embed = discord.Embed(title = f"**YOU HAVE BEEN KICKED FROM {member.guild.name}**", description = f"Reason : You failed the captcha.\nServer link : <{link}>", color = 0xff0000)
+                    embed = discord.Embed(title = self.bot.translate.msg(member.guild.id, "onJoin", "YOU_HAVE_BEEN_KICKED").format(member.guild.name), description = self.bot.translate.msg(member.guild.id, "onJoin", "MEMBER_FAILED_THE_CAPTCHA_REASON").format(link), color = 0xff0000)
 
                     try:
                         await member.send(embed=embed)
@@ -190,16 +190,16 @@ class OnJoinCog(commands.Cog, name="on join"):
                     except discord.errors.NotFound:
                         pass
                     # Logs
-                    embed = discord.Embed(title = f"**{member} has been kicked.**", description = f"**Reason :** He failed the captcha.\n\n**__User informations :__**\n\n**Name :** {member}\n**Id :** {member.id}", color = 0xff0000)
-                    embed.set_footer(text= f"at {memberTime}")
+                    embed = discord.Embed(title = self.bot.translate.msg(member.guild.id, "onJoin", "MEMBER_HAS_BEEN_KICKED").format(member), description = self.bot.translate.msg(member.guild.id, "onJoin", "MEMBER_FAILED_THE_CAPTCHA_REASON_LOG").format(member, member.id), color = 0xff0000)
+                    embed.set_footer(text= self.bot.translate.msg(member.guild.id, "onJoin", "DATE").format(memberTime))
                     await sendLogMessage(self, event=member, channel=logChannel, embed=embed)
 
             except (asyncio.TimeoutError):
                 link = await captchaChannel.create_invite(max_age=172800) # Create an invite
-                embed = discord.Embed(title = f"**TIME IS OUT**", description = f"{member.mention} has exceeded the response time (120s).", color = 0xff0000)
+                embed = discord.Embed(title = self.bot.translate.msg(member.guild.id, "onJoin", "TIME_IS_OUT"), description = self.bot.translate.msg(member.guild.id, "onJoin", "USER_HAS_EXCEEDED_THE_RESPONSE_TIME").format(member.mention), color = 0xff0000)
                 await captchaChannel.send(embed = embed, delete_after = 5)
                 try:
-                    embed = discord.Embed(title = f"**YOU HAVE BEEN KICKED FROM {member.guild.name}**", description = f"Reason : You exceeded the captcha response time (120s).\nServer link : <{link}>", color = 0xff0000)
+                    embed = discord.Embed(title = self.bot.translate.msg(member.guild.id, "onJoin", "YOU_HAVE_BEEN_KICKED").format(member.guild.name), description = elf.bot.translate.msg(member.guild.id, "onJoin", "USER_HAS_EXCEEDED_THE_RESPONSE_TIME_REASON").format(link), color = 0xff0000)
                     await member.send(embed = embed)
                     await member.kick() # Kick the user
                 except Exception as error:
@@ -207,8 +207,8 @@ class OnJoinCog(commands.Cog, name="on join"):
                 time.sleep(3)
                 await captchaEmbed.delete()
                 # Logs
-                embed = discord.Embed(title = f"**{member} has been kicked.**", description = f"**Reason :** He exceeded the captcha response time (120s).\n\n**__User informations :__**\n\n**Name :** {member}\n**Id :** {member.id}", color = 0xff0000)
-                embed.set_footer(text= f"at {memberTime}")
+                embed = discord.Embed(title = self.bot.translate.msg(member.guild.id, "onJoin", "MEMBER_HAS_BEEN_KICKED").format(member), description = self.bot.translate.msg(member.guild.id, "onJoin", "USER_HAS_EXCEEDED_THE_RESPONSE_TIME_LOG").format(member, member.id), color = 0xff0000)
+                embed.set_footer(text= self.bot.translate.msg(member.guild.id, "onJoin", "DATE").format(memberTime))
                 await sendLogMessage(self, event=member, channel=logChannel, embed=embed)
 
 # ------------------------ BOT ------------------------ #  

@@ -16,7 +16,21 @@
     },
     "onJoin": {
         "YOU_HAVE_BEEN_KICKED": "**YOU HAVE BEEN KICKED FROM {0}**",
-        "MIN_ACCOUNT_AGE_KICK_REASON": "Reason : Your account is more young that the server limit ({0} hours)."
+        "MEMBER_HAS_BEEN_KICKED": "**{0} has been kicked.**",
+        "MIN_ACCOUNT_AGE_KICK_REASON": "Reason : Your account is more young that the server limit ({0} hours).",
+        "HAS_BEEN_KICKED": "**{0} has been kicked.**",
+        "MIN_ACCOUNT_AGE_HAS_BEEN_KICKED_REASON": "**Reason :** His account is more young that the server limit ({0} hours)\nAccount creation : {1}\n\n**__User informations :__**\n\n**Name :** {2}\n**Id :** {3}",
+        "CAPTCHA_MESSAGE": "**YOU MUST PASS THE CAPTCHA TO ENTER IN THE SERVER :**\nPlease {0}, enter the captcha to get access to the whole serveur (only 6 uppercase letters).",
+        "MEMBER_PASSED_THE_CAPTCHA": "{0} passed the captcha.",
+        "USER_INFORMATIONS": "**__User informations :__**\n\n**Name :** {0}\n**Id :** {1}",
+        "DATE": "at {0}" ,
+        "MEMBER_FAILED_THE_CAPTCHA": "{0} failed the captcha.",
+        "MEMBER_FAILED_THE_CAPTCHA_REASON": "Reason : You failed the captcha.\nServer link : <{0}>",
+        "MEMBER_FAILED_THE_CAPTCHA_REASON_LOG": "**Reason :** He failed the captcha.\n\n**__User informations :__**\n\n**Name :** {0}\n**Id :** {1}",
+        "TIME_IS_OUT": "**TIME IS OUT**",
+        "USER_HAS_EXCEEDED_THE_RESPONSE_TIME_REASON": "Reason : You exceeded the captcha response time (120s).\nServer link : <{0}>",
+        "USER_HAS_EXCEEDED_THE_RESPONSE_TIME": "{0} has exceeded the response time (120s).",
+        "USER_HAS_EXCEEDED_THE_RESPONSE_TIME_LOG": "**Reason :** He exceeded the captcha response time (120s).\n\n**__User informations :__**\n\n**Name :** {0}\n**Id :** {1}"
     }
     ,
     "userinfos": {
