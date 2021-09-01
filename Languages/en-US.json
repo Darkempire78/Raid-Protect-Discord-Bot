@@ -64,6 +64,10 @@
     "changeprefix": {
         "NEW_PREFIX": "New prefix: `{0}`"
     },
+    "changelanguage": {
+        "NEW_LANGUAGE": "New language : `{0}`",
+        "INVALID_LANGUAGE_SELECTED": "Invalid language.\nPlease select a language in this list: {0}"
+    },
     "profanity": {
         "ANTI_PROFANITY_ENABLED": "**ANTI PROFANITY WAS ENABLED**",
         "ANTI_PROFANITY_ENABLED_DESCRIPTION": "The anti profanity was enabled.",

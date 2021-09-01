@@ -34,6 +34,7 @@ This Discord Bot protect your Discord server with many functions.
 * Logs
 * Basic moderation commands
 * Multi guild support
+* Multi language (EN, FR)
 
 Restrictions do not affect members with ADMINISTRATOR permission !
 
@@ -59,7 +60,8 @@ Restrictions do not affect members with ADMINISTRATOR permission !
 ?ban <@user/ID> : Ban the user.
 ?kick <@user/ID> : Kick the user.
 
-?changeprefix <newPrefix> : Change the bot's prefix for the guild.
+?changeprefix <prefix> : Change the bot's prefix for the guild.
+?changelanguage <language> : Change the bot's language for the guild.
 ?help : display help.
 ```
 

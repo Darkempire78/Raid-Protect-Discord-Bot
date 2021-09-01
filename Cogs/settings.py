@@ -28,6 +28,7 @@ class SettingsCog(commands.Cog, name="settings command"):
         allowSpam = data["allowSpam"]
         antiNudity = data["antiNudity"]
         antiProfanity =  data["antiProfanity"]
+        language =  data["language"]
             
         minAccountAge = int(minAccountAge/3600)
 
