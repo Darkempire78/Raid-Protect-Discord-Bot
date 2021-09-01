@@ -31,8 +31,21 @@
         "USER_HAS_EXCEEDED_THE_RESPONSE_TIME_REASON": "Reason : You exceeded the captcha response time (120s).\nServer link : <{0}>",
         "USER_HAS_EXCEEDED_THE_RESPONSE_TIME": "{0} has exceeded the response time (120s).",
         "USER_HAS_EXCEEDED_THE_RESPONSE_TIME_LOG": "**Reason :** He exceeded the captcha response time (120s).\n\n**__User informations :__**\n\n**Name :** {0}\n**Id :** {1}"
-    }
-    ,
+    },
+    "onMessage": {
+        "USER_HAS_SENT_NUDITY": "**{0} has sent a nudity image.**",
+        "USER_HAS_SENT_NUDITY_DESCRIPTION": "In {0}.\n\n**__User informations :__**\n\n**Name :** {1}\n**Id :** {2}\n\n**The image :**",
+        "DO_NOT_SEND_NUDITY": "{0} do not send nudity image !",
+        "DO_NOT_INSULT": "{0} Do not insult!",
+        "USER_HAS_SENT_PROFANITY": "**{0} has sent a message with profanity.**",
+        "USER_HAS_SENT_PROFANITY_DESCRIPTION": "In {0}.\n\n**__User informations :__**\n\n**Name :** {1}\n**Id :** {2}\n\n**The message :**\n\n{3}",
+        "STOP_SPAM": "{0} Stop spam please!",
+        "YOU_HAVE_BEEN_KICKED": "**YOU HAVE BEEN KICKED FROM {0}**",
+        "MEMBER_HAS_BEEN_KICKED": "**{0} has been kicked.**",
+        "YOU_HAVE_BEEN_KICKED_SPAM_REASON": "Reason : You spammed.",
+        "USER_HAS_BEEN_KICKED_FOR_SPAMMING": "{0} was kicked for spamming!",
+        "USER_HAS_BEEN_KICKED_FOR_SPAMMING_LOG": "**Reason :** He spammed in {0}.\n\n**__User informations :__**\n\n**Name :** {1}\n**Id :** {2}\n\n**Logs :** {3}"
+    },
     "userinfos": {
         "USER_INFORMATIONS": "__**{0} informations :**__",
         "MEMBER_ID": "**Member ID :**",
@@ -104,5 +117,38 @@
         "HAS_BEEN_BANNED_WHITH_REASON": "{0} has been banned with the reason : `{1}` 🔨",
         "HAS_BEEN_BANNED_WHITHOUT_REASON": "{0} has been banned without reason 🔨",
         "MEMBER_NOT_FOUND": "Member not found!"
+    },
+    "settings": {
+        "SERVER_SETTINGS": "**SERVER SETTINGS**",
+        "CAPTCHA_PROTECTION": "**CAPTCHA PROTECTION** - `({0}setup <on/off>)`",
+        "CAPTCHA_PROTECTION_DESCRIPTION": "Captcha enabled : **{0}**\nCaptcha channel : {1}\nBot logs : {2}\nTemporary role : <@&{3}>",
+        "ROLE_GIVEN_AFTER_CAPTCHA": "**ROLE GIVEN AFTER CAPTCHA** - `({0}giveroleaftercaptcha <role ID/off>)`",
+        "ROLE_GIVEN_AFTER_CAPTCHA_DESCRIPTION": "Role given after captcha : **{0}**",
+        "MINIMUM_ACCOUNT_AGE": "**MINIMUM ACCOUNT AGE** - `({0}minaccountage <number (hours)>)`",
+        "MINIMUM_ACCOUNT_AGE_DESCRIPTION": "Minimum account age : **{0} hours**",
+        "ANTI_SPAM": "**ANTI SPAM** - `({0}antispam <true/false>)`",
+        "ANTI_SPAM_DESCRIPTION": "Anti spam enabled : **{0}**",
+        "ALLOW_SPAM": "**ALLOW SPAM** - `({0}allowspam <#channel> (remove))`",
+        "ALLOW_SPAM_DESCRIPTION": "Channel where spam is allowed : **{0}**",
+        "ANTI_NUDITY": "**ANTI NUDITY** - `({0}antinudity <true/false>)`",
+        "ANTI_NUDITY_DESCRIPTION": "Anti nudity image enabled : **{0}**",
+        "ANTI_PROFANITY": "**ANTI PROFANITY** - `({0}antiprofanity <true/false>)`",
+        "ANTI_PROFANITY_DESCRIPTION": "Anti profanity enabled : **{0}**"
+    },
+    "setup": {
+        "DO_YOU_WANT_TO_SET_UP_THE_CAPTCHA_PROTECTION": "**ARE YOU SURE DO YOU WANT TO SET UP THE CAPTCHA PROTECTION ?**",
+        "DO_YOU_WANT_TO_SET_UP_THE_CAPTCHA_PROTECTION_DESCRIPTION": "**Set up the captcha protection includes the creation of :**\n\n- captcha verification channel\n- log channel\n- temporary role (before that the captcha was passed)\n\n**If you want to set up the captcha protection write \"__yes__\" else write \"__no__\".**",
+        "SET_UP_ABANDONED": "The set up of the captcha protection was abandoned.",
+        "CREATION_OF_CAPTCHA_PRETECTION": "Creation of captcha protection...",
+        "CAPTCHA_WAS_SET_UP_WITH_SUCCESS": "**CAPTCHA WAS SET UP WITH SUCCESS**",
+        "CAPTCHA_WAS_SET_UP_WITH_SUCCESS_DESCRIPTION": "The captcha was set up with success.",
+        "TIME_IS_OUT": "**TIME IS OUT**",
+        "USER_HAS_EXCEEDED_THE_RESPONSE_TIME": "{0} has exceeded the response time (30s).",
+        "DELETION_OF_THE_CAPTCHA_PROETECTION": "Deletion of captcha protection...",
+        "CAPTCHA_WAS_DELETED_WITH_SUCCESS": "CAPTCHA WAS DELETED WITH SUCCESS",
+        "CAPTCHA_WAS_DELETED_WITH_SUCCESS_DESCRIPTION": "The captcha was deleted with success.",
+        "CAPTCHA_DELETION_ERROR": "**CAPTCHA DELETION ERROR**",
+        "CAPTCHA_DELETION_ERROR_DESCRIPTION": "**Error(s) detected during the deletion of the ** `{0}`.",
+        "INVALID_ARGUMENT": "The setup argument must be on or off\nFollow the example : `{prefix}setup <on/off>`"
     }
 }

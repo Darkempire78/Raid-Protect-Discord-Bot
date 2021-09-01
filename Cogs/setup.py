@@ -3,7 +3,7 @@ import asyncio
 import json
 from discord.ext import commands
 from discord.utils import get
-from Tools.utils import getConfig, updateConfig
+from Tools.utils import getConfig, updateConfig, getGuildPrefix
 
 # ------------------------ COGS ------------------------ #  
 
@@ -25,7 +25,7 @@ class SetupCog(commands.Cog, name="setup command"):
         onOrOff = onOrOff.lower()
 
         if onOrOff == "on":
-            embed = discord.Embed(title = f"**ARE YOU SURE DO YOU WANT TO SET UP THE CAPTCHA PROTECTION ?**", description = f"**Set up the captcha protection includes the creation of :**\n\n- captcha verification channel\n- log channel\n- temporary role (before that the captcha was passed)\n\n**If you want to set up the captcha protection write \"__yes__\" else write \"__no__\".**", color = 0xff0000)
+            embed = discord.Embed(title = self.bot.translate.msg(ctx.guild.id, "setup", "DO_YOU_WANT_TO_SET_UP_THE_CAPTCHA_PROTECTION"), description = self.bot.translate.msg(ctx.guild.id, "setup", "DO_YOU_WANT_TO_SET_UP_THE_CAPTCHA_PROTECTION_DESCRIPTION"), color = 0xff0000)
             await ctx.channel.send(embed = embed)
             # Ask if user are sure
             def check(message):
@@ -35,10 +35,10 @@ class SetupCog(commands.Cog, name="setup command"):
             try:
                 msg = await self.bot.wait_for('message', timeout=30.0, check=check)
                 if msg.content == "no":
-                    await ctx.channel.send("The set up of the captcha protection was abandoned.")
+                    await ctx.channel.send(self.bot.translate.msg(ctx.guild.id, "setup", "SET_UP_ABANDONED"))
                 else:
                     try:
-                        loading = await ctx.channel.send("Creation of captcha protection...")
+                        loading = await ctx.channel.send(self.bot.translate.msg(ctx.guild.id, "setup", "CREATION_OF_CAPTCHA_PRETECTION"))
 
                         # Data
                         data = getConfig(ctx.guild.id)
@@ -93,20 +93,20 @@ class SetupCog(commands.Cog, name="setup command"):
                         updateConfig(ctx.guild.id, data)
                         
                         await loading.delete()
-                        embed = discord.Embed(title = f"**CAPTCHA WAS SET UP WITH SUCCESS**", description = f"The captcha was set up with success.", color = 0x2fa737) # Green
+                        embed = discord.Embed(title = self.bot.translate.msg(ctx.guild.id, "setup", "CAPTCHA_WAS_SET_UP_WITH_SUCCESS"), description = self.bot.translate.msg(ctx.guild.id, "setup", "CAPTCHA_WAS_SET_UP_WITH_SUCCESS_DESCRIPTION"), color = 0x2fa737) # Green
                         await ctx.channel.send(embed = embed)
                     except Exception as error:
-                        embed = discord.Embed(title=f"**ERROR**", description=f"An error was encountered during the set up of the captcha.\n\n**ERROR :** {error}", color=0xe00000) # Red
-                        embed.set_footer(text="Bot Created by Darkempire#8245")
+                        embed = discord.Embed(title=self.bot.translate.msg(ctx.guild.id, "global", "ERROR"), description=self.bot.translate.msg(ctx.guild.id, "global", "ERROR_OCCURED").format(error), color=0xe00000) # Red
+                        embed.set_footer(text=self.bot.translate.msg(ctx.guild.id, "global", "BOT_CREATOR"))
                         return await ctx.channel.send(embed=embed)
 
             
             except (asyncio.TimeoutError):
-                embed = discord.Embed(title = f"**TIME IS OUT**", description = f"{ctx.author.mention} has exceeded the response time (30s).", color = 0xff0000)
+                embed = discord.Embed(title = self.bot.translate.msg(ctx.guild.id, "setup", "TIME_IS_OUT"), description = self.bot.translate.msg(ctx.guild.id, "setup", "USER_HAS_EXCEEDED_THE_RESPONSE_TIME").format(ctx.author.mention), color = 0xff0000)
                 await ctx.channel.send(embed = embed)
 
         elif onOrOff == "off":
-            loading = await ctx.channel.send("Deletion of captcha protection...")
+            loading = await ctx.channel.send(self.bot.translate.msg(ctx.guild.id, "setup", "DELETION_OF_THE_CAPTCHA_PROETECTION"))
             data = getConfig(ctx.guild.id)
             data["captcha"] = False
             
@@ -130,17 +130,17 @@ class SetupCog(commands.Cog, name="setup command"):
             updateConfig(ctx.guild.id, data)
             
             await loading.delete()
-            embed = discord.Embed(title = f"**CAPTCHA WAS DELETED WITH SUCCESS**", description = f"The captcha was deleted with success.", color = 0x2fa737) # Green
+            embed = discord.Embed(title = self.bot.translate.msg(ctx.guild.id, "setup", "CAPTCHA_WAS_DELETED_WITH_SUCCESS"), description = self.bot.translate.msg(ctx.guild.id, "setup", "CAPTCHA_WAS_DELETED_WITH_SUCCESS_DESCRIPTION"), color = 0x2fa737) # Green
             await ctx.channel.send(embed = embed)
             if len(noDeleted) > 0:
                 errors = ", ".join(noDeleted)
-                embed = discord.Embed(title = f"**CAPTCHA DELETION ERROR**", description = f"**Error(s) detected during the deletion of the ** ``{errors}``.", color = 0xe00000) # Red
+                prefix = getGuildPrefix()
+                embed = discord.Embed(title = self.bot.translate.msg(ctx.guild.id, "setup", "CAPTCHA_DELETION_ERROR"), description = self.bot.translate.msg(ctx.guild.id, "setup", "CAPTCHA_DELETION_ERROR_DESCRIPTION").format(errors), color = 0xe00000) # Red
                 await ctx.channel.send(embed = embed)
 
-
         else:
-            embed = discord.Embed(title=f"**ERROR**", description=f"The setup argument must be on or off\nFollow the example : ``{self.bot.command_prefix}setup <on/off>``", color=0xe00000) # Red
-            embed.set_footer(text="Bot Created by Darkempire#8245")
+            embed = discord.Embed(title=self.bot.translate.msg(ctx.guild.id, "global", "ERROR"), description= self.bot.translate.msg(ctx.guild.id, "setup", "INVALID_ARGUMENT").format(prefix), color=0xe00000) # Red
+            embed.set_footer(text=self.bot.translate.msg(ctx.guild.id, "gloval", "BOT_CREATOR"))
             return await ctx.channel.send(embed=embed)
 
 # ------------------------ BOT ------------------------ #  

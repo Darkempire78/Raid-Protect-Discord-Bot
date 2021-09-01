@@ -5,7 +5,7 @@ from discord.ext import commands
 from datetime import datetime
 from nude import Nude
 from io import BytesIO
-from profanity_check import predict, predict_prob
+from profanity_check import predict
 from Tools.utils import getConfig
 from Tools.logMessage import sendLogMessage
 
@@ -57,16 +57,12 @@ class OnMessageCog(commands.Cog, name="on message"):
                             # Logs
                             i.filename = f"SPOILER_{i.filename}"
                             spoiler = await i.to_file()
-                            embed = discord.Embed(title = f"**{message.author} has sent a nudity image.**", description = f"In {message.channel.mention}.\n\n**__User informations :__**\n\n**Name :** {message.author}\n**Id :** {message.author.id}\n\n**The image :**", color = 0xff0000)
+                            embed = discord.Embed(title = self.bot.translate.msg(message.guild.id, "onMessage", "USER_HAS_SENT_NUDITY").format(message.author), description = self.bot.translate.msg(message.guild.id, "onMessage", "USER_HAS_SENT_NUDITY_DESCRIPTION").format(message.channel.mention, message.author, message.author.id), color = 0xff0000)
                             await sendLogMessage(self, event=message, channel=logChannel, embed=embed, messageFile=spoiler)
-
-                            # embed = discord.Embed(title = f"**{message.author} has sent a nudity image.**", description = f"In {message.channel.mention}.\n\n**__User informations :__**\n\n**Name :** {message.author}\n**Id :** {message.author.id}\n\n**The image :**", color = 0xff0000)
-                            # embed.set_image(url=i.url)
-                            # await logChannel.send(embed = embed)
                             
                             # Delete
                             await message.delete()
-                            await message.channel.send(f"{message.author.mention} do not send nudity image !")
+                            await message.channel.send(self.bot.translate.msg(message.guild.id, "onMessage", "DO_NOT_SEND_NUDITY").format(message.author.mention))
         
         # Data
         data = getConfig(message.guild.id)
@@ -81,12 +77,12 @@ class OnMessageCog(commands.Cog, name="on message"):
             words.append(message.content)
             profanity = predict(words) # profanity2 = predict_prob(words)
             if profanity[0] == 1:
-                await message.delete() # Delete
-                await message.channel.send(f"{message.author.mention} Do not insult!")
+                await message.delete()
+                await message.channel.send(self.bot.translate.msg(message.guild.id, "onMessage", "DO_NOT_INSULT").format(message.author.mention))
                 # Logs
                 if len(message.content) > 1600:
                     message.content = message.content + "..."
-                embed = discord.Embed(title = f"**{message.author} has sent a message with profanity.**", description = f"In {message.channel.mention}.\n\n**__User informations :__**\n\n**Name :** {message.author}\n**Id :** {message.author.id}\n\n**The message :**\n\n{message.content}", color = 0xff0000)
+                embed = discord.Embed(title = self.bot.translate.msg(message.guild.id, "onMessage", "USER_HAS_SENT_PROFANITY").format(message.author), description = self.bot.translate.msg(message.guild.id, "onMessage", "USER_HAS_SENT_PROFANITY_DESCRIPTION").format(message.channel.mention, message.author, message.author.id, message.content), color = 0xff0000)
                 await sendLogMessage(self, event=message, channel=logChannel, embed=embed)
 
         # Anti spam
@@ -101,12 +97,12 @@ class OnMessageCog(commands.Cog, name="on message"):
                 return
                 
             if len(list(filter(lambda m: check(m), self.bot.cached_messages))) >= 8 and len(list(filter(lambda m: check(m), self.bot.cached_messages))) < 12:
-                await message.channel.send(f"{message.author.mention} Stop spam please!")
+                await message.channel.send(self.bot.translate.msg(message.guild.id, "onMessage", "STOP_SPAM").format(message.author.mention))
             elif len(list(filter(lambda m: check(m), self.bot.cached_messages))) >= 12:
-                embed = discord.Embed(title = f"**YOU HAVE BEEN KICKED FROM {message.author.guild.name}**", description = f"Reason : You spammed.", color = 0xff0000)
+                embed = discord.Embed(title = self.bot.translate.msg(message.guild.id, "onMessage", "YOU_HAVE_BEEN_KICKED").format(message.author.guild.name), description =self.bot.translate.msg(message.guild.id, "onMessage", "YOU_HAVE_BEEN_KICKED_SPAM_REASON"), color = 0xff0000)
                 await message.author.send(embed = embed)
                 await message.author.kick() # Kick the user
-                await message.channel.send(f"{message.author.mention} was kicked for spamming !")
+                await message.channel.send(self.bot.translate.msg(message.guild.id, "onMessage", "USER_HAS_BEEN_KICKED_FOR_SPAMMING").format(message.author.mention))
                 
                 # Logs -> Create a hastbin file
                 logTime = datetime.now().strftime("%m/%d/%Y at %H:%M:%S")
@@ -126,7 +122,7 @@ class OnMessageCog(commands.Cog, name="on message"):
                         hastbin = await hastbin.json()
                         hastbinUrl = url + "/" + hastbin['key']
                 
-                embed = discord.Embed(title = f"**{message.author} has been kicked.**", description = f"**Reason :** He spammed in {message.channel.mention}.\n\n**__User informations :__**\n\n**Name :** {message.author}\n**Id :** {message.author.id}\n\n**Logs :** {hastbinUrl}", color = 0xff0000)
+                embed = discord.Embed(title = self.bot.translate.msg(message.guild.id, "onMessage", "MEMBER_HAS_BEEN_KICKED").format(message.author), description = self.bot.translate.msg(message.guild.id, "onMessage", "USER_HAS_BEEN_KICKED_FOR_SPAMMING_LOG").format(message.channel.mention, message.author, message.author.id, hastbinUrl), color = 0xff0000)
                 await sendLogMessage(self, event=message, channel=logChannel, embed=embed)
 
 # ------------------------ BOT ------------------------ #  

@@ -47,15 +47,15 @@ class SettingsCog(commands.Cog, name="settings command"):
 
         prefix = await getGuildPrefix(self.bot, ctx)
 
-        embed = discord.Embed(title=f"**SERVER SETTINGS**", description=f"[**GitHub**](https://github.com/Darkempire78/Raid-Protect-Discord-Bot)", color=0xdeaa0c)
-        embed.add_field(name= f"**CAPTCHA PROTECTION** - ``({prefix}setup <on/off>)``", value= f"Captcha enabled : **{captcha}**\nCaptcha channel : {captchaChannel}\nBot logs : {logChannel}\nTemporary role : <@&{temporaryRole}>", inline=False)
-        embed.add_field(name= f"**ROLE GIVEN AFTER CAPTCHA** - ``({prefix}giveroleaftercaptcha <role ID/off>)``", value= f"Role given after captcha : **{roleGivenAfterCaptcha}**", inline=False)
-        embed.add_field(name= f"**MINIMUM ACCOUNT AGE** - ``({prefix}minaccountage <number (hours)>)``", value= f"Minimum account age : **{minAccountAge} hours**", inline=False)
-        embed.add_field(name= f"**ANTI SPAM** - ``({prefix}antispam <true/false>)``", value= f"Anti spam enabled : **{antispam}**", inline=False)
-        embed.add_field(name= f"**ALLOW SPAM** - ``({prefix}allowspam <#channel> (remove))``", value= f"Channel where spam is allowed : **{allowSpam2[:-2]}**", inline=False)
-        embed.add_field(name= f"**ANTI NUDITY** - ``({prefix}antinudity <true/false>)``", value= f"Anti nudity image enabled : **{antiNudity}**", inline=False)
-        embed.add_field(name= f"**ANTI PROFANITY** - ``({prefix}antiprofanity <true/false>)``", value= f"Anti profanity enabled : **{antiProfanity}**", inline=False)
-        embed.set_footer(text="Bot Created by Darkempire#8245")
+        embed = discord.Embed(title=self.bot.translate.msg(ctx.guild.id, "settings", "SERVER_SETTINGS"), description=f"[**GitHub**](https://github.com/Darkempire78/Raid-Protect-Discord-Bot)", color=0xdeaa0c)
+        embed.add_field(name= self.bot.translate.msg(ctx.guild.id, "settings", "CAPTCHA_PROTECTION").format(prefix), value= self.bot.translate.msg(ctx.guild.id, "settings", "CAPTCHA_PROTECTION_DESCRIPTION").format(captcha, captchaChannel, logChannel, temporaryRole), inline=False)
+        embed.add_field(name= self.bot.translate.msg(ctx.guild.id, "settings", "ROLE_GIVEN_AFTER_CAPTCHA").format(prefix), value= self.bot.translate.msg(ctx.guild.id, "settings", "ROLE_GIVEN_AFTER_CAPTCHA_DESCRIPTION").format(roleGivenAfterCaptcha), inline=False)
+        embed.add_field(name= self.bot.translate.msg(ctx.guild.id, "settings", "MINIMUM_ACCOUNT_AGE").format(prefix), value= self.bot.translate.msg(ctx.guild.id, "settings", "MINIMUM_ACCOUNT_AGE_DESCRIPTION").format(minAccountAge), inline=False)
+        embed.add_field(name= self.bot.translate.msg(ctx.guild.id, "settings", "ANTI_SPAM").format(prefix), value= self.bot.translate.msg(ctx.guild.id, "settings", "ANTI_SPAM_DESCRIPTION").format(antispam), inline=False)
+        embed.add_field(name= self.bot.translate.msg(ctx.guild.id, "settings", "ALLOW_SPAM").format(prefix), value= self.bot.translate.msg(ctx.guild.id, "settings", "ALLOW_SPAM_DESCRIPTION").format(allowSpam2[:-2]), inline=False)
+        embed.add_field(name= self.bot.translate.msg(ctx.guild.id, "settings", "ANTI_NUDITY").format(prefix), value= self.bot.translate.msg(ctx.guild.id, "settings", "ANTI_NUDITY_DESCRIPTION").format(antiNudity), inline=False)
+        embed.add_field(name= self.bot.translate.msg(ctx.guild.id, "settings", "ANTI_PROFANITY").format(prefix), value= self.bot.translate.msg(ctx.guild.id, "settings", "ANTI_PROFANITY_DESCRIPTION").format(antiProfanity), inline=False)
+        embed.set_footer(text=self.bot.translate.msg(ctx.guild.id, "global", "BOT_CREATOR"))
         return await ctx.channel.send(embed=embed)
 
 
