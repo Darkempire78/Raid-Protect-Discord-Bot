@@ -134,7 +134,7 @@ class SetupCog(commands.Cog, name="setup command"):
             await ctx.channel.send(embed = embed)
             if len(noDeleted) > 0:
                 errors = ", ".join(noDeleted)
-                prefix = getGuildPrefix()
+                prefix = await getGuildPrefix()
                 embed = discord.Embed(title = self.bot.translate.msg(ctx.guild.id, "setup", "CAPTCHA_DELETION_ERROR"), description = self.bot.translate.msg(ctx.guild.id, "setup", "CAPTCHA_DELETION_ERROR_DESCRIPTION").format(errors), color = 0xe00000) # Red
                 await ctx.channel.send(embed = embed)
 

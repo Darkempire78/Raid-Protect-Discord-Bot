@@ -51,7 +51,7 @@ class MinAccountAgeCog(commands.Cog, name="change min account age command"):
                 await ctx.channel.send(embed = embed)
 
             except:
-                prefix = getGuildPrefix()
+                prefix = await getGuildPrefix()
                 embed = discord.Embed(title=self.bot.translate.msg(ctx.guild.id, "global", "ERROR"), description=self.bot.translate.msg(ctx.guild.id, "minAccountAge", "INVALID_ARGUMENT").format(prefix), color=0xe00000) # Red
                 embed.set_footer(text=self.bot.translate.msg(ctx.guild.id, "global", "BOT_CREATOR"))
                 return await ctx.channel.send(embed=embed)

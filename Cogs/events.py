@@ -33,7 +33,7 @@ class EventsCog(commands.Cog, name="EventsCog"):
             missing = ", ".join(error.missing_perms)
             return await ctx.send(self.bot.translate.msg(ctx.guild.id, "events", "MISSING_PERMISSIONS").format(ctx.author.mention, missing))
         elif isinstance(error, MissingRequiredArgument):
-            prefix = getGuildPrefix()
+            prefix = await getGuildPrefix(self.bot, ctx)
             return await ctx.send(self.bot.translate.msg(ctx.guild.id, "events", "MISSING_REQUIRED_ARGUMENT").format(ctx.author.mention, prefix, ctx.command.name, ctx.command.usage))
         else:
             await ctx.send(error)

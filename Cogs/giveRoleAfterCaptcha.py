@@ -41,7 +41,7 @@ class GiveRoleAfterCaptchaCog(commands.Cog, name="giveRoleAfterCaptcha command")
                 updateConfig(ctx.guild.id, data)
 
             else:
-                prefix = getGuildPrefix()
+                prefix = await getGuildPrefix()
                 embed = discord.Embed(title = self.bot.translate.msg(ctx.guild.id, "global", "ERROR"), description = self.bot.translate.msg(ctx.guild.id, "global", "INVALID_ARGUMENT").format(prefix), color = 0xff0000)
                 await ctx.channel.send(embed = embed)
 
