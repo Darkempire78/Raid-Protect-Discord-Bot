@@ -29,8 +29,7 @@ class AntiSpamCog(commands.Cog, name="change setting from anti spam command"):
 
             embed = discord.Embed(title = self.bot.translate.msg(ctx.guild.id, "antiSpam", "ANTI_SPAM_ENABLED"), description = self.bot.translate.msg(ctx.guild.id, "antiSpam", "ANTI_SPAM_ENABLED_DESCRIPTION"), color = 0x2fa737) # Green
         else:
-            config = getConfig(ctx.guild.id)
-            data = json.load(config)
+            data = getConfig(ctx.guild.id)
             # Add modifications
             data["antiSpam"] = False
             
