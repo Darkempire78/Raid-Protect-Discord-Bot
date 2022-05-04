@@ -28,7 +28,7 @@ class GiveRoleAfterCaptchaCog(commands.Cog, name="giveRoleAfterCaptcha command")
 
             updateConfig(ctx.guild.id, data)
             
-            embed = discord.Embed(title = self.bot.translate.msg(ctx.guild.id, "global", "SUCCESS"), description = self.bot.translate.msg(ctx.guild.id, "global", "ROLE_GIVEN_AFTER_CAPTCHA").format(roleId), color = 0x2fa737) # Green
+            embed = discord.Embed(title = self.bot.translate.msg(ctx.guild.id, "global", "SUCCESS"), description = self.bot.translate.msg(ctx.guild.id, "giveRoleAfterCaptcha", "ROLE_GIVEN_AFTER_CAPTCHA").format(roleId), color = 0x2fa737) # Green
             await ctx.channel.send(embed = embed)
         
         except Exception as error:
