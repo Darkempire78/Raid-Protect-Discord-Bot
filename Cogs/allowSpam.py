@@ -45,7 +45,7 @@ class AllowSpamCog(commands.Cog, name="allow spam command"):
                 await ctx.channel.send(embed = embed)
 
             except:
-                embed = discord.Embed(title=self.bot.translate.msg(ctx.guild.id, "global", "ERROR"), description=self.bot.translate.msg(ctx.guild.id, "antiSpam", "INVALID_CHANNEL_ENABLE").format(prefix), color=0xe00000) # Red
+                embed = discord.Embed(title=self.bot.translate.msg(ctx.guild.id, "global", "ERROR"), description=self.bot.translate.msg(ctx.guild.id, "allowSpam", "INVALID_CHANNEL_ENABLE").format(prefix), color=0xe00000) # Red
                 embed.set_footer(text=self.bot.translate.msg(ctx.guild.id, "global", "BOT_CREATOR"))
                 return await ctx.channel.send(embed=embed)
         else:
