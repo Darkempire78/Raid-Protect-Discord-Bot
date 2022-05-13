@@ -48,7 +48,7 @@
     },
     "userinfos": {
         "USER_INFORMATIONS": "__**{0} informations :**__",
-        "MEMBER_ID": "**ID du member :**",
+        "MEMBER_ID": "**ID du membre :**",
         "ACCOUNT_CREATION": "**Création du compte:**",
         "JOINED_AT": "**Rejoint le :**",
         "MEMBER_NOT_FOUND": "Membre non trouvé !"
