@@ -2,6 +2,10 @@
 ![](https://img.shields.io/github/repo-size/Darkempire78/Raid-Protect-Discord-Bot?style=for-the-badge) 
 ![](https://img.shields.io/badge/SOURCERY-ENABLED-green?style=for-the-badge) <a href="https://discord.com/invite/sPvJmY7mcV"><img src="https://img.shields.io/discord/831524351311609907?color=%237289DA&label=DISCORD&style=for-the-badge"></a>
 
+# THIS REPO IS DEPRECATED
+## Modules may/will not work, and no support will be given on discord and/or git issues
+## If you still want to contribute to this project, feel free to update it and make a pull request, it will still be read.
+
 # Raid Protect Discord Bot
 
 Raid Protect is a Discord bot wich allow to protect your discord server efficiently.
@@ -73,6 +77,7 @@ Unstall you current version and download the v1.0.6 with `git+https://github.com
 
 Join the Discord server !
 
+### - Deprecated Note : No support will be given for this repo, feel free to join it if you just want to hang with other fellow contributors and devs -
 [![](https://i.imgur.com/UfyvtOL.png)](https://discord.gg/sPvJmY7mcV)
 
 ## Contributing
